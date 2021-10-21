@@ -2,7 +2,7 @@
 
 This is a Wordpress plugin that adds shortcodes for working with Artsdata.
 
-The 2 shortcodes are:
+The 2 shortcodes for now are:
 * [artsdata_orgs] => lists organization names from Artsdata located in a source graph
 * [artsdata_id] => displays details of a specific entity using ranked graphs from Artsdata
 
