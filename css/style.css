@@ -1,3 +1,27 @@
-/*
- * This is a left blank for now but could include CSS for artsdata.
- */
+#mosaic {
+  display: grid ;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows:auto;
+  grid-auto-flow:row dense;
+  align-items: end; 
+}
+
+artsdata-event a,
+artsdata-event a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+artsdata-event div.box {
+  height: 200px;
+  width: 100%;
+  overflow:hidden;
+}
+
+artsdata-event img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

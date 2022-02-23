@@ -2,7 +2,7 @@
 
 /*
 Plugin Name:  Artsdata Shortcodes for WP
-Version: 0.0.2
+Version: 0.5
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
