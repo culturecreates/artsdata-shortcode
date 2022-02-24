@@ -37,7 +37,7 @@ async function orgs() {
 
 
 async function orgDetail(uri) {
-   try {
+  try {
     displayLoading()
     const main = document.querySelector('main')
 
@@ -49,13 +49,7 @@ async function orgDetail(uri) {
       el.org = org
       main.appendChild(el)
     })
-
-    
-    
-    
-
     const mosaic = document.querySelector('#mosaic')
-
     const resEvents = await fetch(artsdataApiEvents + '&predicate=schema:organizer&object=' + uri)
     const jsonEvents = await resEvents.json()  
     const eventHeading = document.createElement('h1') 
