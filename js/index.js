@@ -1,7 +1,7 @@
 import { artsdataApiIndex } from "./artsdataApi.js"
 import { artsdataApiDetail } from "./artsdataApi.js"
 import {artsdataApiEvents } from "./artsdataApi.js"
-import "./artsdata-resource.js"
+import "./artsdata-orgs.js"
 import "./artsdata-org-detail.js"
 import "./artsdata-event.js"
 
@@ -14,7 +14,6 @@ window.addEventListener('load',() => {
   }
 });
 
-
 async function orgs() {
   try {
     displayLoading()
@@ -24,7 +23,7 @@ async function orgs() {
     hideLoading()
    
     json.data.sort((a,b) => (a.namePref > b.namePref) ? 1 : ((b.namePref > a.namePref) ? -1 : 0)).forEach(org => {
-      const el = document.createElement('artsdata-resource')
+      const el = document.createElement('artsdata-orgs')
       el.org = org
       main.appendChild(el)
     })
@@ -35,9 +34,8 @@ async function orgs() {
   }
 }
 
-
 async function orgDetail(uri) {
-  try {
+  // try {
     displayLoading()
     const main = document.querySelector('main')
 
@@ -65,10 +63,10 @@ async function orgDetail(uri) {
       mosaic.appendChild(elEvent)
     })
 
-  } catch (e) {
-    console.log(e)
-    displayError()
-  }
+  // } catch (e) {
+  //   console.log(e)
+  //   displayError()
+  // }
 }
   
 

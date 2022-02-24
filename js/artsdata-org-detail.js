@@ -7,29 +7,43 @@ class ArtsdataOrgDetail extends HTMLElement {
     <p> <a href="${ this.officialUrl(org.url[0])}">${this.officialUrl(org.url[0])}</a> </p>
     <br>
     <p> Organization Type: ${this.organizationType(org.additionalType) } </p>
-    <p> Presenter Type: Multidisciplinary </p>
     <p> Disciplines: ${this.disciplines(org.additionalType) } </p>
     <p> Presentation Format: ${this.presentationFormat(org.additionalType) } </p>
     <br>
     <p> Artsdata ID:  <a href='${ org.id}'> ${ org.id.split('/resource/')[1]}</a>
+    <p> Wikidata ID: <a href='http://wikidata.org/entity/${this.linkExtraction(org.identifier, "Q")}'>${this.linkExtraction(org.identifier, "Q") || "none"}</a> </p>
     <p> Canadian Business Number: ${org.businessNumber} </p>
-    <br>
-     ${this.linkExtraction(org.sameAs, "facebook.com", "Facebook")} 
-     ${this.linkExtraction(org.sameAs, "twitter.com", "Twitter")}
-     ${this.linkExtraction(org.sameAs, "youtube.com", "Youtube")} 
-     ${this.linkExtraction(org.sameAs, "wikipedia.org", "Wikipedia")}
-     ${this.linkExtraction(org.sameAs, "instagram.com", "Instagram")}
+    <br> ${this.socialMedia(org) }
+    
      <br>
      Links: ${this.links(org.sameAs)} 
     <p> Venues: <br> ${this.venues(org.location)}  </b></p>
-    <code> ${ JSON.stringify(org)}</code>
     </div>`
   }
 
-  linkExtraction(sameAs, detectionStr, label) {
-    let extractId = ''
+  socialMedia(org) {
+    let socialHtml = ''
+    if (org.sameAs) {
+      socialHtml += this.formatLink(org.sameAs, "facebook.com", "Facebook") 
+      socialHtml += this.formatLink(org.sameAs, "twitter.com", "Twitter") 
+      socialHtml += this.formatLink(org.sameAs, "youtube.com", "Youtube") 
+      socialHtml += this.formatLink(org.sameAs, "wikipedia.org", "Wikipedia") 
+      socialHtml += this.formatLink(org.sameAs, "instagram.com", "Instagram")
+    }
+    return socialHtml.slice(0, -2)
+  }
+
+  formatLink(sameAs, detectionStr, label) {
+    let link = this.linkExtraction(sameAs, detectionStr)
+    if (link.length) {
+      link = "<a href=\"" + link + "\">" + label + "\</a\> | "
+    }
+    return link
+  }
+
+  linkExtraction(sameAs, detectionStr) {
+    let extractId = '' 
     if (typeof sameAs == 'object') {
-     
       let id = ''
       if (sameAs.length) {
         sameAs.forEach(data => {
@@ -43,36 +57,32 @@ class ArtsdataOrgDetail extends HTMLElement {
           }
         })
       } else {
-        if (sameAs.id.includes(detectionStr)) {
-          extractId = sameAs.id
+        if (sameAs.id) {
+          if (sameAs.id.includes(detectionStr)) {
+            extractId = sameAs.id
+          }
         }
       }
-    } else {
+    } else if (typeof sameAs == 'string') {
       if (sameAs.includes(detectionStr)) {
         extractId = sameAs
       }
     }
-    if (extractId.length) {
-      extractId = "<a href=\"" + extractId + "\">" + label + "\</a\>"
-    }
-    return extractId
+   
+    return extractId 
   }
 
 
   organizationType(additionalType) {
-    return this.generalType(additionalType, "PrimaryActivity")
-  }
-
-  presenterType(additionalType) {
-    return this.generalType(additionalType, "PrimaryActivity")
+    return this.generalType(additionalType, "PrimaryActivity")  || "None selected"
   }
 
   presentationFormat(additionalType) {
-    return this.generalType(additionalType, "PresentingFormat")
+    return this.generalType(additionalType, "PresentingFormat")  || "None selected"
   }
 
   disciplines(additionalType) {
-    return this.generalType(additionalType, "Discipline")
+    return this.generalType(additionalType, "Discipline") || "None selected"
   }
   
   generalType(allTypes, detectionStr) {
@@ -80,7 +90,7 @@ class ArtsdataOrgDetail extends HTMLElement {
     allTypes.forEach(data => {
       if (data.id) {
         if (data.id.includes(detectionStr)) {
-          if (data.label) {
+          if (data.label && data.label != "empty") {
             str += data.label + ", "
           }
         }

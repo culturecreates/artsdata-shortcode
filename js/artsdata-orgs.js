@@ -1,4 +1,4 @@
-class ArtsdataResource extends HTMLElement {
+class ArtsdataOrgs extends HTMLElement {
 
   set org(org) {
     this.innerHTML = `<div><p>
@@ -58,4 +58,4 @@ class ArtsdataResource extends HTMLElement {
 }
 
 
-customElements.define('artsdata-resource', ArtsdataResource)
+customElements.define('artsdata-orgs', ArtsdataOrgs)
