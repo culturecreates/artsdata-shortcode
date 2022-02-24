@@ -35,7 +35,7 @@ async function orgs() {
 }
 
 async function orgDetail(uri) {
-  // try {
+   try {
     displayLoading()
     const main = document.querySelector('main')
 
@@ -62,11 +62,10 @@ async function orgDetail(uri) {
       elEvent.event = event
       mosaic.appendChild(elEvent)
     })
-
-  // } catch (e) {
-  //   console.log(e)
-  //   displayError()
-  // }
+  } catch (e) {
+    console.log(e)
+    displayError()
+  }
 }
   
 

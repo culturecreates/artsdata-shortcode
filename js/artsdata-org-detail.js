@@ -6,9 +6,9 @@ class ArtsdataOrgDetail extends HTMLElement {
     <p> ${ org.address.addressLocality  }, ${ org.address.addressRegion  }, ${ org.address.addressCountry  } </p>
     <p> <a href="${ this.officialUrl(org.url[0])}">${this.officialUrl(org.url[0])}</a> </p>
     <br>
-    <p> Organization Type: ${this.organizationType(org.additionalType) } </p>
-    <p> Disciplines: ${this.disciplines(org.additionalType) } </p>
-    <p> Presentation Format: ${this.presentationFormat(org.additionalType) } </p>
+    <p> Organization Type:<b> ${this.organizationType(org.additionalType) }</b> </p>
+    <p> Disciplines:<b> ${this.disciplines(org.additionalType) }</b> </p>
+    <p> Presentation Format:<b> ${this.presentationFormat(org.additionalType) }</b> </p>
     <br>
     <p> Artsdata ID:  <a href='${ org.id}'> ${ org.id.split('/resource/')[1]}</a>
     <p> Wikidata ID: <a href='http://wikidata.org/entity/${this.linkExtraction(org.identifier, "Q")}'>${this.linkExtraction(org.identifier, "Q") || "none"}</a> </p>

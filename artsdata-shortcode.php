@@ -46,7 +46,7 @@ function artsdata_init(){
       'membership' => 'CapacoaMembers',
       'path' => 'resource'
     ), $atts);
-    $response = wp_remote_get( 'http://api.artsdata.ca/organizations.jsonld?source=' . $a['membership'] );
+    $response = wp_remote_get( 'localhost:3003/organizations.json?source=' . $a['membership'] );
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
   
