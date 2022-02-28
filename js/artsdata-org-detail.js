@@ -2,23 +2,34 @@ class ArtsdataOrgDetail extends HTMLElement {
 
   set org(org) {
     this.innerHTML = `<div>
-    <h3> ${  org.namePref || org.nameEn  || org.nameFr }</h3>
-    <p> ${ org.address.addressLocality  }, ${ org.address.addressRegion  }, ${ org.address.addressCountry  } </p>
-    <p> <a href="${ this.officialUrl(org.url[0])}">${this.officialUrl(org.url[0])}</a> </p>
+    <h3 ${this.dataMaintainer(org.hasRankedProperties,'name')}> ${  org.namePref || org.nameEn  || org.nameFr }</h3>
+    <p ${this.dataMaintainer(org.hasRankedProperties,'address')}> ${ org.address.addressLocality  }, ${ org.address.addressRegion  }, ${ org.address.addressCountry  } </p>
+    <p ${this.dataMaintainer(org.hasRankedProperties,'url')}> <a href="${ this.officialUrl(org.url[0])}">${this.officialUrl(org.url[0])}</a> </p>
     <br>
-    <p> Organization Type:<b> ${this.organizationType(org.additionalType) }</b> </p>
-    <p> Disciplines:<b> ${this.disciplines(org.additionalType) }</b> </p>
-    <p> Presentation Format:<b> ${this.presentationFormat(org.additionalType) }</b> </p>
+    <p> Organization Type:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.organizationType(org.additionalType) }</b> </p>
+    <p> Disciplines:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.disciplines(org.additionalType) }</b> </p>
+    <p> Presentation Format:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.presentationFormat(org.additionalType) }</b> </p>
     <br>
     <p> Artsdata ID:  <a href='${ org.id}'> ${ org.id.split('/resource/')[1]}</a>
-    <p> Wikidata ID: <a href='http://wikidata.org/entity/${this.linkExtraction(org.identifier, "Q")}'>${this.linkExtraction(org.identifier, "Q") || "none"}</a> </p>
-    <p> Canadian Business Number: ${org.businessNumber} </p>
-    <br> ${this.socialMedia(org) }
+    <p> Wikidata ID: <a ${this.dataMaintainer(org.hasRankedProperties,'identifier')}  href='http://wikidata.org/entity/${this.linkExtraction(org.identifier, "Q")}'>${this.linkExtraction(org.identifier, "Q") || "none"}</a> </p>
+    <p> Canadian Business Number: <b  ${this.dataMaintainer(org.hasRankedProperties,'http://www.wikidata.org/prop/direct/P8860')}> ${org.businessNumber}</b> </p>
+    <p  ${this.dataMaintainer(org.hasRankedProperties,'sameAs')}> ${this.socialMedia(org) } </p>
     
      <br>
      Links: ${this.links(org.sameAs)} 
     <p> Venues: <br> ${this.venues(org.location)}  </b></p>
+    ${JSON.stringify(org.hasRankedProperties)}
     </div>`
+  }
+
+  dataMaintainer(rankedProperties, prop) {
+    let maintainer = "title='source: " 
+    rankedProperties.forEach(data => {
+      if (data.id === prop) {
+      maintainer += data.isPartOfGraph.maintainer
+      }
+    })
+    return maintainer + "'"
   }
 
   socialMedia(org) {
