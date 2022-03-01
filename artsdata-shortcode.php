@@ -191,7 +191,7 @@ function artsdata_init(){
   }
 
    function  dataMaintainer($rankedProperties, $prop) {
-     $maintainer = "title='Data from Artsdata.ca source: " ;
+     $maintainer = "title='Data from Artsdata.ca sourced from " ;
      foreach ($rankedProperties as $rankedProperty) { 
        if ($rankedProperty["id"] == $prop ) {
         $maintainer .= $rankedProperty["isPartOfGraph"]["maintainer"] ;
