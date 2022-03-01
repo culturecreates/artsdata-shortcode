@@ -15,8 +15,7 @@ class ArtsdataOrgDetail extends HTMLElement {
     <p> Wikidata ID: <a ${this.dataMaintainer(org.hasRankedProperties,'identifier')}  href='http://wikidata.org/entity/${this.linkExtraction(org.identifier, "Q")}'>${this.linkExtraction(org.identifier, "Q") || "none"}</a> </p>
     <p> Canadian Business Number: <b  ${this.dataMaintainer(org.hasRankedProperties,'http://www.wikidata.org/prop/direct/P8860')}> ${org.businessNumber}</b> </p>
     <p  ${this.dataMaintainer(org.hasRankedProperties,'sameAs')}> ${this.socialMedia(org) } </p>
-    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png'>
-     <br>
+      <br>
      Links: ${this.links(org.sameAs)} 
     <p> Venues: <br> ${this.venues(org.location)}  </b></p>
     ${JSON.stringify(org.hasRankedProperties)}
