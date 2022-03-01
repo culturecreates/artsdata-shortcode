@@ -83,10 +83,12 @@ function artsdata_init(){
     $region = $data["address"]["addressRegion"];
     $country = $data["address"]["addressCountry"];
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
+    $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Discipline" ) ;
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
-    $wikidataId =  $data["identifier"] ;
+    $wikidataId = $data["identifier"] ;
+    $wikidataUrl = "http://www.wikidata.org/entity/" . $data["identifier"] ;
     $facebook = linkExtraction($data["sameAs"] , "facebook.com") ;
     $twitter = linkExtraction($data["sameAs"] , "twitter.com") ;
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
@@ -123,6 +125,11 @@ function artsdata_init(){
     $html .= '<p>';
     $html .= 'Organization Type: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
     $html .= '</p>';
+    if ($presenter_type) {
+      $html .= '<p>';
+      $html .= 'Presenter Type:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</b><br>' ; 
+      $html .= '</p>';
+    }
     
     if ($disciplines) {
       $html .= '<p>';
@@ -135,7 +142,7 @@ function artsdata_init(){
     $html .= '</p>';
     }
     $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
-    $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' . $wikidataId . '">' . $wikidataId . ' </a> </p>' ;
+    $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
     $html .= '<div class="social-media-row">' ;
     if ( $facebook) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
     if ( $twitter) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
@@ -150,16 +157,16 @@ function artsdata_init(){
 
     if ($venue1Name) { 
       $html .= '<p>';
-      if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
+     // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</b>' ;
-      if ($venue1Wikidata) { $html .= ' (' .  $venue1Wikidata . ') ' ; }
+      if ($venue2Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue2Wikidata  ; }
       $html .= '</p>';
     }
     if ($venue2Name) { 
       $html .= '<p>';
-      if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
+     // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</b>' ;
-      if ($venue2Wikidata) { $html .= ' (' .  $venue2Wikidata . ') ' ; }
+      if ($venue2Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue2Wikidata  ; }
       $html .= '</p>';
     }
 
@@ -184,7 +191,7 @@ function artsdata_init(){
   }
 
    function  dataMaintainer($rankedProperties, $prop) {
-     $maintainer = "title='source: " ;
+     $maintainer = "title='Data from Artsdata.ca source: " ;
      foreach ($rankedProperties as $rankedProperty) { 
        if ($rankedProperty["id"] == $prop ) {
         $maintainer .= $rankedProperty["isPartOfGraph"]["maintainer"] ;
