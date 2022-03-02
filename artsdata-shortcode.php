@@ -145,12 +145,12 @@ function artsdata_init(){
     $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
     $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
     $html .= '<div class="social-media-row">' ;
-    if ( $facebook) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "facebookId") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
-    if ( $twitter) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "twitterUsername") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
+    if ( $data["facebookId"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "facebookId") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
+    if ( $data["twitterUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "twitterUsername") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
+    if ( $data["instagramUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "instagramUsername") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a>  </div>'  ; }
     if ( $youtube) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CIS-A2K_Youtube_Icon_%28Black%29.svg/240px-CIS-A2K_Youtube_Icon_%28Black%29.svg.png"></a> </div> '  ; }
     if ( $wikipedia) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
-    if ( $instagram) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "instagramUsername") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a>  </div>'  ; }
-    $html .= '</div>';
+      $html .= '</div>';
 
     if ($venue1Name || $venue2Name ) {
       $html .= '<h5>Venues</h5>';
