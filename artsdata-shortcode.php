@@ -61,7 +61,7 @@ function artsdata_init(){
     $html = '<div class="artsdata-orgs"><p><ul>';
 
     foreach ($graph as $org) {
-      $html .= '<li><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]["id"]) . '">' . $org['namePref']  . '</a> </li>' ;
+      $html .= '<li><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]["id"]) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
     } 
     $html .= '</ul></p></div>';
    // $html .=  print_r($graph);
@@ -203,12 +203,11 @@ function artsdata_init(){
 
 
   function languageService($entity, $prop) {
-   
-    if ($entity[$prop . "Fr"]) { return $entity[$prop . "Fr"]; } 
     if ($entity[$prop . "En"]) { return $entity[$prop . "En"];}
+    if ($entity[$prop . "Fr"]) { return $entity[$prop . "Fr"]; } 
     if ($entity[$prop . "Pref"]) { return $entity[$prop . "Pref"]; }
-    if ($entity[0][$prop . "Fr"]) { return $entity[0][$prop . "Fr"]; } 
     if ($entity[0][$prop . "En"]) { return $entity[0][$prop . "En"];}
+    if ($entity[0][$prop . "Fr"]) { return $entity[0][$prop . "Fr"]; } 
     if ($entity[0][$prop . "Pref"]) { return $entity[0][$prop . "Pref"]; }
   }
 
