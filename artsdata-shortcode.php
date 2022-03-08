@@ -149,18 +149,21 @@ function artsdata_init(){
     $html = '<div class="artsdata-org-detail">' ;
     $html .= '<h3 ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
     $html .= '<p ' . dataMaintainer($rankedProperties, "address") . '>';
-    $html .= $locality . ', ' . $region . ', ' . $country . '<br>';
+    if ($locality) {
+      $html .= $locality . ', ' . $region . ', ' . $country . '<br>';
+    }
     $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ' ;
     $html .= '</p>';
-    $html .= '<p>';
-    $html .= 'Organization Type: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
-    $html .= '</p>';
+    if ($organization_type) {
+      $html .= '<p>';
+      $html .= 'Organization Type: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
+      $html .= '</p>';
+    }
     if ($presenter_type) {
       $html .= '<p>';
       $html .= 'Presenter Type:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</b><br>' ; 
       $html .= '</p>';
     }
-    
     if ($disciplines) {
       $html .= '<p>';
       $html .= 'Disciplines:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</b><br>' ; 
@@ -171,20 +174,22 @@ function artsdata_init(){
     $html .= 'Presentation Format: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</b><br>' ;
     $html .= '</p>';
     }
+    if ($artsdataId) {
     $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
-    $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
+    }
+    if ($artsdataId) {
+      $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
+    }
     $html .= '<div class="social-media-row">' ;
     if ( $data["facebookId"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
     if ( $data["twitterUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
     if ( $data["instagramUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a>  </div>'  ; }
     if ( $youtube) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CIS-A2K_Youtube_Icon_%28Black%29.svg/240px-CIS-A2K_Youtube_Icon_%28Black%29.svg.png"></a> </div> '  ; }
     if ( $wikipedia) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
-      $html .= '</div>';
-
+    $html .= '</div>';
     if ($venue1Name || $venue2Name ) {
       $html .= '<h5>Venues</h5>';
     }
-
     if ($venue1Name) { 
       $html .= '<p>';
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
@@ -235,7 +240,7 @@ function artsdata_init(){
      # get current path
      global $wp;
      $current_path = add_query_arg( array(), $wp->request );
-     if ( strpos($current_path,  "/fr/") !== false ) {
+     if ( strpos($current_path,  "fr/") !== false ) {
       $lang = 'Fr' ;
     } else {
       $lang = 'En' ;
