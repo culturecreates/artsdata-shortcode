@@ -250,6 +250,9 @@ function artsdata_init(){
     if ($entity[0][$prop . $lang]) { return $entity[0][$prop . $lang];}
     if ($entity[$prop . "Pref"]) { return $entity[$prop . "Pref"]; }
     if ($entity[0][$prop . "Pref"]) { return $entity[0][$prop . "Pref"]; }
+    if ($entity[$prop . "Fr"]) { return $entity[$prop . "Fr"]; }
+    if ($entity[$prop . "En"]) { return $entity[$prop . "En"]; }
+   
   }
 
   function checkUrl($url) {
