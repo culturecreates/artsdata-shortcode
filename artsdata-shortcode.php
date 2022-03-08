@@ -28,6 +28,15 @@ add_shortcode( 'artsdata_orgs', 'artsdata_list_orgs' );
 add_shortcode('artsdata_id', 'artsdata_show_id');
 
 
+/**
+ * [artsdata_admin] display admin button HTML code to reload data from sources.
+ * @return string HTML Code
+*/
+add_shortcode('artsdata_admin', 'artsdata_admin');
+
+
+
+
 function artsdata_init(){
 
   /** Enqueuing the Stylesheet for Artsdata */
@@ -40,6 +49,27 @@ function artsdata_init(){
   }
   add_action( 'wp_enqueue_scripts', 'artsdata_enqueue_scripts');
 
+  function artsdata_admin() {
+    $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
+    $html .= '<p>' ;
+    $html .= 'Reload and transform data from the CAPACOA database. This will replace all existing data on Artsdata with new data. Allow 5 minutes for all transforms to complete and then refresh your webpage to see the update.' ;
+    $html .= '<form action="https://huginn-staging.herokuapp.com/users/1/web_requests/141/capacoamembers" method="post">' ;
+    $html .= '<input type="submit" value="Reload CAPACOA database">' ;
+    $html .= '</form>' ;
+    $html .= '</p>' ;
+    $html .= '<p>' ;
+    $html .= 'Reload data from Wikidata. Allow 1 minute for all transforms to complete and then refresh your webpage to see the update.' ;
+ 
+    $html .= '<form action="https://huginn-staging.herokuapp.com/users/1/web_requests/136/capacoamembers" method="post">' ;
+    $html .=  '<input type="submit" value="Load updates from Wikidata">' ;
+    $html .= '</form>' ;
+    $html .= '</p>' ;
+    $html .= '</div>';
+    return  $html;
+
+    
+  }
+
   function artsdata_list_orgs($atts) {
     # controller
     $a = shortcode_atts( array(
@@ -51,19 +81,19 @@ function artsdata_init(){
     $j = json_decode( $body, true);
     $graph = $j['@graph'];
     usort($graph, function ($x, $y) {
-      if ($x['namePref'] === $y['namePref']) {
+      if (languageService($x, 'name')  === languageService($y, 'name') ) {
           return 0;
       }
-      return $x['namePref'] < $y['namePref'] ? -1 : 1;
+      return languageService($x, 'name') < languageService($y, 'name') ? -1 : 1;
     });
     
     # view
     $html = '<div class="artsdata-orgs"><p><ul>';
-
     foreach ($graph as $org) {
       $html .= '<li><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]["id"]) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
     } 
     $html .= '</ul></p></div>';
+    
    // $html .=  print_r($graph);
     return  $html;
   }
@@ -76,7 +106,6 @@ function artsdata_init(){
     $j = json_decode( $body, true);
     $data = $j['data'][0];
     $name = languageService($data, 'name')  ;
-    if ($name == "") { $name = $data["nameFr"] ;}
     $logo = $data["logo"];
     $url = checkUrl($data["url"][0]);
     $locality = $data["address"]["addressLocality"];
@@ -203,11 +232,18 @@ function artsdata_init(){
 
 
   function languageService($entity, $prop) {
-    if ($entity[$prop . "En"]) { return $entity[$prop . "En"];}
-    if ($entity[$prop . "Fr"]) { return $entity[$prop . "Fr"]; } 
+     # get current path
+     global $wp;
+     $current_path = add_query_arg( array(), $wp->request );
+     if ( strpos($current_path,  "/fr/") !== false ) {
+      $lang = 'Fr' ;
+    } else {
+      $lang = 'En' ;
+    }
+
+    if ($entity[$prop . $lang]) { return $entity[$prop . $lang];}
+    if ($entity[0][$prop . $lang]) { return $entity[0][$prop . $lang];}
     if ($entity[$prop . "Pref"]) { return $entity[$prop . "Pref"]; }
-    if ($entity[0][$prop . "En"]) { return $entity[0][$prop . "En"];}
-    if ($entity[0][$prop . "Fr"]) { return $entity[0][$prop . "Fr"]; } 
     if ($entity[0][$prop . "Pref"]) { return $entity[0][$prop . "Pref"]; }
   }
 
