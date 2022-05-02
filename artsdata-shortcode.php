@@ -76,8 +76,20 @@ function artsdata_init(){
       'membership' => 'http://kg.artsdata.ca/culture-creates/huginn/capacoa-members',
       'path' => 'resource'
     ), $atts);
-    $response = wp_remote_get( 'http://api.artsdata.ca/organizations.jsonld?limit=200&source=' . $a['membership'] );
-    $body     = wp_remote_retrieve_body( $response );
+
+    $body = get_transient( 'artsdata_list_orgs_response_body' );
+    
+    if ( false === $body ) {
+
+        $response = wp_remote_get( 'http://api.artsdata.ca/organizations.jsonld?limit=200&source=' . $a['membership'] );
+        if (200 !== wp_remote_retrieve_response_code($response)) {
+            return;
+        }
+        $body  = wp_remote_retrieve_body( $response );
+        set_transient( 'artsdata_list_orgs_response_body', $body, 7 * DAY_IN_SECONDS );
+    }
+
+   
     $j = json_decode( $body, true);
     $graph = $j['@graph'];
     usort($graph, function ($x, $y) {
@@ -90,13 +102,24 @@ function artsdata_init(){
     # view
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]["id"]) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
+      $html .= '<li><a class="' . formatClassNames($org['additionalType']) . '" href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
     } 
     $html .= '</ul></p></div>';
     
    // $html .=  print_r($graph);
     return  $html;
   }
+
+  function formatClassNames($types) {
+    $str = '' ;
+    foreach ($types as $type) {
+      $str .= ltrim($type, "https://capacoa.ca/vocabulary/questionnaire#") . " " ;
+    }
+    // $str .= ltrim($types[0], "https://capacoa.ca/vocabulary/questionnaire#") ;
+    // $str .= ltrim($types[1], "https://capacoa.ca/vocabulary/questionnaire#") ;
+    return rtrim($str, " ") ;
+  }
+
 
   function artsdata_show_id() {
     # Org controller
