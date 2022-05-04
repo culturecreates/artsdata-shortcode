@@ -115,14 +115,16 @@ function artsdata_init(){
     foreach ($types as $type) {
       $str .= ltrim($type, "https://capacoa.ca/vocabulary/questionnaire#") . " " ;
     }
-    // $str .= ltrim($types[0], "https://capacoa.ca/vocabulary/questionnaire#") ;
-    // $str .= ltrim($types[1], "https://capacoa.ca/vocabulary/questionnaire#") ;
+
     return rtrim($str, " ") ;
   }
 
 
   function artsdata_show_id() {
-    # Org controller
+    if ($_GET['uri'] == null) { 
+      return "<p>Missing Artsdata ID. Please return to member directory.</p>" ;
+    }
+    # Org details controller
     $api_url = "http://api.artsdata.ca/ranked/" . $_GET['uri'] . "?format=json&frame=ranked_org" ; 
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
