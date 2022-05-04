@@ -86,7 +86,7 @@ function artsdata_init(){
             return;
         }
         $body  = wp_remote_retrieve_body( $response );
-        set_transient( 'artsdata_list_orgs_response_body', $body, 7 * DAY_IN_SECONDS );
+        set_transient( 'artsdata_list_orgs_response_body', $body, 5 * MINUTES_IN_SECONDS );
     }
 
    
@@ -102,7 +102,7 @@ function artsdata_init(){
     # view
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li><a class="' . formatClassNames($org['additionalType']) . '" href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
+      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
     } 
     $html .= '</ul></p></div>';
     
