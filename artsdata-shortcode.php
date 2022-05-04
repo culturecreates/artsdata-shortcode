@@ -50,7 +50,8 @@ function artsdata_init(){
   add_action( 'wp_enqueue_scripts', 'artsdata_enqueue_scripts');
 
   function artsdata_admin() {
-    delete_transient( 'artsdata_list_orgs_response_body' ) ;
+    delete_transient( 'artsdata_list_orgs_response_body_En' ) ;
+    delete_transient( 'artsdata_list_orgs_response_body_Fr' ) ;
 
     $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
     $html .= '<p>' ;
@@ -77,7 +78,13 @@ function artsdata_init(){
       'path' => 'resource'
     ), $atts);
 
-    $body = get_transient( 'artsdata_list_orgs_response_body' );
+    if ( strpos($current_path,  "fr/") !== false ) {
+      $lang = 'Fr' ;
+    } else {
+      $lang = 'En' ;
+    }
+
+    $body = get_transient( 'artsdata_list_orgs_response_body_' . $lang );
     
     if ( false === $body ) {
 
@@ -86,7 +93,7 @@ function artsdata_init(){
             return;
         }
         $body  = wp_remote_retrieve_body( $response );
-        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAYS_IN_SECONDS );
+        set_transient( 'artsdata_list_orgs_response_body_' . $lang, $body, 1 * DAYS_IN_SECONDS );
     }
 
    
