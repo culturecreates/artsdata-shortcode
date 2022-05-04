@@ -50,6 +50,8 @@ function artsdata_init(){
   add_action( 'wp_enqueue_scripts', 'artsdata_enqueue_scripts');
 
   function artsdata_admin() {
+    delete_transient( 'artsdata_list_orgs_response_body' ) ;
+
     $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
     $html .= '<p>' ;
     $html .= 'Reload and transform data from the CAPACOA database. This will replace all existing data on Artsdata with new data. Allow 5 minutes for all transforms to complete and then refresh your webpage to see the update.' ;
@@ -66,8 +68,6 @@ function artsdata_init(){
     $html .= '</p>' ;
     $html .= '</div>';
     return  $html;
-
-    
   }
 
   function artsdata_list_orgs($atts) {
@@ -172,58 +172,62 @@ function artsdata_init(){
 
     # Org View
     $html = '<div class="artsdata-org-detail">' ;
-    $html .= '<h3 ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
-    $html .= '<p ' . dataMaintainer($rankedProperties, "address") . '>';
+    $html .= '<h3 class="artsdata-heading" ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
+    $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>';
     if ($locality) {
       $html .= $locality . ', ' . $region . ', ' . $country . '<br>';
     }
     $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ' ;
     $html .= '</p>';
     if ($organization_type) {
-      $html .= '<p>';
+      $html .= '<p class="artsdata-organization-type">';
       $html .= 'Organization Type: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
       $html .= '</p>';
     }
     if ($presenter_type) {
-      $html .= '<p>';
+      $html .= '<p class="artsdata-presenter-type">';
       $html .= 'Presenter Type:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</b><br>' ; 
       $html .= '</p>';
     }
     if ($disciplines) {
-      $html .= '<p>';
+      $html .= '<p class="artsdata-disciplines">';
       $html .= 'Disciplines:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</b><br>' ; 
       $html .= '</p>';
     }
     if ( $presentationFormat &&  $presentationFormat !== "empty") {
-    $html .= '<p>';
+    $html .= '<p class="artsdata-presentation-format">';
     $html .= 'Presentation Format: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</b><br>' ;
     $html .= '</p>';
     }
     if ($artsdataId) {
-    $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
-    }
+      $html .= '<div class="artsdata-artsdata-id">';
+      $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
+      $html .= '</div>';   
+  }
     if ($artsdataId) {
+      $html .= '<div class="artsdata-wikidata-id">';
       $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
+      $html .= '</div>';   
     }
-    $html .= '<div class="social-media-row">' ;
-    if ( $data["facebookId"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
-    if ( $data["twitterUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
-    if ( $data["instagramUsername"]) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a>  </div>'  ; }
-    if ( $youtube) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CIS-A2K_Youtube_Icon_%28Black%29.svg/240px-CIS-A2K_Youtube_Icon_%28Black%29.svg.png"></a> </div> '  ; }
-    if ( $wikipedia) { $html .= '<div class="social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
+    $html .= '<div class="artsdata-social-media-row">' ;
+    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a> </div> '  ; }
+    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a>  </div>'  ; }
+    if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a>  </div>'  ; }
+    if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CIS-A2K_Youtube_Icon_%28Black%29.svg/240px-CIS-A2K_Youtube_Icon_%28Black%29.svg.png"></a> </div> '  ; }
+    if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
     $html .= '</div>';
     if ($venue1Name || $venue2Name ) {
-      $html .= '<h5>Venues</h5>';
+      $html .= '<h5 class="artsdata-venues-title">Venues</h5>';
     }
     if ($venue1Name) { 
-      $html .= '<p>';
+      $html .= '<p class="artsdata-venue">';
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</b>' ;
       if ($venue1Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue1Wikidata  ; }
       $html .= '</p>';
     }
     if ($venue2Name) { 
-      $html .= '<p>';
+      $html .= '<p class="artsdata-venue">';
      // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</b>' ;
       if ($venue2Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue2Wikidata  ; }
@@ -231,14 +235,14 @@ function artsdata_init(){
     }
 
     if ($event_data || $urlEvents ) {
-    $html .= '<h5> Upcoming Events </h5>';
+    $html .= '<h5 class="artsdata-upcoming-events-title"> Upcoming Events </h5>';
     }
     foreach ($event_data as $event) {
-      $html .= '<div style="overflow: auto;">' ;
+      $html .= '<div style="overflow: auto;" class="artsdata-event">' ;
       $html .= '<a href="' . $event["url"] . '"><img style="width:300px;margin:0 15px 15px 0;float:left" src="' . $event["image"] . '"></a>'; 
-      $html .= '<b>' . languageService($event, 'name') . ' </b><br>';
-      $html .=  languageService($event["location"], 'name') . '<br>' ;
-      $html .= $event["startDate"][0] ;
+      $html .= '<span class="artsdata-event-name"><b>' . languageService($event, 'name') . ' </b></span><br>';
+      $html .= '<span class="artsdata-event-location">' .languageService($event["location"], 'name') . '</span><br>' ;
+      $html .= '<span class="artsdata-event-date">' . $event["startDate"][0] . '</span>' ;
     
       $html .= '</div >';
     }
@@ -294,7 +298,7 @@ function artsdata_init(){
     $str = '' ;
     foreach ($types as $type) {
       if ( strpos($type['id'],  $detectionStr) !== false ) {
-        $str .= $type['label'] . ", " ;
+        $str .= ltrim($type['id'], "https://capacoa.ca/vocabulary/questionnaire#") . ", " ;
       }
     }
     return rtrim($str, ", ") ;

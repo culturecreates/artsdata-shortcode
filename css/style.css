@@ -1,8 +1,8 @@
-.social-media-row {
+.artsdata-social-media-row {
   display: flex;
 }
 
-.social-media-column {
+.artsdata-social-media-column {
   width: 40px;
   padding: 5px;
 }
