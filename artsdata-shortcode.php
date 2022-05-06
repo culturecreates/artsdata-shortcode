@@ -145,7 +145,7 @@ function artsdata_init(){
     $country = $data["address"]["addressCountry"];
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
-    $disciplines =  generalType( $data["additionalType"],"Discipline" ) ;
+    $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
     $wikidataId = $data["identifier"] ;
