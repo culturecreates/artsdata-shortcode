@@ -8,7 +8,7 @@ Author: Culture Creates
 Author URI: https://culturecreates.com/
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: artsdata
+Text Domain: artsdata-shortcodes
 */
 
 /**
@@ -38,6 +38,10 @@ add_shortcode('artsdata_admin', 'artsdata_admin');
 
 
 function artsdata_init(){
+
+  /** Load text domain for i18n **/
+  $plugin_rel_path = basename( dirname( __FILE__ ) ) . '/languages'; /* Relative to WP_PLUGIN_DIR */
+  load_plugin_textdomain( 'artsdata-shortcodes', false, $plugin_rel_path );
 
   /** Enqueuing the Stylesheet for Artsdata */
   function artsdata_enqueue_scripts() {
@@ -129,7 +133,7 @@ function artsdata_init(){
 
   function artsdata_show_id() {
     if ($_GET['uri'] == null) { 
-      return "<p>Missing Artsdata ID. Please return to member directory.</p>" ;
+      return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>" ;
     }
     # Org details controller
     $api_url = "http://api.artsdata.ca/ranked/" . $_GET['uri'] . "?format=json&frame=ranked_org" ; 
@@ -188,22 +192,22 @@ function artsdata_init(){
     $html .= '</p>';
     if ($organization_type) {
       $html .= '<p class="artsdata-organization-type">';
-      $html .= 'Organization Type: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
+      $html .=  esc_html__( 'Organization Type:', 'artsdata-shortcodes' ) . '<br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</b>' ;
       $html .= '</p>';
     }
     if ($presenter_type) {
       $html .= '<p class="artsdata-presenter-type">';
-      $html .= 'Presenter Type:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</b><br>' ; 
+      $html .=  esc_html__( 'Presenter Type:', 'artsdata-shortcodes' ) . '<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</b><br>' ; 
       $html .= '</p>';
     }
     if ($disciplines) {
       $html .= '<p class="artsdata-disciplines">';
-      $html .= 'Disciplines:<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</b><br>' ; 
+      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '<br> <b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</b><br>' ; 
       $html .= '</p>';
     }
     if ( $presentationFormat &&  $presentationFormat !== "empty") {
     $html .= '<p class="artsdata-presentation-format">';
-    $html .= 'Presentation Format: <br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</b><br>' ;
+    $html .=  esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . '<br><b ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</b><br>' ;
     $html .= '</p>';
     }
     if ($artsdataId) {
@@ -224,7 +228,7 @@ function artsdata_init(){
     if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
     $html .= '</div>';
     if ($venue1Name || $venue2Name ) {
-      $html .= '<h5 class="artsdata-venues-title">Venues</h5>';
+      $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
     }
     if ($venue1Name) { 
       $html .= '<p class="artsdata-venue">';
@@ -242,7 +246,7 @@ function artsdata_init(){
     }
 
     if ($event_data || $urlEvents ) {
-    $html .= '<h5 class="artsdata-upcoming-events-title"> Upcoming Events </h5>';
+    $html .= '<h5 class="artsdata-upcoming-events-title">' .  esc_html__( 'Upcoming Events', 'artsdata-shortcodes' ) . '</h5>';
     }
     foreach ($event_data as $event) {
       $html .= '<div style="overflow: auto;" class="artsdata-event">' ;
@@ -253,7 +257,7 @@ function artsdata_init(){
     
       $html .= '</div >';
     }
-   if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">View all events</a>' ; }
+   if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>' ; }
    
     $html .= '</div>';
   
@@ -262,7 +266,7 @@ function artsdata_init(){
   }
 
    function  dataMaintainer($rankedProperties, $prop) {
-     $maintainer = "title='Data from Artsdata.ca sourced from " ;
+     $maintainer = "title='" .  esc_html__( 'Data from Artsdata.ca sourced from', 'artsdata-shortcodes' )  . " " ;
      foreach ($rankedProperties as $rankedProperty) { 
        if ($rankedProperty["id"] == $prop ) {
         $maintainer .= $rankedProperty["isPartOfGraph"]["maintainer"] ;
