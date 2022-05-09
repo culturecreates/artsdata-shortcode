@@ -38,7 +38,6 @@ add_shortcode('artsdata_admin', 'artsdata_admin');
 
 
 function artsdata_init(){
-
   /** Load text domain for i18n **/
   $plugin_rel_path = basename( dirname( __FILE__ ) ) . '/languages'; /* Relative to WP_PLUGIN_DIR */
   load_plugin_textdomain( 'artsdata-shortcodes', false, $plugin_rel_path );
@@ -328,7 +327,6 @@ function artsdata_init(){
   }
 
 }
-
 add_action('init', 'artsdata_init');
 
 ?>
