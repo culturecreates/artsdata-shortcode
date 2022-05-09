@@ -1,0 +1,67 @@
+# Copyright (C) 2022 Culture Creates
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Artsdata Shortcodes 1.0.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: artsdata-shortcodes\n"
+
+#. Plugin Name of the plugin
+msgid "Artsdata Shortcodes"
+msgstr "Artsdata Shortcodes"
+
+#. Description of the plugin
+msgid "Collection of shortcodes to display data from Artsdata.ca."
+msgstr "Collection of shortcodes to display data from Artsdata.ca."
+
+#. Author of the plugin
+msgid "Culture Creates"
+msgstr "Culture Creates"
+
+#. Author URI of the plugin
+msgid "https://culturecreates.com/"
+msgstr ""
+
+#: artsdata-shortcodes.php:136
+msgid "Missing Artsdata ID. Please return to the membership directory."
+msgstr "Missing Artsdata ID. Please return to the membership directory."
+
+#: artsdata-shortcodes.php:195
+msgid "Organization Type:"
+msgstr "Organization Type:"
+
+#: artsdata-shortcodes.php:200
+msgid "Presenter Type:"
+msgstr "Presenter Type:"
+
+#: artsdata-shortcodes.php:205
+msgid "Disciplines:"
+msgstr ""
+
+#: artsdata-shortcodes.php:210
+msgid "Presentation Format:"
+msgstr ""
+
+#: artsdata-shortcodes.php:231
+msgid "Venues"
+msgstr ""
+
+#: artsdata-shortcodes.php:249
+msgid "Upcoming Events"
+msgstr ""
+
+#: artsdata-shortcodes.php:260
+msgid "View all events"
+msgstr ""
+
+#: artsdata-shortcodes.php:269
+msgid "Data from Artsdata.ca sourced from"
+msgstr ""
