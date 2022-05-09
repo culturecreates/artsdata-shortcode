@@ -1,8 +1,8 @@
 <?php
 
 /*
-Plugin Name:  Artsdata Shortcodes
-Version: 1.0.7
+Plugin Name: Artsdata Shortcodes
+Version: 1.1
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
