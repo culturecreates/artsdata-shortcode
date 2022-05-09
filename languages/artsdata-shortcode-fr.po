@@ -39,8 +39,8 @@ msgid "Organization Type:"
 msgstr "Type d'Organisation:"
 
 #: artsdata-shortcodes.php:200
-msgid "Type de présentateur:"
-msgstr ""
+msgid "Presenter Type:"
+msgstr "Type de présentateur:"
 
 #: artsdata-shortcodes.php:205
 msgid "Disciplines:"
@@ -48,7 +48,7 @@ msgstr ""
 
 #: artsdata-shortcodes.php:210
 msgid "Presentation Format:"
-msgstr "Format de présentation"
+msgstr "Format de présentation:"
 
 #: artsdata-shortcodes.php:231
 msgid "Venues"
@@ -56,11 +56,11 @@ msgstr "Salles"
 
 #: artsdata-shortcodes.php:249
 msgid "Upcoming Events"
-msgstr ""
+msgstr "Évènements à venir"
 
 #: artsdata-shortcodes.php:260
 msgid "View all events"
-msgstr "Évènements à venir"
+msgstr "Voir tous les événements"
 
 #: artsdata-shortcodes.php:269
 msgid "Data from Artsdata.ca sourced from"
