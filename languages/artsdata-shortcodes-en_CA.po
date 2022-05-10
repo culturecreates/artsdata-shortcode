@@ -16,15 +16,15 @@ msgstr ""
 
 #. Plugin Name of the plugin
 msgid "Artsdata Shortcodes"
-msgstr "Artsdata Shortcodes"
+msgstr ""
 
 #. Description of the plugin
 msgid "Collection of shortcodes to display data from Artsdata.ca."
-msgstr "Collection of shortcodes to display data from Artsdata.ca."
+msgstr ""
 
 #. Author of the plugin
 msgid "Culture Creates"
-msgstr "Culture Creates"
+msgstr ""
 
 #. Author URI of the plugin
 msgid "https://culturecreates.com/"
@@ -32,15 +32,15 @@ msgstr ""
 
 #: artsdata-shortcodes.php:136
 msgid "Missing Artsdata ID. Please return to the membership directory."
-msgstr "Missing Artsdata ID. Please return to the membership directory."
+msgstr ""
 
 #: artsdata-shortcodes.php:195
 msgid "Organization Type:"
-msgstr "Organization Type:"
+msgstr ""
 
 #: artsdata-shortcodes.php:200
 msgid "Presenter Type:"
-msgstr "Presenter Type:"
+msgstr ""
 
 #: artsdata-shortcodes.php:205
 msgid "Disciplines:"
@@ -65,3 +65,7 @@ msgstr ""
 #: artsdata-shortcodes.php:269
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
+
+#: database properties
+msgid "PrimaryActivity_pres"
+msgstr "Presenter"

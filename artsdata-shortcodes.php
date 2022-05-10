@@ -123,7 +123,7 @@ function artsdata_init(){
   function formatClassNames($types) {
     $str = '' ;
     foreach ($types as $type) {
-      $str .= ltrim($type, "https://capacoa.ca/vocabulary/questionnaire#") . " " ;
+      $str .= ltrim($type, "https://capacoa.ca/vocabulary#") . " " ;
     }
 
     return rtrim($str, " ") ;
@@ -274,8 +274,7 @@ function artsdata_init(){
      return $maintainer . "'" ;
   }
 
-
-  function languageService($entity, $prop) {
+  function getLanguage() {
      # get current path
      global $wp;
      $current_path = add_query_arg( array(), $wp->request );
@@ -284,6 +283,12 @@ function artsdata_init(){
     } else {
       $lang = 'En' ;
     }
+    return $lang ;
+  }
+
+
+  function languageService($entity, $prop) {
+    $lang = getLanguage() ;
 
     if ($entity[$prop . $lang]) { return $entity[$prop . $lang];}
     if ($entity[0][$prop . $lang]) { return $entity[0][$prop . $lang];}
@@ -306,9 +311,14 @@ function artsdata_init(){
 
   function generalType($types, $detectionStr) {
     $str = '' ;
+    $lang = getLanguage() ;
     foreach ($types as $type) {
       if ( strpos($type['id'],  $detectionStr) !== false ) {
-        $str .= ltrim($type['id'], "https://capacoa.ca/vocabulary/questionnaire#") . ", " ;
+        if ($type['label' . $lang]) {$str .= $type['label' . $lang] . ", " ;}
+        elseif ($type['labelPref']) {$str .= $type['labelPref'] . ", " ;}
+        elseif ($type['labelEn']) {$str .= $type['labelEn'] . ", " ;}
+        elseif ($type['labelFr']) {$str .= $type['labelFr'] . ", " ;}
+        elseif ($type['label']) {$str .= $type['label'] . ", " ;}
       }
     }
     return rtrim($str, ", ") ;

@@ -65,3 +65,7 @@ msgstr ""
 #: artsdata-shortcodes.php:269
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
+
+#: database properties
+msgid "PrimaryActivity_pres"
+msgstr "Presenter"
