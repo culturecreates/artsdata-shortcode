@@ -160,10 +160,10 @@ function artsdata_init(){
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
 
     $venue1Role = $data["location"][0]["roleName"] ;
-    $venue1Name = $data["location"][0]["location"]["namePref"];
+    $venue1Name = languageService($data["location"][0]["location"], "name");
     $venue1Wikidata = $data["location"][0]["location"]["identifier"];
     $venue2Role =  $data["location"][1]["roleName"];
-    $venue2Name = $data["location"][1]["location"]["namePref"];
+    $venue2Name = languageService($data["location"][1]["location"], "name");
     $venue2Wikidata = $data["location"][1]["location"]["identifier"];
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
@@ -230,7 +230,7 @@ function artsdata_init(){
       $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
     }
     if ($venue1Name) { 
-      $html .= '<p class="artsdata-venue">';
+      $html .= '<p class="artsdata-venue">' ;
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</b>' ;
       if ($venue1Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue1Wikidata  ; }
