@@ -143,7 +143,7 @@ function artsdata_init(){
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
     $wikidataId = $data["identifier"] ;
-    $wikidataUrl = "http://www.wikidata.org/entity/" . $data["identifier"] ;
+    $wikidataUrl = "http://www.wikidata.org/entity/" . $wikidataId ;
     $facebook = 'https://www.facebook.com/' . $data["facebookId"] ;
     $twitter = 'https://twitter.com/' . $data["twitterUsername"] ;
     $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
@@ -153,9 +153,11 @@ function artsdata_init(){
     $venue1Role = $data["location"][0]["roleName"] ;
     $venue1Name = languageService($data["location"][0]["location"], "name");
     $venue1Wikidata = $data["location"][0]["location"]["identifier"];
+    $venue1WikidataUrl = "http://www.wikidata.org/entity/" . $venue1Wikidata ; 
     $venue2Role =  $data["location"][1]["roleName"];
     $venue2Name = languageService($data["location"][1]["location"], "name");
     $venue2Wikidata = $data["location"][1]["location"]["identifier"];
+    $venue2WikidataUrl = "http://www.wikidata.org/entity/" . $venue2Wikidata ; 
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
 
@@ -224,14 +226,14 @@ function artsdata_init(){
       $html .= '<p class="artsdata-venue">' ;
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</b>' ;
-      if ($venue1Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue1Wikidata  ; }
+      if ($venue1Wikidata) { $html .= '<br> Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a>'  ; }
       $html .= '</p>';
     }
     if ($venue2Name) { 
       $html .= '<p class="artsdata-venue">';
      // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
       $html .= '<b ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</b>' ;
-      if ($venue2Wikidata) { $html .= '<br> Wikidata ID: ' .  $venue2Wikidata  ; }
+      if ($venue2Wikidata) { $html .= '<br> Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a>'  ; }
       $html .= '</p>';
     }
 
