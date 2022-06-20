@@ -237,14 +237,18 @@ function artsdata_init(){
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
 
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>' ;
-      if ($venue1Wikidata) { $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>'  ; 
+      if ($venue1Wikidata) { 
+        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>'  ; 
+      }
       $html .= '</div>';
     }
     if ($venue2Name) {
       $html .= '<div class="artsdata-venue">';
      // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>' ;
-      if ($venue2Wikidata) { $html .= '<p> Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>'  ; }
+      if ($venue2Wikidata) { 
+        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>'  ; 
+      }
       $html .= '</div>';
     }
 
@@ -262,7 +266,7 @@ function artsdata_init(){
       $html .= '<p class="artsdata-event-date">' . $dateTimeFormatted  . '</p>';
       $html .= '</div>';
     }
-	if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>'; }
+	  if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>'; }
     $html .= '</div>';
     $html .= '</div>';
     }
