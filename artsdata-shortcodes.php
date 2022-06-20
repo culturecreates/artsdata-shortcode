@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.1.1
+Version: 1.1.3
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -205,7 +205,7 @@ function artsdata_init(){
       $html .= 'Artsdata ID <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a> <br>' ;
       $html .= '</div>';   
   }
-    if ($artsdataId) {
+    if ($wikidataId) {
       $html .= '<div class="artsdata-wikidata-id">';
       $html .= 'Wikidata ID <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a> </p>' ;
       $html .= '</div>';   
