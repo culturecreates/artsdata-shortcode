@@ -245,8 +245,10 @@ function artsdata_init(){
       $html .= '<a href="' . $event["url"] . '"><img style="width:300px;margin:0 15px 15px 0;float:left" src="' . $event["image"] . '"></a>'; 
       $html .= '<span class="artsdata-event-name"><b>' . languageService($event, 'name') . ' </b></span><br>';
       $html .= '<span class="artsdata-event-location">' .languageService($event["location"], 'name') . '</span><br>' ;
-      $html .= '<span class="artsdata-event-date">' . $event["startDate"][0] . '</span>' ;
-    
+      $showTime =  new DateTime($event["startDate"][0]) ;
+      $dateTimeFormatted = $showTime->format('Y-m-d g:ia');
+      $html .= '<span class="artsdata-event-date">'  . $dateTimeFormatted  . '</span>' ;
+     
       $html .= '</div >';
     }
    if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>' ; }
