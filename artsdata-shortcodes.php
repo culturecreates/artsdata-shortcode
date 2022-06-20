@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.1.1
+Version: 1.1.2
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -152,7 +152,7 @@ function artsdata_init(){
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
     $wikidataId = $data["identifier"] ;
-    $wikidataUrl = "http://www.wikidata.org/entity/" . $data["identifier"] ;
+    $wikidataUrl = "http://www.wikidata.org/entity/" . $wikidataId ;
     $facebook = 'https://www.facebook.com/' . $data["facebookId"] ;
     $twitter = 'https://twitter.com/' . $data["twitterUsername"] ;
     $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
@@ -162,9 +162,11 @@ function artsdata_init(){
     $venue1Role = $data["location"][0]["roleName"] ;
     $venue1Name = languageService($data["location"][0]["location"], "name");
     $venue1Wikidata = $data["location"][0]["location"]["identifier"];
+    $venue1WikidataUrl = "http://www.wikidata.org/entity/" . $venue1Wikidata ; 
     $venue2Role =  $data["location"][1]["roleName"];
     $venue2Name = languageService($data["location"][1]["location"], "name");
     $venue2Wikidata = $data["location"][1]["location"]["identifier"];
+    $venue2WikidataUrl = "http://www.wikidata.org/entity/" . $venue2Wikidata ; 
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
 
@@ -214,18 +216,17 @@ function artsdata_init(){
       $html .= '<p>Artsdata ID: <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>' ;
       $html .= '</div>';
     }
-    if ($artsdataId) {
+    if ($wikidataId) {
       $html .= '<div class="artsdata-wikidata-id">';
       $html .= '<p>Wikidata ID: <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>' ;
       $html .= '</div>';
     }
-    $html .= '<div class="artsdata-social-media-row">';
-    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg/32px-Cib-facebook_%28CoreUI_Icons_v1.0.0%29.svg.png"></a></div> '; }
-    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Icon_Twitter.svg/240px-Icon_Twitter.svg.png"></a></div>'; }
-    if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/CIS-A2K_Instagram_Icon_%28Black%29.svg/240px-CIS-A2K_Instagram_Icon_%28Black%29.svg.png"></a></div>'; }
-    if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/CIS-A2K_Youtube_Icon_%28Black%29.svg/240px-CIS-A2K_Youtube_Icon_%28Black%29.svg.png"></a></div> '; }
-    if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a></div>'; }
-    $html .= '</div>';
+    $html .= '<div class="artsdata-social-media-row">' ;
+    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '  ; }
+    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'  ; }
+    if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'  ; }
+    if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div> '  ; }
+    if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
     $html .= '</div>';
     $html .= '<div class="artsdata-venue-detail">';
     if ($venue1Name || $venue2Name ) {
@@ -234,21 +235,21 @@ function artsdata_init(){
     if ($venue1Name) {
       $html .= '<div class="artsdata-venue">' ;
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
+
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>' ;
-      if ($venue1Wikidata) { $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: ' .  $venue1Wikidata . '</p>'  ; }
+      if ($venue1Wikidata) { $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>'  ; 
       $html .= '</div>';
     }
     if ($venue2Name) {
       $html .= '<div class="artsdata-venue">';
      // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>' ;
-      if ($venue2Wikidata) { $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: ' .  $venue2Wikidata . '</p>'  ; }
+      if ($venue2Wikidata) { $html .= '<p> Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>'  ; }
       $html .= '</div>';
     }
-    $html .= '</div>';
 
     if ($event_data || $urlEvents ) {
-	$html .= '<div class="artsdata-events-detail">';
+	  $html .= '<div class="artsdata-events-detail">';
     $html .= '<h5 class="artsdata-upcoming-events-title">' .  esc_html__( 'Upcoming Events', 'artsdata-shortcodes' ) . '</h5>';
     $html .= '<div class="artsdata-events-entries">';
     foreach ($event_data as $event) {
@@ -256,8 +257,9 @@ function artsdata_init(){
       $html .= '<a href="' . $event["url"] . '"><img src="' . $event["image"] . '"></a>';
       $html .= '<p class="artsdata-event-name">' . languageService($event, 'name') . '</p>';
       $html .= '<p class="artsdata-event-location">' .languageService($event["location"], 'name') . '</p>';
-      $html .= '<p class="artsdata-event-date">' . $event["startDate"][0] . '</p>';
-
+      $showTime =  new DateTime($event["startDate"][0]) ;
+      $dateTimeFormatted = $showTime->format('Y-m-d g:ia');
+      $html .= '<p class="artsdata-event-date">' . $dateTimeFormatted  . '</p>';
       $html .= '</div>';
     }
 	if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>'; }
