@@ -112,7 +112,7 @@ function artsdata_init(){
     # view
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>' ;
+      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>';
     }
     $html .= '</ul></p></div>';
 
@@ -132,7 +132,7 @@ function artsdata_init(){
 
   function artsdata_show_id() {
     if ($_GET['uri'] == null) {
-      return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>" ;
+      return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
     # Org details controller
     $api_url = "http://api.artsdata.ca/ranked/" . $_GET['uri'] . "?format=json&frame=ranked_org" ;
@@ -162,11 +162,11 @@ function artsdata_init(){
     $venue1Role = $data["location"][0]["roleName"] ;
     $venue1Name = languageService($data["location"][0]["location"], "name");
     $venue1Wikidata = $data["location"][0]["location"]["identifier"];
-    $venue1WikidataUrl = "http://www.wikidata.org/entity/" . $venue1Wikidata ; 
+    $venue1WikidataUrl = "http://www.wikidata.org/entity/" . $venue1Wikidata ;
     $venue2Role =  $data["location"][1]["roleName"];
     $venue2Name = languageService($data["location"][1]["location"], "name");
     $venue2Wikidata = $data["location"][1]["location"]["identifier"];
-    $venue2WikidataUrl = "http://www.wikidata.org/entity/" . $venue2Wikidata ; 
+    $venue2WikidataUrl = "http://www.wikidata.org/entity/" . $venue2Wikidata ;
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
 
@@ -189,68 +189,70 @@ function artsdata_init(){
     if ($locality) {
       $html .= $locality . ', ' . $region . ', ' . $country . '<br>';
     }
-    $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ' ;
+    $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ';
     $html .= '</p>';
     if ($organization_type) {
       $html .= '<p class="artsdata-organization-type">';
-      $html .=  esc_html__( 'Organization Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</span>' ;
+      $html .=  esc_html__( 'Organization Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</span>';
       $html .= '</p>';
     }
     if ($presenter_type) {
       $html .= '<p class="artsdata-presenter-type">';
-      $html .=  esc_html__( 'Presenter Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</span>' ;
+      $html .=  esc_html__( 'Presenter Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</span>';
       $html .= '</p>';
     }
     if ($disciplines) {
       $html .= '<p class="artsdata-disciplines">';
-      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</span>' ;
+      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</span>';
       $html .= '</p>';
     }
     if ( $presentationFormat &&  $presentationFormat !== "empty") {
     $html .= '<p class="artsdata-presentation-format">';
-    $html .=  esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</span>' ;
+    $html .=  esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</span>';
     $html .= '</p>';
     }
     if ($artsdataId) {
       $html .= '<div class="artsdata-artsdata-id">';
-      $html .= '<p>Artsdata ID: <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>' ;
+      $html .= '<p>Artsdata ID: <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
       $html .= '</div>';
     }
     if ($wikidataId) {
       $html .= '<div class="artsdata-wikidata-id">';
-      $html .= '<p>Wikidata ID: <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>' ;
+      $html .= '<p>Wikidata ID: <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
       $html .= '</div>';
     }
-    $html .= '<div class="artsdata-social-media-row">' ;
-    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '  ; }
-    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'  ; }
-    if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'  ; }
-    if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div> '  ; }
-    if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'  ; }
+    $html .= '<div class="artsdata-social-media-row">';
+    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '; }
+    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'; }
+    if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'; }
+    if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div>'; }
+    if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'; }
+      $html .= '</div>';
     $html .= '</div>';
     $html .= '<div class="artsdata-venue-detail">';
     if ($venue1Name || $venue2Name ) {
       $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
     }
     if ($venue1Name) {
-      $html .= '<div class="artsdata-venue">' ;
+      $html .= '<div class="artsdata-venue">';
      // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
 
-      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>' ;
-      if ($venue1Wikidata) { 
-        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>'  ; 
+      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>';
+      if ($venue1Wikidata) {
+        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>';
       }
       $html .= '</div>';
     }
     if ($venue2Name) {
       $html .= '<div class="artsdata-venue">';
-     // if ($venue2Role) { $html .= $venue2Role . ':<br>' ; }
-      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>' ;
-      if ($venue2Wikidata) { 
-        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>'  ; 
+     // if ($venue2Role) { $html .= $venue2Role . ':<br>'; }
+      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>';
+      if ($venue2Wikidata) {
+        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>';
       }
       $html .= '</div>';
     }
+    $html .= '</div>';
 
     if ($event_data || $urlEvents ) {
 	  $html .= '<div class="artsdata-events-detail">';
@@ -267,7 +269,7 @@ function artsdata_init(){
       $html .= '</div>';
     }
 	  if ($urlEvents) { $html .= '<a href="' . $urlEvents . '">' .  esc_html__( 'View all events', 'artsdata-shortcodes' ) . '</a>'; }
-    $html .= '</div>';
+      $html .= '</div>';
     $html .= '</div>';
     }
 
@@ -276,10 +278,10 @@ function artsdata_init(){
   }
 
    function  dataMaintainer($rankedProperties, $prop) {
-     $maintainer = "title='" .  esc_html__( 'Data from Artsdata.ca sourced from', 'artsdata-shortcodes' )  . " " ;
+     $maintainer = "title='" .  esc_html__( 'Data from Artsdata.ca sourced from', 'artsdata-shortcodes' )  . " ";
      foreach ($rankedProperties as $rankedProperty) {
        if ($rankedProperty["id"] == $prop ) {
-        $maintainer .= $rankedProperty["isPartOfGraph"]["maintainer"] ;
+        $maintainer .= $rankedProperty["isPartOfGraph"]["maintainer"];
        }
      }
      return $maintainer . "'" ;
