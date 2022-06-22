@@ -260,7 +260,7 @@ function artsdata_init(){
     $html .= '<div class="artsdata-events-entries">';
     foreach ($event_data as $event) {
       $html .= '<div class="artsdata-event">';
-      $html .= '<a href="' . $event["url"] . '"><img src="' . $event["image"] . '"></a>';
+      $html .= '<a href="' . safeUrl($event["url"]) . '"><img src="' . safeUrl($event["image"]) . '"></a>';
       $html .= '<p class="artsdata-event-name">' . languageService($event, 'name') . '</p>';
       $html .= '<p class="artsdata-event-location">' .languageService($event["location"], 'name') . '</p>';
       $showTime =  new DateTime($event["startDate"][0]) ;
@@ -335,6 +335,14 @@ function artsdata_init(){
       }
     }
     return rtrim($str, ", ") ;
+  }
+
+  function safeUrl($strIn) {
+    if  (gettype($strIn) == 'string') {
+      return $strIn ;
+    } else {
+      return $strIn['id'] ;
+    }
   }
 
   function linkExtraction($sameAs, $detectionStr) {
