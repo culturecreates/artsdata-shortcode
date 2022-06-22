@@ -192,24 +192,36 @@ function artsdata_init(){
     $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ';
     $html .= '</p>';
     if ($organization_type) {
-      $html .= '<p class="artsdata-organization-type">';
-      $html .=  esc_html__( 'Organization Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</span>';
-      $html .= '</p>';
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
+      $html .= esc_html__( 'Organization Type: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</ul>';
+      $html .= '</div>';
+      $html .= '</div>';
     }
     if ($presenter_type) {
-      $html .= '<p class="artsdata-presenter-type">';
-      $html .=  esc_html__( 'Presenter Type:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</span>';
-      $html .= '</p>';
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-presenter-type">';
+      $html .=  esc_html__( 'Presenter Type: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</p>';
+      $html .= '</div>';
+      $html .= '</div>';
     }
     if ($disciplines) {
-      $html .= '<p class="artsdata-disciplines">';
-      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</span>';
-      $html .= '</p>';
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
+      $html .=  esc_html__( 'Disciplines: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</p>';
+      $html .= '</div>';
+      $html .= '</div>';
     }
     if ( $presentationFormat &&  $presentationFormat !== "empty") {
-    $html .= '<p class="artsdata-presentation-format">';
-    $html .=  esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . ' <span ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</span>';
-    $html .= '</p>';
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
+      $html .= esc_html__( 'Presentation Format: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</p>';
+      $html .= '</div>';
+      $html .= '</div>';
     }
     if ($artsdataId) {
       $html .= '<div class="artsdata-artsdata-id">';
