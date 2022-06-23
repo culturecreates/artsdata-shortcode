@@ -203,7 +203,7 @@ function artsdata_init(){
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-presenter-type">';
       $html .=  esc_html__( 'Presenter Type: ', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</p>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -211,7 +211,7 @@ function artsdata_init(){
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
       $html .=  esc_html__( 'Disciplines: ', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</p>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -219,7 +219,7 @@ function artsdata_init(){
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
       $html .= esc_html__( 'Presentation Format: ', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><p ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</p>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
