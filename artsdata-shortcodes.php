@@ -112,7 +112,7 @@ function artsdata_init(){
     # view
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>';
+      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '/?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>';
     }
     $html .= '</ul></p></div>';
 
@@ -335,18 +335,18 @@ function artsdata_init(){
   }
 
   function generalType($types, $detectionStr) {
-    $str = '' ;
+    $str = '<li>' ;
     $lang = getLanguage() ;
     foreach ($types as $type) {
       if ( strpos($type['id'],  $detectionStr) !== false ) {
-        if ($type['label' . $lang]) {$str .= $type['label' . $lang] . ", " ;}
-        elseif ($type['labelPref']) {$str .= $type['labelPref'] . ", " ;}
-        elseif ($type['labelEn']) {$str .= $type['labelEn'] . ", " ;}
-        elseif ($type['labelFr']) {$str .= $type['labelFr'] . ", " ;}
-        elseif ($type['label']) {$str .= $type['label'] . ", " ;}
+        if ($type['label' . $lang]) {$str .= $type['label' . $lang] . "</li><li>" ;}
+        elseif ($type['labelPref']) {$str .= $type['labelPref'] . "</li><li>" ;}
+        elseif ($type['labelEn']) {$str .= $type['labelEn'] . "</li><li>" ;}
+        elseif ($type['labelFr']) {$str .= $type['labelFr'] . "</li><li>" ;}
+        elseif ($type['label']) {$str .= $type['label'] . "</li><li>" ;}
       }
     }
-    return rtrim($str, ", ") ;
+    return rtrim($str, "<li>") ;
   }
 
   function safeUrl($strIn) {
