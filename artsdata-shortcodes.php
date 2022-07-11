@@ -335,18 +335,18 @@ function artsdata_init(){
   }
 
   function generalType($types, $detectionStr) {
-    $str = '<li>' ;
+    $str = '' ;
     $lang = getLanguage() ;
     foreach ($types as $type) {
       if ( strpos($type['id'],  $detectionStr) !== false ) {
-        if ($type['label' . $lang]) {$str .= $type['label' . $lang] . "</li><li>" ;}
-        elseif ($type['labelPref']) {$str .= $type['labelPref'] . "</li><li>" ;}
-        elseif ($type['labelEn']) {$str .= $type['labelEn'] . "</li><li>" ;}
-        elseif ($type['labelFr']) {$str .= $type['labelFr'] . "</li><li>" ;}
-        elseif ($type['label']) {$str .= $type['label'] . "</li><li>" ;}
+        if ($type['label' . $lang]) {$str .= "<li>" . $type['label' . $lang] . "</li>" ;}
+        elseif ($type['labelPref']) {$str .= "<li>" .$type['labelPref'] . "</li>" ;}
+        elseif ($type['labelEn']) {$str .= "<li>" .$type['labelEn'] . "</li>" ;}
+        elseif ($type['labelFr']) {$str .= "<li>" .$type['labelFr'] . "</li>" ;}
+        elseif ($type['label']) {$str .= "<li>" .$type['label'] . "</li>" ;}
       }
     }
-    return rtrim($str, "<li>") ;
+    return $str ;
   }
 
   function safeUrl($strIn) {
