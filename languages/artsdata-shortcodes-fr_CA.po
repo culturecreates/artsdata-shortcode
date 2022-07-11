@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2022-07-11 19:55+0000\n"
+"PO-Revision-Date: 2022-07-11 20:02+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
 "Language: fr_CA\n"
@@ -45,13 +45,13 @@ msgstr ""
 msgid "https://culturecreates.com/"
 msgstr ""
 
+#: artsdata-shortcodes.php:195
+msgid "Member Type:"
+msgstr "Type de membre:"
+
 #: artsdata-shortcodes.php:136
 msgid "Missing Artsdata ID. Please return to the membership directory."
 msgstr "Artsdata ID manquant. Veuillez retourner au répertoire des membres."
-
-#: artsdata-shortcodes.php:195
-msgid "Organization Type:"
-msgstr "Type d'Organisation:"
 
 #: artsdata-shortcodes.php:210
 msgid "Presentation Format:"

@@ -35,7 +35,7 @@ msgid "Missing Artsdata ID. Please return to the membership directory."
 msgstr ""
 
 #: artsdata-shortcodes.php:195
-msgid "Organization Type:"
+msgid "Member Type:"
 msgstr ""
 
 #: artsdata-shortcodes.php:200
