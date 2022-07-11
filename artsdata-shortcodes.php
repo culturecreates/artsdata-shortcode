@@ -251,7 +251,7 @@ function artsdata_init(){
 
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>';
       if ($venue1Wikidata) {
-        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>';
+        $html .= '<p class="artsdata-venue-wikidata">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>';
       }
       $html .= '</div>';
     }
@@ -260,7 +260,7 @@ function artsdata_init(){
      // if ($venue2Role) { $html .= $venue2Role . ':<br>'; }
       $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>';
       if ($venue2Wikidata) {
-        $html .= '<p class="artsdata-venue-wikidata">Wikidata ID: <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>';
+        $html .= '<p class="artsdata-venue-wikidata">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) . ' <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>';
       }
       $html .= '</div>';
     }
