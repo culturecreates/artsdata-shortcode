@@ -194,7 +194,7 @@ function artsdata_init(){
     if ($organization_type) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
-      $html .= esc_html__( 'Organization Type: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= esc_html__( 'Member Type: ', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
