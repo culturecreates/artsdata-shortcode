@@ -30,39 +30,55 @@ msgstr ""
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:136
+#: artsdata-shortcodes.php:135
 msgid "Missing Artsdata ID. Please return to the membership directory."
 msgstr ""
 
-#: artsdata-shortcodes.php:195
-msgid "Organization Type:"
-msgstr ""
-
-#: artsdata-shortcodes.php:200
-msgid "Presenter Type:"
+#: artsdata-shortcodes.php:197
+msgid "Member Type:"
 msgstr ""
 
 #: artsdata-shortcodes.php:205
+msgid "Presenter Type:"
+msgstr ""
+
+#: artsdata-shortcodes.php:213
 msgid "Disciplines:"
 msgstr ""
 
-#: artsdata-shortcodes.php:210
+#: artsdata-shortcodes.php:221
 msgid "Presentation Format:"
 msgstr ""
 
-#: artsdata-shortcodes.php:231
+#: artsdata-shortcodes.php:228
+msgid "Artsdata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:233
+msgid "Wikidata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:246
 msgid "Venues"
 msgstr ""
 
-#: artsdata-shortcodes.php:249
+#: artsdata-shortcodes.php:254
+msgid "Wikidata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:263
+msgid "Wikidata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:271
 msgid "Upcoming Events"
 msgstr ""
 
-#: artsdata-shortcodes.php:260
+#: artsdata-shortcodes.php:283
 msgid "View all events"
 msgstr ""
 
-#: artsdata-shortcodes.php:269
+#: artsdata-shortcodes.php:293
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
 
