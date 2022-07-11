@@ -50,7 +50,15 @@ msgstr ""
 msgid "Presentation Format:"
 msgstr ""
 
-#: artsdata-shortcodes.php:231
+#: artsdata-shortcodes.php:228
+msgid "Artsdata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:233
+msgid "Wikidata ID:"
+msgstr ""
+
+#: artsdata-shortcodes.php:246
 msgid "Venues"
 msgstr ""
 
@@ -65,7 +73,3 @@ msgstr ""
 #: artsdata-shortcodes.php:269
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
-
-#: database properties
-msgid "PrimaryActivity_pres"
-msgstr "Presenter"

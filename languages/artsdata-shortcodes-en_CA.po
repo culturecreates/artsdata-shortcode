@@ -3,16 +3,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Artsdata Shortcodes 1.0.7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
+"shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: English (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"PO-Revision-Date: 2022-07-11 19:41+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
+"Language: en_CA\n"
+"Plural-Forms: nplurals=2; plural=n != 1;"
 
 #. Plugin Name of the plugin
 msgid "Artsdata Shortcodes"
@@ -24,6 +27,14 @@ msgstr ""
 
 #. Author of the plugin
 msgid "Culture Creates"
+msgstr ""
+
+#: artsdata-shortcodes.php:269
+msgid "Data from Artsdata.ca sourced from"
+msgstr ""
+
+#: artsdata-shortcodes.php:205
+msgid "Disciplines:"
 msgstr ""
 
 #. Author URI of the plugin
@@ -38,34 +49,22 @@ msgstr ""
 msgid "Organization Type:"
 msgstr ""
 
-#: artsdata-shortcodes.php:200
-msgid "Presenter Type:"
-msgstr ""
-
-#: artsdata-shortcodes.php:205
-msgid "Disciplines:"
-msgstr ""
-
 #: artsdata-shortcodes.php:210
 msgid "Presentation Format:"
 msgstr ""
 
-#: artsdata-shortcodes.php:231
-msgid "Venues"
+#: artsdata-shortcodes.php:200
+msgid "Presenter Type:"
 msgstr ""
 
 #: artsdata-shortcodes.php:249
 msgid "Upcoming Events"
 msgstr ""
 
+#: artsdata-shortcodes.php:231
+msgid "Venues"
+msgstr ""
+
 #: artsdata-shortcodes.php:260
 msgid "View all events"
 msgstr ""
-
-#: artsdata-shortcodes.php:269
-msgid "Data from Artsdata.ca sourced from"
-msgstr ""
-
-#: database properties
-msgid "PrimaryActivity_pres"
-msgstr "Presenter"

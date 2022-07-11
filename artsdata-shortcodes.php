@@ -194,7 +194,7 @@ function artsdata_init(){
     if ($organization_type) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
-      $html .= esc_html__( 'Organization Type: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= esc_html__( 'Organization Type:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -202,7 +202,7 @@ function artsdata_init(){
     if ($presenter_type) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-presenter-type">';
-      $html .=  esc_html__( 'Presenter Type: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .=  esc_html__( 'Presenter Type:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presenter_type . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -210,7 +210,7 @@ function artsdata_init(){
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
-      $html .=  esc_html__( 'Disciplines: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -218,19 +218,19 @@ function artsdata_init(){
     if ( $presentationFormat &&  $presentationFormat !== "empty") {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
-      $html .= esc_html__( 'Presentation Format: ', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
     if ($artsdataId) {
       $html .= '<div class="artsdata-artsdata-id">';
-      $html .= '<p>Artsdata ID: <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
+      $html .= '<p>' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
       $html .= '</div>';
     }
     if ($wikidataId) {
       $html .= '<div class="artsdata-wikidata-id">';
-      $html .= '<p>Wikidata ID: <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+      $html .= '<p>' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
       $html .= '</div>';
     }
     $html .= '<div class="artsdata-social-media-row">';
