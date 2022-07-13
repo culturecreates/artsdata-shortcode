@@ -8,7 +8,7 @@ class ArtsdataOrgDetail extends HTMLElement {
     <br>
     <p> Organization Type:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.organizationType(org.additionalType) }</b> </p>
     <p> Presenter Type:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.presenterType(org.additionalType) }</b> </p>
-   <p> Disciplines:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.disciplines(org.additionalType) }</b> </p>
+    <p> Disciplines:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.disciplines(org.additionalType) }</b> </p>
     <p> Presentation Format:<b ${this.dataMaintainer(org.hasRankedProperties,'additionalType')}> ${this.presentationFormat(org.additionalType) }</b> </p>
     <br>
     <p> Artsdata ID:  <a href='${ org.id}'> ${ org.id.split('/resource/')[1]}</a>
@@ -23,10 +23,10 @@ class ArtsdataOrgDetail extends HTMLElement {
   }
 
   dataMaintainer(rankedProperties, prop) {
-    let maintainer = "title='source: " 
+    let maintainer = "title='source: "
     rankedProperties.forEach(data => {
       if (data.id === prop) {
-      maintainer += data.isPartOfGraph.maintainer
+        maintainer += data.isPartOfGraph.maintainer
       }
     })
     return maintainer + "'"
@@ -35,10 +35,10 @@ class ArtsdataOrgDetail extends HTMLElement {
   socialMedia(org) {
     let socialHtml = ''
     if (org.sameAs) {
-      socialHtml += this.formatLink(org.sameAs, "facebook.com", "Facebook") 
-      socialHtml += this.formatLink(org.sameAs, "twitter.com", "Twitter") 
-      socialHtml += this.formatLink(org.sameAs, "youtube.com", "Youtube") 
-      socialHtml += this.formatLink(org.sameAs, "wikipedia.org", "Wikipedia") 
+      socialHtml += this.formatLink(org.sameAs, "facebook.com", "Facebook")
+      socialHtml += this.formatLink(org.sameAs, "twitter.com", "Twitter")
+      socialHtml += this.formatLink(org.sameAs, "youtube.com", "Youtube")
+      socialHtml += this.formatLink(org.sameAs, "wikipedia.org", "Wikipedia")
       socialHtml += this.formatLink(org.sameAs, "instagram.com", "Instagram")
     }
     return socialHtml.slice(0, -2)
@@ -53,7 +53,7 @@ class ArtsdataOrgDetail extends HTMLElement {
   }
 
   linkExtraction(sameAs, detectionStr) {
-    let extractId = '' 
+    let extractId = ''
     if (typeof sameAs == 'object') {
       let id = ''
       if (sameAs.length) {
@@ -79,27 +79,27 @@ class ArtsdataOrgDetail extends HTMLElement {
         extractId = sameAs
       }
     }
-   
-    return extractId 
+
+    return extractId
   }
 
 
   organizationType(additionalType) {
-    return this.generalType(additionalType, "PrimaryActivity")  || "None selected"
+    return this.generalType(additionalType, "PrimaryActivity") || "None selected"
   }
 
   presenterType(additionalType) {
-    return this.generalType(additionalType, "PresenterType")  || "None selected"
+    return this.generalType(additionalType, "PresenterType") || "None selected"
   }
 
   presentationFormat(additionalType) {
-    return this.generalType(additionalType, "PresentingFormat")  || "None selected"
+    return this.generalType(additionalType, "PresentingFormat") || "None selected"
   }
 
   disciplines(additionalType) {
     return this.generalType(additionalType, "Discipline") || "None selected"
   }
-  
+
   generalType(allTypes, detectionStr) {
     let str = ""
     allTypes.forEach(data => {

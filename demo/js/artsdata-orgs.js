@@ -3,7 +3,7 @@ class ArtsdataOrgs extends HTMLElement {
   set org(org) {
     this.innerHTML = `<div><p>
     <b> ${  org.namePref || org.nameEn  || org.nameFr }</b>
-   <a href='/member?uri=${ this.artsdataId(org.sameAs)}'> ${ this.artsdataId(org.sameAs)}</a>
+   <a href='/demo/member.html?uri=${ this.artsdataId(org.sameAs)}'> ${ this.artsdataId(org.sameAs)}</a>
    ${ this.officialUrl(org.url[0])  } 
     - ${ org.address.addressLocality  }, ${ org.address.addressRegion  }, ${ org.address.addressCountry  } 
     </p></div>`
@@ -15,22 +15,21 @@ class ArtsdataOrgs extends HTMLElement {
       let id = ''
       if (sameAs.length) {
         sameAs.forEach(data => {
-          if  (typeof data == 'object') { 
-            id = data.id }
-          else {
+          if (typeof data == 'object') {
+            id = data.id
+          } else {
             id = data
           }
           if (id.startsWith("http://kg.artsdata.ca/resource")) {
             artsdataId = id
-          } 
+          }
         })
       } else {
         artsdataId = sameAs.id
       }
-    
+
       return artsdataId
-    }
-    else { 
+    } else {
       return sameAs
     }
   }
@@ -45,15 +44,19 @@ class ArtsdataOrgs extends HTMLElement {
     var modeHtml = ""
     if (mode == "MixedEventAttendanceMode") {
       modeHtml = "AUSSI EN SPECTACLE VIRTUEL"
-    }
-    else if (mode == "OnlineEventAttendanceMode") {
+    } else if (mode == "OnlineEventAttendanceMode") {
       modeHtml = "SPECTACLE VIRTUEL"
     }
     return `<span style='color: red;'>${modeHtml}</span>`
   }
 
   dateFormat(event) {
-    return new Date(event.startDate).toLocaleString('fr-FR',  { dateStyle: 'long', timeStyle: 'short', hour12: false, timeZone: 'EST' }) || event.startDateWithoutTime
+    return new Date(event.startDate).toLocaleString('fr-FR', {
+      dateStyle: 'long',
+      timeStyle: 'short',
+      hour12: false,
+      timeZone: 'EST'
+    }) || event.startDateWithoutTime
   }
 }
 

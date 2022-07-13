@@ -1,15 +1,20 @@
-import { artsdataApiIndex } from "./artsdataApi.js"
-import { artsdataApiDetail } from "./artsdataApi.js"
-import {artsdataApiEvents } from "./artsdataApi.js"
+import {
+  artsdataApiIndex
+} from "./artsdataApi.js"
+import {
+  artsdataApiDetail
+} from "./artsdataApi.js"
+import {
+  artsdataApiEvents
+} from "./artsdataApi.js"
 import "./artsdata-orgs.js"
 import "./artsdata-org-detail.js"
 import "./artsdata-event.js"
 
-window.addEventListener('load',() => {
-  if ( getQueryString().uri ) {
+window.addEventListener('load', () => {
+  if (getQueryString().uri) {
     orgDetail(getQueryString().uri)
-  }
-  else {
+  } else {
     orgs()
   }
 });
@@ -21,8 +26,8 @@ async function orgs() {
     const json = await res.json()
     const main = document.querySelector('main')
     hideLoading()
-   
-    json.data.sort((a,b) => (a.namePref > b.namePref) ? 1 : ((b.namePref > a.namePref) ? -1 : 0)).forEach(org => {
+
+    json.data.sort((a, b) => (a.namePref > b.namePref) ? 1 : ((b.namePref > a.namePref) ? -1 : 0)).forEach(org => {
       const el = document.createElement('artsdata-orgs')
       el.org = org
       main.appendChild(el)
@@ -35,7 +40,7 @@ async function orgs() {
 }
 
 async function orgDetail(uri) {
-   try {
+  try {
     displayLoading()
     const main = document.querySelector('main')
 
@@ -49,13 +54,13 @@ async function orgDetail(uri) {
     })
     const mosaic = document.querySelector('#mosaic')
     const resEvents = await fetch(artsdataApiEvents + '&predicate=schema:organizer&object=' + uri)
-    const jsonEvents = await resEvents.json()  
-    const eventHeading = document.createElement('h1') 
+    const jsonEvents = await resEvents.json()
+    const eventHeading = document.createElement('h1')
     if (jsonEvents.data.length > 0) {
       eventHeading.innerHTML = "Upcoming Events"
     } else {
       eventHeading.innerHTML = "No upcoming events found"
-    }  
+    }
     main.appendChild(eventHeading)
     jsonEvents.data.forEach(event => {
       const elEvent = document.createElement('artsdata-event')
@@ -67,7 +72,7 @@ async function orgDetail(uri) {
     displayError()
   }
 }
-  
+
 
 function displayLoading() {
   const e = document.createElement('div')
@@ -89,11 +94,9 @@ function getQueryString() {
   var queryStringKeyValue = window.parent.location.search.replace('?', '').split('&');
   var qsJsonObject = {};
   if (queryStringKeyValue != '') {
-      for (let i = 0; i < queryStringKeyValue.length; i++) {
-          qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
-      }
+    for (let i = 0; i < queryStringKeyValue.length; i++) {
+      qsJsonObject[queryStringKeyValue[i].split('=')[0]] = queryStringKeyValue[i].split('=')[1];
+    }
   }
   return qsJsonObject;
 }
-
-
