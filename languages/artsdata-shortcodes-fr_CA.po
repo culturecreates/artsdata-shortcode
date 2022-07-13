@@ -19,7 +19,7 @@ msgstr ""
 
 #: artsdata-shortcodes.php:228
 msgid "Artsdata ID:"
-msgstr "Identifiant Artsdata"
+msgstr "Identifiant Artsdata&nbsp;:"
 
 #. Plugin Name of the plugin
 msgid "Artsdata Shortcodes"
@@ -39,7 +39,7 @@ msgstr "Data Artsdata.ca provenant de"
 
 #: artsdata-shortcodes.php:205
 msgid "Disciplines:"
-msgstr ""
+msgstr "Disciplines&nbsp;:"
 
 #. Author URI of the plugin
 msgid "https://culturecreates.com/"
@@ -47,19 +47,19 @@ msgstr ""
 
 #: artsdata-shortcodes.php:195
 msgid "Member Type:"
-msgstr "Type de membre:"
+msgstr "Type de membre&nbsp;:"
 
 #: artsdata-shortcodes.php:136
 msgid "Missing Artsdata ID. Please return to the membership directory."
-msgstr "Artsdata ID manquant. Veuillez retourner au répertoire des membres."
+msgstr "Identifiant Artsdata manquant. Veuillez retourner au répertoire des membres."
 
 #: artsdata-shortcodes.php:210
 msgid "Presentation Format:"
-msgstr "Format de présentation:"
+msgstr "Format de présentation&nbsp;:"
 
 #: artsdata-shortcodes.php:200
 msgid "Presenter Type:"
-msgstr "Type de diffuseur:"
+msgstr "Type de diffuseur&nbsp;:"
 
 #: artsdata-shortcodes.php:249
 msgid "Upcoming Events"
@@ -75,4 +75,4 @@ msgstr "Voir tous les événements"
 
 #: artsdata-shortcodes.php:233
 msgid "Wikidata ID:"
-msgstr "Identifiant Wikidata"
+msgstr "Identifiant Wikidata&nbsp;:"
