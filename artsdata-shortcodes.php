@@ -90,7 +90,7 @@ function artsdata_init(){
             return;
         }
         $body  = wp_remote_retrieve_body( $response );
-        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAYS_IN_SECONDS );
+        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAY_IN_SECONDS );
     }
 
 
