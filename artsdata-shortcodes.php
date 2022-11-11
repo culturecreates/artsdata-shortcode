@@ -153,14 +153,9 @@ function artsdata_init(){
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
 
-    $venue1Role = $data["location"][0]["roleName"] ;
-    $venue1Name = languageService($data["location"][0]["location"], "name");
-    $venue1Wikidata = $data["location"][0]["location"]["identifier"];
-    $venue1WikidataUrl = "http://www.wikidata.org/entity/" . $venue1Wikidata ;
-    $venue2Role =  $data["location"][1]["roleName"];
-    $venue2Name = languageService($data["location"][1]["location"], "name");
-    $venue2Wikidata = $data["location"][1]["location"]["identifier"];
-    $venue2WikidataUrl = "http://www.wikidata.org/entity/" . $venue2Wikidata ;
+    $venues = $data["location"] ;
+
+
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
 
@@ -236,29 +231,22 @@ function artsdata_init(){
       $html .= '</div>';
     $html .= '</div>';
     $html .= '<div class="artsdata-venue-detail">';
-    if ($venue1Name || $venue2Name ) {
+
+    if ($venues ) {
       $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
     }
-    if ($venue1Name) {
-      $html .= '<div class="artsdata-venue">';
-     // if ($venue1Role) { $html .= $venue1Role . ':<br>' ; }
 
-      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue1Name . '</p>';
-      if ($venue1Wikidata) {
-        $html .= '<p class="artsdata-venue-wikidata">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a href="' .  $venue1WikidataUrl . '">' .  $venue1Wikidata . '</a></p>';
-      }
-      $html .= '</div>';
-    }
-    if ($venue2Name) {
+    foreach ($venues as $venue) {
+
       $html .= '<div class="artsdata-venue">';
-     // if ($venue2Role) { $html .= $venue2Role . ':<br>'; }
-      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue2Name . '</p>';
-      if ($venue2Wikidata) {
-        $html .= '<p class="artsdata-venue-wikidata">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) . ' <a href="' .  $venue2WikidataUrl . '">' .  $venue2Wikidata . '</a></p>';
-      }
-      $html .= '</div>';
+     // http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
+
+      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue["location"]["nameEn"] . '</p>';
     }
+
+
     $html .= '</div>';
+
 
     if ($event_data || $urlEvents ) {
 	  $html .= '<div class="artsdata-events-detail">';

@@ -1,0 +1,23 @@
+PREFIX schema: <http://schema.org/>
+insert {
+    graph <http://kg.artsdata.ca/culture-creates/huginn/capacoa-members> {
+        ?org schema:location ?roleUri .
+        ?roleUri schema:location ?venue ;
+                 a schema:Role ;
+                 schema:roleName "organizes events at"  .
+        ?venue a ?type ;
+               schema:name ?name ; schema:identifier ?id .
+    }
+}
+where {
+    select distinct ?org ?venue ?type ?name ?roleUri where {
+        values ?org {
+            <http://kg.artsdata.ca/resource/K10-440> 
+        }
+        ?org ^schema:organizer/schema:location ?venue .
+        ?venue a ?type ;
+               schema:name ?name .
+        optional { ?venue schema:identifier ?id }.
+        bind(URI(concat(str(?org),"-role-",str(?venue))) as ?roleUri)
+    }
+}
