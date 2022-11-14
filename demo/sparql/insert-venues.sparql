@@ -6,7 +6,8 @@ insert {
                  a schema:Role ;
                  schema:roleName "organizes events at"  .
         ?venue a ?type ;
-               schema:name ?name ; schema:identifier ?id .
+               schema:name ?name ; 
+               schema:identifier ?id .
     }
 }
 where {

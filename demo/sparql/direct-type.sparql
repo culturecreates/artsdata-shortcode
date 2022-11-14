@@ -1,0 +1,20 @@
+PREFIX sesame: <http://www.openrdf.org/schema/sesame#>
+PREFIX schema: <http://schema.org/>
+select * where {
+    values ?s {
+        <http://kg.artsdata.ca/resource/K11-191>
+    }
+    {
+        {
+            ?s a schema:Place ;
+               ?p ?o .
+        }
+        MINUS {
+            ?s a ?o
+        } 
+    }
+    UNION 
+    {
+        ?s  sesame:directType ?o .
+    }
+} 
