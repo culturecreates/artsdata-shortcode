@@ -246,10 +246,10 @@ function artsdata_init(){
           $html .= '<br><span class="artsdata-place-address">' . $single_place["address"]["@value"] . '</span>'  ;
           $html .= '<br><span class="artsdata-place-image">' . $single_place["image"] . '</span>' ;
           $html .= '</p>' ;
-          if (gettype($single_location["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
-            if ($single_location["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
-              $html .= '<ul class="artsdata-place-contained-in-place>';
-              foreach ($single_location["containsPlace"] as $room) {
+          if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
+            if ($single_place["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
+              $html .= '<ul class="artsdata-place-contained-in-place">';
+              foreach ($single_place["containsPlace"] as $room) {
                 $html .= '<li>' ;
                 $html .= '<span class="artsdata-place-name">' . $room["nameEn"] . '</span>';
                 $html .=  '<br><span class="artsdata-place-wikidata-id">' . $room["id"] . '</span>';
