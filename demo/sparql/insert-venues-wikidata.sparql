@@ -1,0 +1,58 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX schema: <http://schema.org/>
+
+insert {
+    graph <http://wikidata.org/capacoa-member-venues> {
+        
+   
+    ?org schema:location ?role .
+    ?role schema:roleName "item operated P121" ;
+              schema:location   ?itemOperated .
+     ?itemOperated schema:geoCoordinates ?geo ;
+                   schema:address ?street_address ;
+                   schema:additionalType ?itemOperatedTypeLabelConcat ;
+                   schema:name ?itemOperatedLabel ;
+                   schema:image ?image ;
+                   schema:containsPlace ?parts .
+         }
+}
+# SELECT ?org ?orgLabel ?itemOperatedLabel ?geo ?street_address  ?image_sample ?itemOperated ?parts ?itemOperatedTypeLabelConcat ?partsLabel  ?partTypeLabelConcat
+where {
+    SERVICE <https://query.wikidata.org/sparql> {
+        SELECT ?org ?orgLabel ?itemOperatedLabel ?geo  ?street_address (sample(?image) as ?image_sample) ?itemOperated ?parts (GROUP_CONCAT(DISTINCT ?itemOperatedTypeLab;
+                SEPARATOR = ", ") AS ?itemOperatedTypeLabelConcat) ?partsLabel (GROUP_CONCAT(DISTINCT ?partTypeLab;
+                SEPARATOR = ", ") AS ?partTypeLabelConcat) 
+        WHERE {
+          # values ?org {<http://www.wikidata.org/entity/Q111743977>}
+            ?org wdt:P463 wd:Q85541788.
+            ?org wdt:P121 ?itemOperated.
+            ?itemOperated wdt:P31 ?itemOperatedType.
+            ?itemOperatedType rdfs:label ?itemOperatedTypeLab .
+            ?itemOperated wdt:P625 ?geo .
+            FILTER(LANG(?itemOperatedTypeLab) = "en" )
+            
+            OPTIONAL {
+                 ?itemOperated wdt:P18 ?image.
+            }
+             OPTIONAL {
+                 ?itemOperated wdt:P6375 ?street_address .
+            }
+            OPTIONAL {
+                ?org wdt:P121 ?itemOperated.
+                ?itemOperated wdt:P527 ?parts.
+                ?parts wdt:P31 ?partType.
+                ?partType rdfs:label ?partTypeLab.
+                FILTER(LANG(?partTypeLab) = "en")
+            }
+            SERVICE wikibase:label {
+                bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,fr".
+            }
+        }
+        GROUP BY ?org ?orgLabel ?itemOperatedLabel ?geo ?itemOperated ?parts ?partsLabel  ?street_address
+    }
+BIND (URI(CONCAT(str(?org),"-ITEM_OPERATED_P121-",str(?itemOperated))) as ?role)
+}

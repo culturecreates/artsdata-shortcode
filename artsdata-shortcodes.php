@@ -228,24 +228,43 @@ function artsdata_init(){
     if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'; }
     if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div>'; }
     if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'; }
-      $html .= '</div>';
     $html .= '</div>';
+
     $html .= '<div class="artsdata-venue-detail">';
-
-    if ($venues ) {
+    if ($venues) {
       $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
+    
+      // example http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
+      foreach ($venues as $venue) {
+        if ($venue["location"][0]["nameEn"]) { // skip venues without en names (TODO: add fr)
+          $html .= '<div class="artsdata-place">';
+          $single_place = $venue["location"][0] ;
+          $html .= '<p class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] ;
+          $html .= '<br><span class="artsdata-place-type">' . $single_place["additionalType"] . '</span>' ;
+          $html .= '<br><span class="artsdata-place-coordinates">' . $single_place["geoCoordinates"]["@value"] . '</span>';
+          $html .= '<br><span class="artsdata-place-wikidata-id">' . $single_place["id"] . '</span>'  ;
+          $html .= '<br><span class="artsdata-place-address">' . $single_place["address"]["@value"] . '</span>'  ;
+          $html .= '<br><span class="artsdata-place-image">' . $single_place["image"] . '</span>' ;
+          $html .= '</p>' ;
+          if (gettype($single_location["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
+            if ($single_location["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
+              $html .= '<ul class="artsdata-place-contained-in-place>';
+              foreach ($single_location["containsPlace"] as $room) {
+                $html .= '<li>' ;
+                $html .= '<span class="artsdata-place-name">' . $room["nameEn"] . '</span>';
+                $html .=  '<br><span class="artsdata-place-wikidata-id">' . $room["id"] . '</span>';
+                $html .=  '<br><span class="artsdata-place-type">' . $room["additionalType"] ;
+                $html .= '</li>';
+              }
+              $html .= '</ul>';
+            }
+          }
+          $html .= '</div>';
+        } 
+      }
     }
-
-    foreach ($venues as $venue) {
-
-      $html .= '<div class="artsdata-venue">';
-     // http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
-
-      $html .= '<p class="artsdata-venue-location" ' . dataMaintainer($rankedProperties, "location") . '>' . $venue["location"]["nameEn"] . '</p>';
-    }
-
-
     $html .= '</div>';
+   
 
 
     if ($event_data || $urlEvents ) {

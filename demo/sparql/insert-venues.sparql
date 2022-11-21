@@ -1,3 +1,5 @@
+# SPARQL that inserts venues based on events organized by organizers with a location
+
 PREFIX schema: <http://schema.org/>
 insert {
     graph <http://kg.artsdata.ca/culture-creates/huginn/capacoa-members> {
@@ -22,3 +24,4 @@ where {
         bind(URI(concat(str(?org),"-role-",str(?venue))) as ?roleUri)
     }
 }
+
