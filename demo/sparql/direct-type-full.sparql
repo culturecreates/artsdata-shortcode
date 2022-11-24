@@ -1,5 +1,6 @@
 
 # SPARQL behind the Artsdata Ranked API api.artsdata.ca/ranked/K10-194
+# modified to get ONLY the direct Type (not inferred)
 # input: an entity 
 # output: graph of ranked results with 2 levels of nested blank nodes 
 PREFIX adr: <http://kg.artsdata.ca/resource/>
@@ -17,7 +18,7 @@ construct {
     
  ?c skos:prefLabel ?skosLabels .
  ?cbob ?cbobp ?cbobo .
-    ?cbob sesame:directType ?dt .
+ ?cbob sesame:directType ?dt .
  ?s ado:hasRankedProperties ?b .
  ?b a rdf:Property .
  ?b ado:isPartOfGraph  ?gtop .

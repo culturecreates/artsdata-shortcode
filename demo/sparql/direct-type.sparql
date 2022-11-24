@@ -1,3 +1,5 @@
+# SPARQL to get all properties of an entity but ONLY the direct Type (not inferred)
+
 PREFIX sesame: <http://www.openrdf.org/schema/sesame#>
 PREFIX schema: <http://schema.org/>
 select * where {
