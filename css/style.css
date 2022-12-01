@@ -6,3 +6,153 @@
   width: 40px;
   padding: 5px;
 }
+
+.artsdata-event img {
+	border-radius: 6px;
+}
+
+.artsdata-venue-wrapper {
+	border: 1px solid #84d3e8;
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1.5em;
+}
+
+.artsdata-place {
+	border-radius: 0 6px 0 0;
+	display: flex;
+}
+
+.artsdata-place.child {
+    background: linear-gradient(-45deg, #e9faff 0.5em, transparent 0), linear-gradient(45deg, #e9faff 0.5em, transparent 0);
+	background-position: left top;
+    background-repeat: repeat-x;
+    background-size: 1em 1em;
+	border-radius: 0 0 6px 0;
+	border-top: 2px solid #c5f2fd;
+    content: " ";
+	display: flex;
+	flex-direction: column;
+    margin-top: -0.5em;
+    padding: 1em 0 0 0;
+	width: 100%;
+}
+
+.artsdata-place p {
+	margin: 0;
+}
+
+.artsdata-place-map-wrapper {
+	background-color: #e2e2e2;
+	border-radius: 6px 0 0 6px;
+	border-right: 1px solid #84d3e8;
+	display: flex;
+	width: 33.33%;
+}
+
+.artsdata-place-map-entry {
+	border-radius: 6px 0 0 6px;
+	height: 100%;
+	width: 100%;
+}
+
+.artsdata-place-entry {
+	align-items: center;
+	background-color: #c5f2fd;
+	border-radius: 0 6px 6px 0;
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.artsdata-place-entry.child {
+	background-color: #e9faff;
+	border-radius: 0;
+	border-top: 2px solid #ffffff;
+}
+
+.artsdata-place-entry.child:first-of-type {
+	border-top: none;
+}
+
+.artsdata-place-entry.child:last-of-type {
+	border-radius: 0 0 6px 0;
+}
+
+.artsdata-place-details {
+	flex: 1;
+	padding: 1.7em;
+}
+
+.artsdata-place-details.child {
+	padding: 1.3em 1.3em 1.3em 1.7em;
+}
+
+.artsdata-place-type {
+	color: #0080a2;
+	font-size: 80%;
+	font-weight: bold;
+	letter-spacing: 3px;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.artsdata-place-type.child {
+	color: #007594;
+	font-size: 70%;
+}
+
+.artsdata-place .artsdata-place-name {
+	margin: 0.5em 0 0.25em 0;
+}
+
+.artsdata-place-address,
+.artsdata-place-wikidata-id {
+	font-size: 12px;
+}
+
+.artsdata-place-wikidata-id {
+	margin: 0.5em 0 0 0;
+}
+
+.artsdata-place-thumbnail {
+	display: flex;
+	justify-content: center;
+	padding: 1.7em 1.3em 1.7em 0;
+	width: 30%;
+}
+
+.artsdata-place-thumbnail.child {
+	padding: 1.7em 1.3em 1.7em 0;
+}
+
+.artsdata-place-image {
+	align-content: center;
+	background-color: #ffffff;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+    border: 1px solid #0080a2;
+	border-radius: 3px;
+	display: flex;
+    height: 126px;
+    justify-content: center;
+    width: 126px;
+}
+
+.artsdata-place-image.child {
+	background-color: #ffffff;
+    border: 1px solid #0080a2;
+    height: 95px;
+    width: 95px;
+}
+
+.artsdata-place-image .placeholder {
+	height: auto;
+	opacity: 50%;
+	width: 50%;
+	filter: invert(33%) sepia(61%) saturate(4957%) hue-rotate(172deg) brightness(90%) contrast(103%);
+}
+
