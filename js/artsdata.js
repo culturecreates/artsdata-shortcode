@@ -7,16 +7,3 @@
 // These coordinate values need to be output twice for each variable: to center the map then to add a marker
 //
 //
-var map1 = L.map('map1', {
-    center: [45.42319, -75.69329],
-    zoom: 15,
-    zoomControl: false,
-    fullscreenControl: true,
-    attributionControl: false
-});
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map1);
-
-L.marker([45.42319, -75.69329]).addTo(map1).setOpacity(0.85);

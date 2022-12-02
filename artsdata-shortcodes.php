@@ -256,7 +256,7 @@ function artsdata_init(){
       // example http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
       foreach ($venues as $venue) {
         if ($venue["location"][0]["nameEn"]) { // skip venues without en names (TODO: add fr)
-		  $html .= '<div class="artsdata-venue-wrapper">';
+		    $html .= '<div class="artsdata-venue-wrapper">';
 	          $html .= '<div class="artsdata-place">';
 
 
@@ -268,12 +268,10 @@ function artsdata_init(){
              	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
              	  	//
              	  	//
-             	    $html .= '<div id="map1" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	    $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
              	    //
              	  	//
-             	  	// Coordinates not needed here, need to be loaded in plugin's JS file. This P can be deleted.
-             	  	//
-             	  	// $html .= '<p class="artsdata-place-coordinates">' . $single_place["geoCoordinates"]["@value"] . '</p>';
+           	  	
              	  	//
              	  	//
              	  $html .= '</div>';
@@ -329,6 +327,8 @@ function artsdata_init(){
     }
     $html .= '</div>';
 
+    
+
     if ($event_data || $urlEvents ) {
 	  $html .= '<div class="artsdata-events-detail">';
     $html .= '<h4 class="artsdata-upcoming-events-title">' .  esc_html__( 'Upcoming Events', 'artsdata-shortcodes' ) . '</h4>';
@@ -348,7 +348,27 @@ function artsdata_init(){
     $html .= '</div>';
     }
 
-   // $html  .=  print_r( $rankedProperties);
+    // $html  .=  print_r( $rankedProperties);
+
+    foreach ($venues as $venue) {
+      $pattern = '{Point\((.+) (.+)\)}';
+      preg_match($pattern,  $venue["location"][0]["geoCoordinates"]["@value"], $matches);
+      $html .= "
+        <script> 
+          var map1 = L.map('" . $venue["location"][0]["id"] . "', {
+            center: [" . $matches[2] . ", " .  $matches[1] . "],
+            zoom: 15,
+            zoomControl: false,
+            fullscreenControl: true,
+            attributionControl: false
+          });
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy;  <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'
+          }).addTo(map1);
+          L.marker([" . $matches[2] . ", " .  $matches[1] . "]).addTo(map1).setOpacity(0.85);
+        </script>";
+    }
+
     return $html;
   }
 
