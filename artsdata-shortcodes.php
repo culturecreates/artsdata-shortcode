@@ -250,7 +250,7 @@ function artsdata_init(){
     $html .= '</div></div>';
 
     $html .= '<div class="artsdata-venue-detail">';
-    if ($venues) {
+    if ($venues[0]["location"][0]["nameEn"]) {
       $html .= '<h4 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h4>';
 
       // example http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
