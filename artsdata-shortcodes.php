@@ -265,12 +265,14 @@ function artsdata_init(){
              	  	//
              	  	// FOREACH required so that this DIV's ID can be auto-incremented as a unique ID for each venue (i.e. map1, map2, map3)
              	  	// The same will need to be done in the plugin's JS file for outputting the coordinates unique to each ID
+             	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
              	  	//
              	  	//
-             	  	$html .= '<div id="map1" class="artsdata-place-map-entry"></div>';
+             	    $html .= '<div id="map1" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	    //
              	  	//
+             	  	// Coordinates not needed here, need to be loaded in plugin's JS file. This P can be deleted.
              	  	//
-             	  	// Coordinates not needed here, need to be loaded in plugin's JS file
              	  	// $html .= '<p class="artsdata-place-coordinates">' . $single_place["geoCoordinates"]["@value"] . '</p>';
              	  	//
              	  	//
@@ -292,7 +294,7 @@ function artsdata_init(){
     		          	//
     		          	//
     		            $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>' ;
-    		            // $html .= '<div class="artsdata-place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Font_Awesome_5_solid_building.svg"; class="placeholder" /></div>' ;
+    		            // $html .= '<div class="artsdata-place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Font_Awesome_5_solid_building.svg" class="placeholder" /></div>' ;
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
     		              if ($single_place["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
