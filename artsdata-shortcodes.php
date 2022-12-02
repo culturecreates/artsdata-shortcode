@@ -275,7 +275,7 @@ function artsdata_init(){
     		            $html .= '<p class="artsdata-place-type">' . $single_place["additionalType"] . '</p>' ;
     		            $html .= '<h5 class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] . '</h5>' ;
     		            $html .= '<p class="artsdata-place-address">' . $single_place["address"]["@value"] . '</p>' ;
-    		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . $single_place["id"] . '</a></p>';
+    		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>';
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
     		          	//
@@ -297,7 +297,7 @@ function artsdata_init(){
     				              $html .= '<div class="artsdata-place-details child">';
     			                    $html .= '<p class="artsdata-place-type child">' . $room["additionalType"] . '</p>' ;
     			                    $html .= '<h6 class="artsdata-place-name">' . $room["nameEn"] . '</h6>';
-    			                    $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $room["id"] . '">' . $room["id"] . '</a></p>';
+    			                    if ($room["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $room["id"] . '">' . trim($room["id"], "http://www.wikidata.org/entity") . '</a></p>'; }
     			                    $html .= '</div>';
     					            $html .= '<div class="artsdata-place-thumbnail child">';
     					              //
