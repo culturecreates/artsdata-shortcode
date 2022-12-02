@@ -44,7 +44,7 @@
 }
 
 .artsdata-place-map-wrapper {
-	background-color: #e2e2e2;
+	background-color: #e2f3f8;
 	border-radius: 6px 0 0 6px;
 	border-right: 1px solid #84d3e8;
 	display: flex;
@@ -55,6 +55,24 @@
 	border-radius: 6px 0 0 6px;
 	height: 100%;
 	width: 100%;
+}
+
+.artsdata-map-image {
+	align-items: center;
+	display: flex;
+	background-position: center center;
+	background-repeat: repeat;
+	background-size: 500px 500px;
+	height: 100%;
+	justify-content: center;
+	opacity: 20%;
+	text-align: center;
+	width: 100%;
+}
+
+.artsdata-map-text {
+	font-size: 0.8em;
+	line-height: 1;
 }
 
 .artsdata-place-entry {
@@ -94,7 +112,7 @@
 	color: #0080a2;
 	font-size: 80%;
 	font-weight: bold;
-	letter-spacing: 3px;
+	letter-spacing: 2px;
 	line-height: 1.2;
 	text-transform: uppercase;
 }
@@ -155,4 +173,3 @@
 	width: 50%;
 	filter: invert(33%) sepia(61%) saturate(4957%) hue-rotate(172deg) brightness(90%) contrast(103%);
 }
-
