@@ -258,8 +258,6 @@ function artsdata_init(){
         if ($venue["location"][0]["nameEn"]) { // skip venues without en names (TODO: add fr)
 		    $html .= '<div class="artsdata-venue-wrapper">';
 	          $html .= '<div class="artsdata-place">';
-
-
              	  $html .= '<div class="artsdata-place-map-wrapper">';
              	  	//
              	  	//
@@ -268,12 +266,8 @@ function artsdata_init(){
              	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
              	  	//
              	  	//
-             	    $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
-             	    //
-             	  	//
-           	  	
-             	  	//
-             	  	//
+             	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	 
              	  $html .= '</div>';
              	  $html .= '<div class="artsdata-place-entry">';
     	         	  $html .= '<div class="artsdata-place-details">';
@@ -291,8 +285,9 @@ function artsdata_init(){
     		          	// The inline style is needed in order to crop the thumbnails to squares
     		          	//
     		          	//
-    		            $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>' ;
-    		            // $html .= '<div class="artsdata-place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Font_Awesome_5_solid_building.svg" class="placeholder" /></div>' ;
+    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>';} 
+                    else {$html .= '<div class="artsdata-place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Font_Awesome_5_solid_building.svg" class="placeholder" /></div>' ;} 
+    		            
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
     		              if ($single_place["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
@@ -310,7 +305,7 @@ function artsdata_init(){
     					              // IF statement needed to display this div only if a thumbnail exists
     					              //
     					              //
-    					              $html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ; //need to have it pulled from AD
+    					              if ($room["image"]) {$html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ;} //need to have it pulled from AD
     					           $html .= '</div>';
     					           $html .= '</div>';
 							  }
