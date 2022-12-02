@@ -34,27 +34,46 @@ add_shortcode('artsdata_id', 'artsdata_show_id');
 */
 add_shortcode('artsdata_admin', 'artsdata_admin');
 
-
-
-
 function artsdata_init(){
   /** Load text domain for i18n **/
   $plugin_rel_path = basename( dirname( __FILE__ ) ) . '/languages'; /* Relative to WP_PLUGIN_DIR */
   load_plugin_textdomain( 'artsdata-shortcodes', false, $plugin_rel_path );
 
-  /** Enqueuing the Stylesheet for Artsdata */
+  /** Enqueuing Stylesheets and Scripts */
   function artsdata_enqueue_scripts() {
     global $post;
     if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'artsdata_id') ) {
+	wp_register_style( 'leaflet_css', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.css', array(), null );
+		wp_enqueue_style( 'leaflet_css' );
+	wp_register_script( 'leaflet_js', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.js', array(), null );
+		wp_enqueue_script( 'leaflet_js' );
+	/** Load plugin for Leaflet fullscreen controls **/
+	wp_register_style( 'leaflet_fullscreen_css', plugin_dir_url( __FILE__ ) . 'css/Control.FullScreen.css', array(), null);
+		wp_enqueue_style( 'leaflet_fullscreen_css' );
+    wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
+    	wp_enqueue_script( 'leaflet_fullscreen_js' );
     wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
         wp_enqueue_style( 'artsdata-stylesheet' );
+    /** Artsdata script must be loaded in the footer after all Leaflet code **/
+    wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
+    	wp_enqueue_script( 'artsdata_script' );
     }
+	function add_leaflet_cdn_attributes( $html, $handle ) {
+	    if ( 'leaflet_css' === $handle ) {
+	        return str_replace( "media='all'", "media='all' integrity='sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=' crossorigin=''", $html );
+	    }
+	    if ( 'leaflet_js' === $handle ) {
+	        return str_replace( "media='all'", "media='all' integrity='sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=' crossorigin=''", $html );
+	    }
+	    return $html;
+	}
+	add_filter( 'style_loader_tag', 'add_leaflet_cdn_attributes', 10, 2 );
   }
   add_action( 'wp_enqueue_scripts', 'artsdata_enqueue_scripts');
 
   function artsdata_admin() {
     delete_transient( 'artsdata_list_orgs_response_body' ) ;
-    
+
 
     $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
     $html .= '<p>' ;
@@ -178,7 +197,7 @@ function artsdata_init(){
     if ($locality) {
       $html .= $locality . ', ' . $region . ', ' . $country . '<br>';
     }
-    $html .= '<a ' . dataMaintainer($rankedProperties, "url") . 'href="' . $url . '">' . $url . ' </a> ';
+    $html .= '<a ' . dataMaintainer($rankedProperties, "url") . ' href="' . $url . '">' . $url . '</a>';
     $html .= '</p>';
     if ($organization_type) {
       $html .= '<div class="artsdata-category">';
@@ -223,53 +242,96 @@ function artsdata_init(){
       $html .= '</div>';
     }
     $html .= '<div class="artsdata-social-media-row">';
-    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img  src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '; }
-    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . 'class="social-media-icon"  href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'; }
+    if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '; }
+    if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'; }
     if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'; }
     if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div>'; }
     if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'; }
-    $html .= '</div>';
+    $html .= '</div></div>';
 
     $html .= '<div class="artsdata-venue-detail">';
     if ($venues) {
-      $html .= '<h5 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h5>';
-    
+      $html .= '<h4 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h4>';
+
       // example http://api.artsdata.ca/ranked/K10-440?format=json&frame=ranked_org
       foreach ($venues as $venue) {
         if ($venue["location"][0]["nameEn"]) { // skip venues without en names (TODO: add fr)
-          $html .= '<div class="artsdata-place">';
-          $single_place = $venue["location"][0] ;
-          $html .= '<p class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] ;
-          $html .= '<br><span class="artsdata-place-type">' . $single_place["additionalType"] . '</span>' ;
-          $html .= '<br><span class="artsdata-place-coordinates">' . $single_place["geoCoordinates"]["@value"] . '</span>';
-          $html .= '<br><span class="artsdata-place-wikidata-id">' . $single_place["id"] . '</span>'  ;
-          $html .= '<br><span class="artsdata-place-address">' . $single_place["address"]["@value"] . '</span>'  ;
-          $html .= '<br><span class="artsdata-place-image">' . $single_place["image"] . '</span>' ;
-          $html .= '</p>' ;
-          if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
-            if ($single_place["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
-              $html .= '<ul class="artsdata-place-contained-in-place">';
-              foreach ($single_place["containsPlace"] as $room) {
-                $html .= '<li>' ;
-                $html .= '<span class="artsdata-place-name">' . $room["nameEn"] . '</span>';
-                $html .=  '<br><span class="artsdata-place-wikidata-id">' . $room["id"] . '</span>';
-                $html .=  '<br><span class="artsdata-place-type">' . $room["additionalType"] ;
-                $html .= '</li>';
-              }
-              $html .= '</ul>';
-            }
-          }
+		  $html .= '<div class="artsdata-venue-wrapper">';
+	          $html .= '<div class="artsdata-place">';
+
+
+             	  $html .= '<div class="artsdata-place-map-wrapper">';
+             	  	//
+             	  	//
+             	  	// FOREACH required so that this DIV's ID can be auto-incremented as a unique ID for each venue (i.e. map1, map2, map3)
+             	  	// The same will need to be done in the plugin's JS file for outputting the coordinates unique to each ID
+             	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
+             	  	//
+             	  	//
+             	    $html .= '<div id="map1" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . '/images/ConfigurableGraphPaper.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	    //
+             	  	//
+             	  	// Coordinates not needed here, need to be loaded in plugin's JS file. This P can be deleted.
+             	  	//
+             	  	// $html .= '<p class="artsdata-place-coordinates">' . $single_place["geoCoordinates"]["@value"] . '</p>';
+             	  	//
+             	  	//
+             	  $html .= '</div>';
+             	  $html .= '<div class="artsdata-place-entry">';
+    	         	  $html .= '<div class="artsdata-place-details">';
+    		            $single_place = $venue["location"][0] ;
+    		            $html .= '<p class="artsdata-place-type">' . $single_place["additionalType"] . '</p>' ;
+    		            $html .= '<h5 class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] . '</h5>' ;
+    		            $html .= '<p class="artsdata-place-address">' . $single_place["address"]["@value"] . '</p>' ;
+    		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . $single_place["id"] . '</a></p>';
+    		          $html .= '</div>';
+    		          $html .= '<div class="artsdata-place-thumbnail">';
+    		          	//
+    		          	//
+    		          	// IF statement required to display placeholder SVG when no primary venue thumbnail exists
+    		          	// Not sure whether or not the IMG tag can be included in the same DIV that has the inline style for background-image
+    		          	// The inline style is needed in order to crop the thumbnails to squares
+    		          	//
+    		          	//
+    		            $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>' ;
+    		            // $html .= '<div class="artsdata-place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Font_Awesome_5_solid_building.svg" class="placeholder" /></div>' ;
+    		          $html .= '</div>';
+    		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
+    		              if ($single_place["containsPlace"][0]["nameEn"]) { // skip venues without names (TODO: add fr)
+    				          $html .= '<div class="artsdata-place child">';
+    			                foreach ($single_place["containsPlace"] as $room) {
+    							$html .= '<div class="artsdata-place-entry child">';
+    				              $html .= '<div class="artsdata-place-details child">';
+    			                    $html .= '<p class="artsdata-place-type child">' . $room["additionalType"] . '</p>' ;
+    			                    $html .= '<h6 class="artsdata-place-name">' . $room["nameEn"] . '</h6>';
+    			                    $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $room["id"] . '">' . $room["id"] . '</a></p>';
+    			                    $html .= '</div>';
+    					            $html .= '<div class="artsdata-place-thumbnail child">';
+    					              //
+    					              //
+    					              // IF statement needed to display this div only if a thumbnail exists
+    					              //
+    					              //
+    					              $html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ; //need to have it pulled from AD
+    					           $html .= '</div>';
+    					           $html .= '</div>';
+							  }
+    						  $html .= '</div>';
+    			          }
+    			        }
+    		          $html .= '</div>';
+
+
+		      $html .= '</div>';
           $html .= '</div>';
-        } 
-      }
+  		  }
+        }
     }
     $html .= '</div>';
-   
-
 
     if ($event_data || $urlEvents ) {
 	  $html .= '<div class="artsdata-events-detail">';
-    $html .= '<h5 class="artsdata-upcoming-events-title">' .  esc_html__( 'Upcoming Events', 'artsdata-shortcodes' ) . '</h5>';
+    $html .= '<h4 class="artsdata-upcoming-events-title">' .  esc_html__( 'Upcoming Events', 'artsdata-shortcodes' ) . '</h4>';
     $html .= '<div class="artsdata-events-entries">';
     foreach ($event_data as $event) {
       $html .= '<div class="artsdata-event">';
