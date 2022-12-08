@@ -1,3 +1,4 @@
+/*
 .artsdata-social-media-row {
   display: flex;
 }
@@ -5,6 +6,107 @@
 .artsdata-social-media-column {
   width: 40px;
   padding: 5px;
+}
+*/
+
+.artsdata-org-header {
+	align-content: flex-start;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+}
+
+.artsdata-org-profile {
+	width: 70%;
+}
+
+.artsdata-org-avatar {
+	display: flex;
+	justify-content: flex-end;
+	width: 27%
+}
+
+.artsdata-org-avatar img {
+	max-height: 125px;
+	min-width: 125px;
+}
+
+.artsdata-address,
+.artsdata-website {
+	margin: 0;
+}
+
+.artsdata-address::before,
+.artsdata-website::before {
+	color: #7f7f7f;
+	font-family: 'Font Awesome 5 Free', 'FontAwesome';
+	font-size: 125%;
+	font-weight: 900;
+	margin: 0 0.6em 0 0;
+	vertical-align: middle;
+}
+
+.artsdata-address::before {
+	content: "\f3c5";
+}
+
+.artsdata-website::before {
+	content: "\f02e";
+}
+
+.artsdata-avatar-blank {
+	background-color: #c5f2fd;
+	border: 1px solid #84d3e8;
+	border-radius: 50%;
+}
+
+.artsdata-external-links {
+	background-color: #e9faff;
+	border: 1px solid #84d3e8;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+    margin: 2em 0;
+	padding: 1em 1.5em;
+}
+
+.artsdata-links-wrapper,
+.artsdata-socials-wrapper {
+	display: flex;
+	flex-direction: row;
+}
+
+.artsdata-links-wrapper {
+	width: 40%;
+}
+
+p.artsdata-artsdata-id,
+p.artsdata-wikidata-id {
+	font-size: 0.9em;
+	margin: 0 10px 0 0;
+}
+
+.artsdata-socials-wrapper {
+	align-items: center;
+	justify-content: right;
+	width: 60%;
+}
+
+.social-media-icon {
+	display: flex;
+	font-family: 'Font Awesome 5 Free', 'FontAwesome';
+	font-weight: 900;
+	justify-content: center;
+	width: 32px;
+}
+
+.social-media-icon i {
+	color: black;
+	font-size: 20px;
+	font-weight: 900;
+    line-height: 1;
+    padding: 0 0 0 10px;
 }
 
 .artsdata-event img {
@@ -41,6 +143,11 @@
 
 .artsdata-place p {
 	margin: 0;
+}
+
+/** overrides default grey **/
+.leaflet-container {
+	background: #e2f3f8;
 }
 
 .artsdata-place-map-wrapper {
