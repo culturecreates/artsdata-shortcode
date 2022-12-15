@@ -71,26 +71,61 @@
 	padding: 1em 1.5em;
 }
 
+	@media (max-width: 767px) {
+
+		.artsdata-external-links {
+			flex-direction: column;
+		}
+	}
+
 .artsdata-links-wrapper,
 .artsdata-socials-wrapper {
 	display: flex;
+	flex: 1;
 	flex-direction: row;
-}
-
-.artsdata-links-wrapper {
-	width: 40%;
-}
-
-p.artsdata-artsdata-id,
-p.artsdata-wikidata-id {
-	font-size: 0.9em;
-	margin: 0 10px 0 0;
 }
 
 .artsdata-socials-wrapper {
 	align-items: center;
 	justify-content: right;
 	width: 60%;
+}
+
+	@media (max-width: 767px) {
+
+		.artsdata-links-wrapper,
+		.artsdata-socials-wrapper {
+			flex: none;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.artsdata-socials-wrapper {
+			margin: 0.75em 0 0.5em 0;
+		}
+	}
+
+	@media (max-width: 479px) {
+
+		.artsdata-links-wrapper,
+		.artsdata-socials-wrapper {
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		.artsdata-links-wrapper {
+			flex-direction: column;
+		}
+
+		.artsdata-socials-wrapper {
+			margin: 0.5em 0 0.25em 0;
+		}
+	}
+
+p.artsdata-artsdata-id,
+p.artsdata-wikidata-id {
+	font-size: 0.9em;
+	margin: 0 10px 0 0;
 }
 
 .social-media-icon {
@@ -100,6 +135,13 @@ p.artsdata-wikidata-id {
 	justify-content: center;
 	width: 32px;
 }
+
+	@media (max-width: 479px) {
+
+		.social-media-icon {
+			margin: 0.25em 0;
+		}
+	}
 
 .social-media-icon i {
 	color: black;
@@ -125,6 +167,13 @@ p.artsdata-wikidata-id {
 	border-radius: 0 6px 0 0;
 	display: flex;
 }
+
+	@media (max-width: 767px) {
+
+		.artsdata-place {
+			flex-direction: column;
+		}
+	}
 
 .artsdata-place.child {
     background: linear-gradient(-45deg, #e9faff 0.5em, transparent 0), linear-gradient(45deg, #e9faff 0.5em, transparent 0);
@@ -158,11 +207,29 @@ p.artsdata-wikidata-id {
 	width: 33.33%;
 }
 
+	@media (max-width: 767px) {
+
+		.artsdata-place-map-wrapper {
+			border-bottom: 1px solid #84d3e8;
+			border-radius: 6px 6px 0 0;
+			border-right: none;
+			height: 150px;
+			width: 100%;
+		}
+	}
+
 .artsdata-place-map-entry {
 	border-radius: 6px 0 0 6px;
 	height: 100%;
 	width: 100%;
 }
+
+	@media (max-width: 767px) {
+
+		.artsdata-place-map-entry {
+			border-radius: 6px 6px 0 0;
+		}
+	}
 
 .artsdata-map-image {
 	align-items: center;
@@ -192,6 +259,13 @@ p.artsdata-wikidata-id {
 	justify-content: space-between;
 }
 
+	@media (max-width: 767px) {
+
+		.artsdata-place-entry {
+			border-radius: 0 0 6px 6px;
+		}
+	}
+
 .artsdata-place-entry.child {
 	background-color: #e9faff;
 	border-radius: 0;
@@ -205,6 +279,13 @@ p.artsdata-wikidata-id {
 .artsdata-place-entry.child:last-of-type {
 	border-radius: 0 0 6px 0;
 }
+
+	@media (max-width: 767px) {
+
+		.artsdata-place-entry.child:last-of-type {
+			border-radius: 0 0 6px 6px;
+		}
+	}
 
 .artsdata-place-details {
 	flex: 1;
@@ -245,9 +326,16 @@ p.artsdata-wikidata-id {
 .artsdata-place-thumbnail {
 	display: flex;
 	justify-content: center;
+	min-width: 126px;
 	padding: 1.7em 1.3em 1.7em 0;
-	width: 30%;
 }
+
+	@media (max-width: 479px) {
+
+		.artsdata-place-thumbnail {
+			min-width: 101px;
+		}
+	}
 
 .artsdata-place-thumbnail.child {
 	padding: 1.7em 1.3em 1.7em 0;
@@ -267,12 +355,27 @@ p.artsdata-wikidata-id {
     width: 126px;
 }
 
+	@media (max-width: 479px) {
+
+		.artsdata-place-image {
+			height: 101px;
+			width: 101px;
+		}
+	}
+
 .artsdata-place-image.child {
 	background-color: #ffffff;
     border: 1px solid #0080a2;
     height: 95px;
     width: 95px;
 }
+
+	@media (max-width: 479px) {
+
+		.artsdata-place-image.child {
+			min-width: 81px;
+		}
+	}
 
 .artsdata-place-image .placeholder {
 	height: auto;
