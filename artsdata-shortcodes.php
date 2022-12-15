@@ -198,27 +198,28 @@ function artsdata_init(){
     $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p></div>';
     // avatar placeholder needs to be replaced with wiki image when available
     // $html .= '<div class="artsdata-org-avatar"><img src="" class="artsdata-avatar-blank"></div></div>';
-    $html .= '<div class="artsdata-org-avatar"><!-- <img src="WIKI_URL" class="artsdata-avatar"> --><picture><source srcset="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png, ' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank2x.png 2x" type="image/png"><img src="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png" class="artsdata-avatar-blank" alt="Blank Avatar"></picture></div></div>';
+    // $html .= '<div class="artsdata-org-avatar"><!-- <img src="WIKI_URL" class="artsdata-avatar"> --><picture><source srcset="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png, ' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank2x.png 2x" type="image/png"><img src="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png" class="artsdata-avatar-blank" alt="Blank Avatar"></picture></div>';
+    $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
     $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
 	$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $bandcamp . '"><i class="fab fa-bandcamp"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $soundcloud . '"><i class="fab fa-soundcloud"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $spotify . '"><i class="fab fa-spotify"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $applemusic . '"><i class="fab fa-apple"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $amazonmusic . '"><i class="fab fa-amazon"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>';
+    if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
+    if ( $data["twitterUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>'; }
+    if ( $data["instagramUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
+    if ( $youtube) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $bandcamp . '"><i class="fab fa-bandcamp"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $soundcloud . '"><i class="fab fa-soundcloud"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $spotify . '"><i class="fab fa-spotify"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $applemusic . '"><i class="fab fa-apple"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $amazonmusic . '"><i class="fab fa-amazon"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
+    if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
     $html .= '</div>';
     $html .= '</div>';
     if ($organization_type) {
@@ -275,15 +276,15 @@ function artsdata_init(){
     $html .= '</div>';
 
 	// IF statement required to display only for INDIVIDUAL members and pull their video
-    $html .= '<div class="artsdata-member-video">';
-    $html .= '<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/jydqERqAfF4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-    $html .= '</div>';
+    // $html .= '<div class="artsdata-member-video">';
+    // $html .= '<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/jydqERqAfF4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    // $html .= '</div>';
 
 	// IF statement required to display only for INDIVIDUAL LIFETIME members and pull their bio
-    $html .= '<div class="artsdata-member-bio">';
-    $html .= '<h4 class="artsdata-biography-title">Biography</h4>';
-    $html .= '<p>Proin bibendum ut leo nec ultricies. Curabitur gravida vitae sapien id sodales. Praesent volutpat pellentesque erat in interdum. Phasellus blandit libero in purus finibus lobortis. Nullam vitae faucibus nunc. Pellentesque justo urna, malesuada in feugiat eget, sagittis at nisl. Aliquam sit amet accumsan sapien, eget porta justo. Vestibulum pulvinar leo turpis, ac laoreet nisi condimentum nec. Morbi sed sem ut nisl pulvinar elementum. Ut id lorem quis diam maximus condimentum pellentesque ut ligula.</p>';
-    $html .= '</div>';
+    // $html .= '<div class="artsdata-member-bio">';
+    // $html .= '<h4 class="artsdata-biography-title">Biography</h4>';
+    // $html .= '<p>Proin bibendum ut leo nec ultricies. Curabitur gravida vitae sapien id sodales. Praesent volutpat pellentesque erat in interdum. Phasellus blandit libero in purus finibus lobortis. Nullam vitae faucibus nunc. Pellentesque justo urna, malesuada in feugiat eget, sagittis at nisl. Aliquam sit amet accumsan sapien, eget porta justo. Vestibulum pulvinar leo turpis, ac laoreet nisi condimentum nec. Morbi sed sem ut nisl pulvinar elementum. Ut id lorem quis diam maximus condimentum pellentesque ut ligula.</p>';
+    // $html .= '</div>';
 
     $html .= '<div class="artsdata-venue-detail">';
     if ($venues[0]["location"][0]["nameEn"]) {
@@ -322,7 +323,7 @@ function artsdata_init(){
     		          	//
     		          	//
     		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>';}
-                    else {$html .= '<div class="artsdata-place-image"><img src="' .plugin_dir_url( __FILE__ ) . '/images/icon-building.svg)" /></div>' ;}
+                    else {$html .= '<div class="artsdata-place-image"><img src="' .plugin_dir_url( __FILE__ ) . '/images/icon-building.svg)" class="placeholder" /></div>' ;}
 
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
