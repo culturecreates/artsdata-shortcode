@@ -202,8 +202,10 @@ function artsdata_init(){
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
-    $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-	$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+    $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value" href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
+	$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+	$html .= '<p class="artsdata-naics-code">' . esc_html__( 'NAICS (inferred):', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+// 	$html .= '<p class="artsdata-naics-code">' . esc_html__( 'NAICS (validated):', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
