@@ -1,14 +1,3 @@
-/*
-.artsdata-social-media-row {
-  display: flex;
-}
-
-.artsdata-social-media-column {
-  width: 40px;
-  padding: 5px;
-}
-*/
-
 .artsdata-org-header {
 	align-content: flex-start;
 	display: flex;
@@ -66,89 +55,113 @@
 	border: 1px solid #84d3e8;
 	border-radius: 10px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
     margin: 2em 0;
-	padding: 1em 1.5em;
+	padding: 1.5em 1.5em 1em 1.5em;
 }
 
-	@media (max-width: 767px) {
+	@media (min-width: 600px) {
 
 		.artsdata-external-links {
-			flex-direction: column;
+			flex-direction: row;
+			padding: 1em 1.5em;
 		}
 	}
 
 .artsdata-links-wrapper,
 .artsdata-socials-wrapper {
+	align-items: center;
 	display: flex;
-	flex: 1;
-	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.artsdata-links-wrapper {
+	flex-direction: column;
 }
 
 .artsdata-socials-wrapper {
-	align-items: center;
-	justify-content: right;
-	width: 60%;
+	flex-direction: row;
+	justify-content: center;
+	margin: 0.75em 0 0.25em 0;
 }
 
-	@media (max-width: 767px) {
-
-		.artsdata-links-wrapper,
-		.artsdata-socials-wrapper {
-			flex: none;
-			justify-content: center;
-			width: 100%;
-		}
-
-		.artsdata-socials-wrapper {
-			margin: 0.75em 0 0.5em 0;
-		}
-	}
-
-	@media (max-width: 479px) {
-
-		.artsdata-links-wrapper,
-		.artsdata-socials-wrapper {
-			align-items: center;
-			flex-wrap: wrap;
-		}
+	@media (min-width: 480px) {
 
 		.artsdata-links-wrapper {
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: space-between;
 		}
 
 		.artsdata-socials-wrapper {
-			margin: 0.5em 0 0.25em 0;
+			margin: 1em 0 0.25em 0;
 		}
+
+	}
+
+	@media (min-width: 600px) {
+
+		.artsdata-links-wrapper {
+			width: 40%;
+		}
+
+		.artsdata-socials-wrapper {
+			justify-content: right;
+			margin: 0;
+			width: 60%;
+		}
+
 	}
 
 p.artsdata-artsdata-id,
-p.artsdata-wikidata-id {
+p.artsdata-wikidata-id,
+p.artsdata-naics-code {
 	font-size: 0.9em;
-	margin: 0 10px 0 0;
+	line-height: 1.4;
+	margin: 0 10px 3px 0;
 }
 
-.social-media-icon {
-	display: flex;
-	font-family: 'Font Awesome 5 Free', 'FontAwesome';
-	font-weight: 900;
-	justify-content: center;
-	width: 32px;
-}
+	@media (min-width: 480px) {
 
-	@media (max-width: 479px) {
-
-		.social-media-icon {
-			margin: 0.25em 0;
+		p.artsdata-artsdata-id,
+		p.artsdata-wikidata-id,
+		p.artsdata-naics-code {
+			margin: 0;
+			text-align: center;
+			width: 33%;
 		}
+
+		.artsdata-link-id-value {
+			display: block;
+		}
+
 	}
 
-.social-media-icon i {
+	@media (min-width: 600px) {
+
+		p.artsdata-artsdata-id,
+		p.artsdata-wikidata-id,
+		p.artsdata-naics-code {
+			margin: 2px 0;
+			text-align: left;
+			width: 100%;
+		}
+
+		.artsdata-link-id-value {
+			display: inline;
+		}
+
+	}
+
+.social-media-icon {
 	color: black;
+	display: flex;
+	font-family: 'Font Awesome 5 Free', 'FontAwesome';
 	font-size: 20px;
 	font-weight: 900;
+	justify-content: center;
     line-height: 1;
-    padding: 0 0 0 10px;
+	margin: 0.15em 0;
+	width: 32px;
 }
 
 .artsdata-event img {
