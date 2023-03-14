@@ -200,10 +200,8 @@ function artsdata_init(){
     // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
     // profile image anchor URL should pull in the source wiki page URL
     // profile image anchor title should pull in the wiki image attribution line, else default to the text below
-    // profile image uses srcset so URL preceeding 1x should be a 300px wiki image and the 600px version preceeding 2x
-    // profile image img src should default to the 300px wiki image
 	//
-    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><picture><source srcset="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/300px-Queen_Elizabeth_Theater_Vancouver_BC.JPG 1x, https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG 2x"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/300px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></picture></a></div>';
+    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></a></div>';
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
@@ -216,15 +214,15 @@ function artsdata_init(){
     if ( $data["instagramUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
     if ( $youtube) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
     if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $bandcamp . '"><i class="fab fa-bandcamp"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $soundcloud . '"><i class="fab fa-soundcloud"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $spotify . '"><i class="fab fa-spotify"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $applemusic . '"><i class="fab fa-apple"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $amazonmusic . '"><i class="fab fa-amazon"></i></a>';
-    $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $bandcamp . '"><i class="fab fa-bandcamp"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $soundcloud . '"><i class="fab fa-soundcloud"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $spotify . '"><i class="fab fa-spotify"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $applemusic . '"><i class="fab fa-apple"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $amazonmusic . '"><i class="fab fa-amazon"></i></a>';
+    // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
     $html .= '</div>';
     $html .= '</div>';
     if ($organization_type) {
@@ -319,10 +317,8 @@ function artsdata_init(){
     		          	//
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    // venue photo anchor title should pull in the wiki image attribution line, else default to the text below
-					    // venue photo uses srcset so URL preceeding 1x should be a 125px wiki image and the 250px version preceeding 2x
-					    // venue photo img src should default to the 125px wiki image
 					    //
-    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><picture><source srcset="' . $single_place["image"] . ' 1x, ' . $single_place["image"] . ' 2x"><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></picture></a></div>';}
+    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
                     else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
 
     		          $html .= '</div>';
