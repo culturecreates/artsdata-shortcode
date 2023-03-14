@@ -52,7 +52,7 @@ function artsdata_init(){
 		wp_enqueue_style( 'leaflet_fullscreen_css' );
     wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
     	wp_enqueue_script( 'leaflet_fullscreen_js' );
-    wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=202303131800' );
+    wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20230314' );
         wp_enqueue_style( 'artsdata-stylesheet' );
     /** Artsdata script must be loaded in the footer after all Leaflet code **/
     wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
@@ -197,7 +197,7 @@ function artsdata_init(){
     }
     $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p></div>';
 	//
-    // profile image is only displayed for Presenter members and only if a wiki image / logo image is available, else hide div #profile-image-wrap
+    // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
     // profile image anchor URL should pull in the source wiki page URL
     // profile image anchor title should pull in the wiki image attribution line, else default to the text below
     // profile image uses srcset so URL preceeding 1x should be a 300px wiki image and the 600px version preceeding 2x
