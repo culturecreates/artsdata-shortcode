@@ -322,7 +322,7 @@ function artsdata_init(){
     		          	// The inline style is needed in order to crop the thumbnails to squares
     		          	//
     		          	//
-    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div>';}
+    		            if ( $single_place["image"]) { $html .= '<a href="' . $single_place["creditedTo"]["id"] . '"><div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div></a>';}
                     else {$html .= '<div class="artsdata-place-image"><img src="' .plugin_dir_url( __FILE__ ) . '/images/icon-building.svg)" class="placeholder" /></div>' ;}
 
     		          $html .= '</div>';
