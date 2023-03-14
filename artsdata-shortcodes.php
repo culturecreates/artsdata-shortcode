@@ -163,6 +163,7 @@ function artsdata_init(){
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
+    $occupation =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
     $wikidataId = $data["identifier"] ;
     $wikidataUrl = "http://www.wikidata.org/entity/" . $wikidataId ;
@@ -199,9 +200,8 @@ function artsdata_init(){
 	//
     // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
     // profile image anchor URL should pull in the source wiki page URL
-    // profile image anchor title should pull in the wiki image attribution line, else default to the text below
 	//
-    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></a></div>';
+    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></a></div>';
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
@@ -316,9 +316,8 @@ function artsdata_init(){
     		          $html .= '<div class="artsdata-place-thumbnail">';
     		          	//
 					    // venue photo anchor URL should pull in the source wiki page URL
-					    // venue photo anchor title should pull in the wiki image attribution line, else default to the text below
 					    //
-    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="INSERT_WIKI_ATTRIBUTION_LINE - or - default to Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
+    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
                     else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
 
     		          $html .= '</div>';
