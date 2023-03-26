@@ -104,7 +104,7 @@ function artsdata_init(){
 
     if ( false === $body ) {
 
-        $response = wp_remote_get( 'http://api.artsdata.ca/organizations.jsonld?limit=200&source=' . $a['membership'] );
+        $response = wp_remote_get( 'http://api.artsdata.ca/query?sparql=capacoa/members&frame=capacoa/member&format=jsonld&source=' . $a['membership'] );
         if (200 !== wp_remote_retrieve_response_code($response)) {
             return;
         }
@@ -147,18 +147,20 @@ function artsdata_init(){
     if ($_GET['uri'] == null) {
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
-    # Org details controller
-    $api_url = "http://api.artsdata.ca/ranked/" . $_GET['uri'] . "?format=json&frame=ranked_org" ;
+    # Member details controller
+    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
     $data = $j['data'][0];
+   
     $name = languageService($data, 'name')  ;
     $logo = $data["logo"];
     $url = checkUrl($data["url"][0]);
     $locality = $data["address"]["addressLocality"];
     $region = $data["address"]["addressRegion"];
     $country = $data["address"]["addressCountry"];
+    $member_type = generalType( $data["additionalType"],"MemberType" ) ;
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
@@ -171,6 +173,8 @@ function artsdata_init(){
     $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
+    $video_embed = null;
+    $bio = null;
 
     $venues = $data["location"] ;
 
@@ -188,7 +192,7 @@ function artsdata_init(){
     $event_j = json_decode( $event_body, true);
     $event_data = $event_j['data'];
 
-    # Org View
+    # Member View
     $html = '<div class="artsdata-org-detail">';
     $html .= '<div class="artsdata-org-header"><div class="artsdata-org-profile"><h3 class="artsdata-heading" ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
     $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>';
@@ -203,7 +207,7 @@ function artsdata_init(){
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
     $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-	$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+	  $html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
@@ -222,11 +226,17 @@ function artsdata_init(){
     if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
     $html .= '</div>';
     $html .= '</div>';
-    if ($organization_type) {
+    if ($organization_type ||  $member_type) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
       $html .= esc_html__( 'Member Type:', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</ul>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' ;
+      if (strpos($member_type, 'organization') != false) {
+        $html .=   $organization_type ;  }
+      else {
+        $html .=   $member_type ;
+      }
+      $html .=   '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -241,7 +251,11 @@ function artsdata_init(){
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
-      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
+      if (strpos($member_type, 'organization') !== false) {
+        $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
+      } else {
+        $html .=  esc_html__( 'Artistic Focus:', 'artsdata-shortcodes' ) . '</p></div>';
+      }
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -255,36 +269,23 @@ function artsdata_init(){
       $html .= '</div>';
     }
 
-//    if ($artsdataId) {
-//      $html .= '<div class="artsdata-artsdata-id">';
-//      $html .= '<p>' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-//      $html .= '</div>';
-//    }
-//    if ($wikidataId) {
-//      $html .= '<div class="artsdata-wikidata-id">';
-//      $html .= '<p>' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
-//      $html .= '</div>';
-//    }
-    // $html .= '<div class="artsdata-social-media-row">';
-    // if ( $data["facebookId"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"> <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Font_Awesome_5_brands_facebook-square.svg"></a> </div> '; }
-    // if ( $data["twitterUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Font_Awesome_5_brands_Twitter_square.svg"></a>  </div>'; }
-    // if ( $data["instagramUsername"]) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/1/18/Font_Awesome_5_brands_Instagram_square.svg"></a>  </div>'; }
-    // if ( $youtube) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><img  src="https://commons.wikimedia.org/wiki/File:Font_Awesome_5_brands_youtube-square.svg"></a> </div>'; }
-    // if ( $wikipedia) { $html .= '<div class="artsdata-social-media-column"><a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Wikipedia-logo_BW-hires.svg/240px-Wikipedia-logo_BW-hires.svg.png"></a>  </div>'; }
-    // $html .= '</div></div>';
-
     $html .= '</div>';
 
-	// IF statement required to display only for INDIVIDUAL members and pull their video
-    // $html .= '<div class="artsdata-member-video">';
-    // $html .= '<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/jydqERqAfF4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-    // $html .= '</div>';
+	// Show video if available for all member types, not only for INDIVIDUAL members
+  if ($video_embed) {
+     $html .= '<div class="artsdata-member-video">';
+     $html .= '<iframe width="100%" height="auto" src="' . $video_embed . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+     $html .= '</div>';
+    }
 
-	// IF statement required to display only for INDIVIDUAL LIFETIME members and pull their bio
-    // $html .= '<div class="artsdata-member-bio">';
-    // $html .= '<h4 class="artsdata-biography-title">Biography</h4>';
-    // $html .= '<p>Proin bibendum ut leo nec ultricies. Curabitur gravida vitae sapien id sodales. Praesent volutpat pellentesque erat in interdum. Phasellus blandit libero in purus finibus lobortis. Nullam vitae faucibus nunc. Pellentesque justo urna, malesuada in feugiat eget, sagittis at nisl. Aliquam sit amet accumsan sapien, eget porta justo. Vestibulum pulvinar leo turpis, ac laoreet nisi condimentum nec. Morbi sed sem ut nisl pulvinar elementum. Ut id lorem quis diam maximus condimentum pellentesque ut ligula.</p>';
-    // $html .= '</div>';
+  // Show bio if available for any member types, not only for INDIVIDUAL LIFETIME members
+  if ($bio) {
+    $html .= '<div class="artsdata-member-bio">';
+    $html .= '<h4 class="artsdata-biography-title">';
+    $html .= esc_html__( 'Biography:', 'artsdata-shortcodes' ) . '</h4>';
+    $html .= '<p>' . $bio . '</p>';
+    $html .= '</div>';
+  }
 
     $html .= '<div class="artsdata-venue-detail">';
     if ($venues[0]["location"][0]["nameEn"]) {
@@ -440,7 +441,7 @@ function artsdata_init(){
   }
 
   function checkUrl($url) {
-    if ($url == "") {
+    if ($url == "" || gettype($url) != 'string') {
       return '' ;
     }
     if ( strpos($url,  "http") !== 0 ) {
