@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.2.2
+Version: 1.3.0
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -104,7 +104,7 @@ function artsdata_init(){
 
     if ( false === $body ) {
 
-        $response = wp_remote_get( 'http://api.artsdata.ca/organizations.jsonld?limit=200&source=' . $a['membership'] );
+        $response = wp_remote_get( 'http://api.artsdata.ca/query?sparql=capacoa/members&frame=capacoa/member&format=jsonld&source=' . $a['membership'] );
         if (200 !== wp_remote_retrieve_response_code($response)) {
             return;
         }
@@ -147,18 +147,20 @@ function artsdata_init(){
     if ($_GET['uri'] == null) {
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
-    # Org details controller
-    $api_url = "http://api.artsdata.ca/ranked/" . $_GET['uri'] . "?format=json&frame=ranked_org" ;
+    # Member details controller
+    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
     $data = $j['data'][0];
+   
     $name = languageService($data, 'name')  ;
     $logo = $data["logo"];
     $url = checkUrl($data["url"][0]);
     $locality = $data["address"]["addressLocality"];
     $region = $data["address"]["addressRegion"];
     $country = $data["address"]["addressCountry"];
+    $member_type = generalType( $data["additionalType"],"MemberType" ) ;
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
@@ -172,6 +174,8 @@ function artsdata_init(){
     $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
+    $video_embed = null;
+    $bio = null;
 
     $venues = $data["location"] ;
 
@@ -189,7 +193,7 @@ function artsdata_init(){
     $event_j = json_decode( $event_body, true);
     $event_data = $event_j['data'];
 
-    # Org View
+    # Member View
     $html = '<div class="artsdata-org-detail">';
     $html .= '<div class="artsdata-org-header"><div class="artsdata-org-profile"><h3 class="artsdata-heading" ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
     $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>';
@@ -206,7 +210,7 @@ function artsdata_init(){
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
     $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value" href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-	$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+	  $html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
@@ -225,11 +229,17 @@ function artsdata_init(){
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
     $html .= '</div>';
     $html .= '</div>';
-    if ($organization_type) {
+    if ($organization_type ||  $member_type) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
       $html .= esc_html__( 'Member Type:', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' .  $organization_type  . '</ul>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' ;
+      if (strpos($member_type, 'organization') != false) {
+        $html .=   $organization_type ;  }
+      else {
+        $html .=   $member_type ;
+      }
+      $html .=   '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -244,7 +254,11 @@ function artsdata_init(){
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
-      $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
+      if (strpos($member_type, 'organization') !== false) {
+        $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
+      } else {
+        $html .=  esc_html__( 'Artistic Focus:', 'artsdata-shortcodes' ) . '</p></div>';
+      }
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $disciplines . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -257,6 +271,7 @@ function artsdata_init(){
       $html .= '</div>';
       $html .= '</div>';
     }
+    
 	//
     // naics code only displayed for organizations only, not individuals
     // if no validated NAICS code exists then change 'validated' to 'inferred', else hide entire category
@@ -273,19 +288,22 @@ function artsdata_init(){
     }
 
     $html .= '</div>';
-	//
-	// IF statement required to display only for INDIVIDUAL members and pull their video
-	//
-    $html .= '<div class="artsdata-member-video">';
-    $html .= '<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/jydqERqAfF4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-    $html .= '</div>';
-	//
-	// IF statement required to display only for INDIVIDUAL LIFETIME members and pull their bio
-	//
+
+	// Show video if available for all member types, not only for INDIVIDUAL members
+  if ($video_embed) {
+     $html .= '<div class="artsdata-member-video">';
+     $html .= '<iframe width="100%" height="auto" src="' . $video_embed . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+     $html .= '</div>';
+    }
+
+  // Show bio if available for any member types, not only for INDIVIDUAL LIFETIME members
+  if ($bio) {
     $html .= '<div class="artsdata-member-bio">';
-    $html .= '<h4 class="artsdata-biography-title">Biography</h4>';
-    $html .= '<p>Proin bibendum ut leo nec ultricies. Curabitur gravida vitae sapien id sodales. Praesent volutpat pellentesque erat in interdum. Phasellus blandit libero in purus finibus lobortis. Nullam vitae faucibus nunc. Pellentesque justo urna, malesuada in feugiat eget, sagittis at nisl. Aliquam sit amet accumsan sapien, eget porta justo. Vestibulum pulvinar leo turpis, ac laoreet nisi condimentum nec. Morbi sed sem ut nisl pulvinar elementum. Ut id lorem quis diam maximus condimentum pellentesque ut ligula.</p>';
+    $html .= '<h4 class="artsdata-biography-title">';
+    $html .= esc_html__( 'Biography:', 'artsdata-shortcodes' ) . '</h4>';
+    $html .= '<p>' . $bio . '</p>';
     $html .= '</div>';
+  }
 
     $html .= '<div class="artsdata-venue-detail">';
     if ($venues[0]["location"][0]["nameEn"]) {
@@ -314,11 +332,13 @@ function artsdata_init(){
     		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>';
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
-    		          	//
+    		          	
+              //  
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
-    		            if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
-                    else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
+    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
+                 else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
+
 
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
@@ -433,7 +453,7 @@ function artsdata_init(){
   }
 
   function checkUrl($url) {
-    if ($url == "") {
+    if ($url == "" || gettype($url) != 'string') {
       return '' ;
     }
     if ( strpos($url,  "http") !== 0 ) {
