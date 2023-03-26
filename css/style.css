@@ -1,40 +1,42 @@
-/*
-.artsdata-social-media-row {
-  display: flex;
-}
-
-.artsdata-social-media-column {
-  width: 40px;
-  padding: 5px;
-}
-*/
-
 .artsdata-org-header {
-	align-content: flex-start;
 	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
+	flex-direction: column;
 }
+
+	@media (min-width: 600px) {
+
+		.artsdata-org-header {
+			align-items: center;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+		}
+
+	}
 
 .artsdata-org-profile {
-	width: 70%;
+	text-align: center;
 }
 
-.artsdata-org-avatar {
-	display: flex;
-	justify-content: flex-end;
-	width: 27%
-}
+	@media (min-width: 600px) {
 
-.artsdata-org-avatar img {
-	max-height: 125px;
-	min-width: 125px;
+		.artsdata-org-profile {
+			text-align: left;
+			width: auto; /* in case no profile image exists */
+		}
+
+	}
+
+.artsdata-heading {
+	color: #000;
+	font-size: 30px;
+	font-weight: 400;
 }
 
 .artsdata-address,
 .artsdata-website {
 	margin: 0;
+	word-break: break-all;
 }
 
 .artsdata-address::before,
@@ -47,112 +49,270 @@
 	vertical-align: middle;
 }
 
-.artsdata-address::before {
-	content: "\f3c5";
+	@media (min-width: 600px) {
+
+		.artsdata-address::before {
+			content: "\f3c5";
+		}
+
+		.artsdata-website::before {
+			content: "\f02e";
+		}
+
+	}
+
+.artsdata-org-profile-image {
+	display: flex;
+	justify-content: center;
+	margin: 1.25em 0 0 0;
+	padding: 0 15%;
+	width: 100%;
 }
 
-.artsdata-website::before {
-	content: "\f02e";
+.artsdata-org-profile-image img {
+	border-radius: 3px;
+	display: block;
+	max-height: 225px;
 }
 
-.artsdata-avatar-blank {
-	background-color: #c5f2fd;
-	border: 1px solid #84d3e8;
-	border-radius: 50%;
-}
+	@media (min-width: 600px) {
+
+		.artsdata-org-profile-image {
+			justify-content: flex-end;
+			margin: 0 0 0 2%;
+			padding: 0;
+			width: 33%;
+		}
+
+		.artsdata-org-profile-image img {
+			max-height: 185px;
+		}
+
+	}
+
+	@media (min-width: 1200px) {
+
+		.artsdata-org-profile-image {
+			width: 40%;
+		}
+
+		.artsdata-org-profile-image img {
+			max-height: 210px;
+		}
+
+	}
 
 .artsdata-external-links {
 	background-color: #e9faff;
 	border: 1px solid #84d3e8;
-	border-radius: 10px;
+	border-radius: 6px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
     margin: 2em 0;
-	padding: 1em 1.5em;
+	padding: 1em 1.5em 1em 1.5em;
 }
 
-	@media (max-width: 767px) {
+	@media (min-width: 600px) {
 
 		.artsdata-external-links {
-			flex-direction: column;
+			flex-direction: row;
+			padding: 1em 1.5em;
 		}
 	}
 
 .artsdata-links-wrapper,
 .artsdata-socials-wrapper {
+	align-items: center;
 	display: flex;
-	flex: 1;
-	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.artsdata-links-wrapper {
+	flex-direction: column;
+	width: auto;
 }
 
 .artsdata-socials-wrapper {
-	align-items: center;
-	justify-content: right;
-	width: 60%;
+	flex-direction: row;
+	justify-content: center;
+	margin: 0.75em 0 0.25em 0;
 }
 
-	@media (max-width: 767px) {
-
-		.artsdata-links-wrapper,
-		.artsdata-socials-wrapper {
-			flex: none;
-			justify-content: center;
-			width: 100%;
-		}
-
-		.artsdata-socials-wrapper {
-			margin: 0.75em 0 0.5em 0;
-		}
-	}
-
-	@media (max-width: 479px) {
-
-		.artsdata-links-wrapper,
-		.artsdata-socials-wrapper {
-			align-items: center;
-			flex-wrap: wrap;
-		}
+	@media (min-width: 480px) {
 
 		.artsdata-links-wrapper {
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: center;
 		}
 
 		.artsdata-socials-wrapper {
-			margin: 0.5em 0 0.25em 0;
+			margin: 1em 0 0.25em 0;
 		}
+
+	}
+
+	@media (min-width: 600px) {
+
+		.artsdata-links-wrapper {
+			align-content: center;
+			justify-content: left;
+		}
+
+		.artsdata-socials-wrapper {
+			justify-content: right;
+			margin: 0;
+			width: 70%;
+		}
+
 	}
 
 p.artsdata-artsdata-id,
 p.artsdata-wikidata-id {
 	font-size: 0.9em;
-	margin: 0 10px 0 0;
+	line-height: 1.4;
+	margin: 0 0 3px 0;
 }
 
+	@media (min-width: 480px) {
+
+		p.artsdata-artsdata-id,
+		p.artsdata-wikidata-id {
+			margin: 0;
+			text-align: center;
+			width: 33%;
+		}
+
+		.artsdata-link-id-value {
+			display: block;
+		}
+
+	}
+
+	@media (min-width: 600px) {
+
+		p.artsdata-artsdata-id,
+		p.artsdata-wikidata-id {
+			margin: 2px 20px 2px 0;
+			text-align: left;
+			width: auto;
+		}
+
+		.artsdata-link-id-value {
+			display: inline;
+		}
+
+	}
+
 .social-media-icon {
+	color: black;
 	display: flex;
 	font-family: 'Font Awesome 5 Free', 'FontAwesome';
+	font-size: 20px;
 	font-weight: 900;
 	justify-content: center;
+    line-height: 1;
+	margin: 0.15em 0;
 	width: 32px;
 }
 
-	@media (max-width: 479px) {
+	@media (min-width: 600px) {
 
 		.social-media-icon {
 			margin: 0.25em 0;
 		}
+
 	}
 
-.social-media-icon i {
-	color: black;
-	font-size: 20px;
-	font-weight: 900;
-    line-height: 1;
-    padding: 0 0 0 10px;
+.artsdata-social-media-row {
+    align-items: center;
+	display: flex;
+	margin: 12px 0 0 0;
 }
 
-.artsdata-event img {
-	border-radius: 6px;
+.artsdata-social-media-column img {
+	display: block;
+}
+
+.artsdata-category,
+.artsdata-category-type,
+.artsdata-category-properties {
+	display: block;
+}
+
+.artsdata-category-type {
+	min-width: 160px;
+}
+
+	@media (min-width: 600px) {
+
+		.artsdata-category {
+			align-items: flex-start;
+		    display: flex;
+		    flex-direction: row;
+		    flex-wrap: nowrap;
+		    width: 100%;
+		}
+
+		.artsdata-category-type {
+			margin: 0;
+			min-width: 175px;
+			width: 15%;
+		}
+
+	}
+
+.artsdata-category {
+	padding: 0.75em 0;
+    border-top: 1px dotted #e3e3e3;
+}
+
+.artsdata-category:last-of-type {
+    border-bottom: 1px dotted #e3e3e3;
+}
+
+.artsdata-category-type {
+	margin: 0.3em 0;
+}
+
+.artsdata-category-properties ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.artsdata-category-properties li {
+	background-color: #D2EFFB;
+	border-radius: 1em;
+	display: inline-block;
+	font-size: 80%;
+	margin: 0.3em 0.3em 0.3em 0;
+	padding: 0.2em 0.8em;
+	text-transform: uppercase;
+}
+
+/*
+.artsdata-category-properties span:first-of-type {
+	margin: 0.5em 0.5em 0.5em 0;
+}
+*/
+
+.artsdata-organization-type,
+.artsdata-presenter-type,
+.artsdata-disciplines,
+.artsdata-presentation-format,
+.artsdata-naics-code {
+	font-weight: 600;
+	margin: 0 0 6px 0;
+}
+
+.artsdata-organization-type span,
+.artsdata-presenter-type span,
+.artsdata-disciplines span,
+.artsdata-presentation-format span,
+.artsdata-naics-code span {
+	font-weight: 500;
+	letter-spacing: normal;
+	text-transform: capitalize;
 }
 
 .artsdata-venue-wrapper {
@@ -324,16 +484,23 @@ p.artsdata-wikidata-id {
 }
 
 .artsdata-place-thumbnail {
-	display: flex;
-	justify-content: center;
-	min-width: 126px;
-	padding: 1.7em 1.3em 1.7em 0;
+	display: none;
 }
 
-	@media (max-width: 479px) {
+	@media (min-width: 399px) {
 
 		.artsdata-place-thumbnail {
+			display: flex;
+			justify-content: center;
 			min-width: 101px;
+			padding: 1.7em 1.3em 1.7em 0;
+		}
+	}
+
+	@media (min-width: 479px) {
+
+		.artsdata-place-thumbnail {
+			min-width: 126px;
 		}
 	}
 
@@ -341,27 +508,32 @@ p.artsdata-wikidata-id {
 	padding: 1.7em 1.3em 1.7em 0;
 }
 
-.artsdata-place-image {
+.artsdata-place-image,
+.artsdata-place-icon {
 	align-content: center;
 	background-color: #ffffff;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
     border: 1px solid #0080a2;
 	border-radius: 3px;
-	display: flex;
-    height: 126px;
-    justify-content: center;
-    width: 126px;
+	display: block;
+    height: 101px;
+    width: 101px;
 }
 
-	@media (max-width: 479px) {
+	@media (min-width: 479px) {
 
-		.artsdata-place-image {
-			height: 101px;
-			width: 101px;
+		.artsdata-place-image,
+		.artsdata-place-icon {
+			height: 126px;
+			width: 126px;
 		}
 	}
+
+.artsdata-place-image .venue-photo {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
 
 .artsdata-place-image.child {
 	background-color: #ffffff;
@@ -377,9 +549,142 @@ p.artsdata-wikidata-id {
 		}
 	}
 
-.artsdata-place-image .placeholder {
+.artsdata-place-icon {
+	align-items: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+    text-align: center;
+}
+
+.artsdata-place-icon .placeholder {
 	height: auto;
 	opacity: 50%;
 	width: 50%;
 	filter: invert(33%) sepia(61%) saturate(4957%) hue-rotate(172deg) brightness(90%) contrast(103%);
 }
+
+.artsdata-venue {
+	margin: 0 0 12px 0;
+}
+
+.artsdata-venue-detail,
+.artsdata-events-detail,
+.artsdata-member-video,
+.artsdata-member-bio {
+	margin: 48px 0 0 0;
+}
+
+.artsdata-member-video {
+	border-radius: 6px;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 56.25%; /* 16:9 */
+    position: relative;
+}
+
+.artsdata-member-video iframe {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.artsdata-venues-title,
+.artsdata-upcoming-events-title {
+	color: #000;
+	font-size: 24px;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	margin: 0 0 18px 0;
+}
+
+p.artsdata-venue-location {
+	font-weight: bold;
+	margin: 0;
+}
+
+.artsdata-events-entries {
+	display: flex;
+	flex-direction: column;
+}
+
+.artsdata-event {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 18px 0;
+}
+
+.artsdata-event-photo {
+	align-items: center;
+	border-radius: 6px;
+	display: flex;
+	margin: 0 0 10px 0;
+	max-height: 144px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.artsdata-event-photo img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.artsdata-event-name {
+	font-weight: 600;
+	margin: 0 0 6px 0;
+}
+
+.artsdata-event-location,
+.artsdata-event-date {
+	margin: 0;
+}
+
+	@media (min-width: 480px) {
+
+		.artsdata-events-entries {
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
+		.artsdata-event {
+			width: 48%;
+		}
+
+		.artsdata-event-photo {
+			max-height: 136px;
+		}
+
+	}
+
+	@media (min-width: 600px) {
+
+		.artsdata-event-photo {
+			max-height: 174px;
+		}
+
+	}
+
+	@media (min-width: 768px) {
+
+		.artsdata-event-photo {
+			max-height: 212px;
+		}
+
+	}
+
+	@media (min-width: 1200px) {
+
+		.artsdata-event {
+			width: 32%;
+		}
+
+		.artsdata-event-photo {
+			max-height: 170px;
+		}
+	}
