@@ -52,7 +52,7 @@ function artsdata_init(){
 		wp_enqueue_style( 'leaflet_fullscreen_css' );
     wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
     	wp_enqueue_script( 'leaflet_fullscreen_js' );
-    wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
+    wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20230314' );
         wp_enqueue_style( 'artsdata-stylesheet' );
     /** Artsdata script must be loaded in the footer after all Leaflet code **/
     wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
@@ -165,6 +165,7 @@ function artsdata_init(){
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
+    $occupation =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
     $wikidataId = $data["identifier"] ;
     $wikidataUrl = "http://www.wikidata.org/entity/" . $wikidataId ;
@@ -201,22 +202,25 @@ function artsdata_init(){
       $html .= $locality . ', ' . $region . ', ' . $country . '</p>';
     }
     $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p></div>';
-    // avatar placeholder needs to be replaced with wiki image when available
-    // $html .= '<div class="artsdata-org-avatar"><img src="" class="artsdata-avatar-blank"></div></div>';
-    // $html .= '<div class="artsdata-org-avatar"><!-- <img src="WIKI_URL" class="artsdata-avatar"> --><picture><source srcset="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png, ' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank2x.png 2x" type="image/png"><img src="' .plugin_dir_url( __FILE__ ) . 'images/avatar-blank1x.png" class="artsdata-avatar-blank" alt="Blank Avatar"></picture></div>';
+	//
+    // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
+    // profile image anchor URL should pull in the source wiki page URL
+	//
+    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></a></div>';
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
-    $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-	  $html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+    $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value" href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
+	  $html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
     if ( $data["twitterUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>'; }
     if ( $data["instagramUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
+    if ( $youtube) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
+    if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
-    if ( $youtube) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $bandcamp . '"><i class="fab fa-bandcamp"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $soundcloud . '"><i class="fab fa-soundcloud"></i></a>';
@@ -224,7 +228,6 @@ function artsdata_init(){
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $applemusic . '"><i class="fab fa-apple"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $amazonmusic . '"><i class="fab fa-amazon"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
-    if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
     $html .= '</div>';
     $html .= '</div>';
     if ($organization_type ||  $member_type) {
@@ -269,6 +272,21 @@ function artsdata_init(){
       $html .= '</div>';
       $html .= '</div>';
     }
+    
+	//
+    // naics code only displayed for organizations only, not individuals
+    // if no validated NAICS code exists then change 'validated' to 'inferred', else hide entire category
+    // I cobbled this together from other code, Gregory, so please have it pull data like the other categories
+    // for example, I had to add <li> tags around the anchor since $wikidataUrl doesn't include them like the others above
+	//
+    if ( $wikidataId &&  $wikidataId !== "empty") {
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-naics-code">';
+      $html .= esc_html__( 'NAICS (validated):', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '><li><a href="' .  $wikidataUrl . ' target="_blank">' . $wikidataId . '</a></li></ul>';
+      $html .= '</div>';
+      $html .= '</div>';
+    }
 
     if ( $occupation &&  $occupation !== "empty") {
       $html .= '<div class="artsdata-category">';
@@ -308,11 +326,9 @@ function artsdata_init(){
 	          $html .= '<div class="artsdata-place">';
              	  $html .= '<div class="artsdata-place-map-wrapper">';
              	  	//
-             	  	//
              	  	// FOREACH required so that this DIV's ID can be auto-incremented as a unique ID for each venue (i.e. map1, map2, map3)
              	  	// The same will need to be done in the plugin's JS file for outputting the coordinates unique to each ID
              	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
-             	  	//
              	  	//
              	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . 'images/bkg-grid.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
 
@@ -326,15 +342,13 @@ function artsdata_init(){
     		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>';
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
-    		          	//
-    		          	//
-    		          	// IF statement required to display placeholder SVG when no primary venue thumbnail exists
-    		          	// Not sure whether or not the IMG tag can be included in the same DIV that has the inline style for background-image
-    		          	// The inline style is needed in order to crop the thumbnails to squares
-    		          	//
-    		          	//
-    		            if ( $single_place["image"]) { $html .= '<a href="' . $single_place["creditedTo"]["id"] . '"><div class="artsdata-place-image" style="background-image: url(' . $single_place["image"] . ')" /></div></a>';}
-                    else {$html .= '<div class="artsdata-place-image"><img src="' .plugin_dir_url( __FILE__ ) . '/images/icon-building.svg)" class="placeholder" /></div>' ;}
+    		          	
+              //  
+					    // venue photo anchor URL should pull in the source wiki page URL
+					    //
+    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
+                 else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
+
 
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
@@ -349,9 +363,7 @@ function artsdata_init(){
     			                    $html .= '</div>';
     					            $html .= '<div class="artsdata-place-thumbnail child">';
     					              //
-    					              //
     					              // IF statement needed to display this div only if a thumbnail exists
-    					              //
     					              //
     					              if ($room["image"]) {$html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ;} //need to have it pulled from AD
     					           $html .= '</div>';
@@ -378,7 +390,7 @@ function artsdata_init(){
     $html .= '<div class="artsdata-events-entries">';
     foreach ($event_data as $event) {
       $html .= '<div class="artsdata-event">';
-      $html .= '<a href="' . safeUrl($event["url"]) . '"><img src="' . safeUrl($event["image"]) . '"></a>';
+      $html .= '<div class="artsdata-event-photo"><a href="' . safeUrl($event["url"]) . '"><img src="' . safeUrl($event["image"]) . '"></a></div>';
       $html .= '<p class="artsdata-event-name">' . languageService($event, 'name') . '</p>';
       $html .= '<p class="artsdata-event-location">' .languageService($event["location"], 'name') . '</p>';
       $showTime =  new DateTime($event["startDate"][0]) ;
