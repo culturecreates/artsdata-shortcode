@@ -148,6 +148,8 @@ function artsdata_init(){
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
     # Member details controller
+    # test organization 
+    # test person http://api.artsdata.ca/query?adid=K14-138&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
@@ -177,12 +179,12 @@ function artsdata_init(){
     $video_embed =  $data["video"];
     $bio = $data["description"];
     $occupation = $data["hasOccupation"];
-
+    $member_image = $data["image"];
     $venues = $data["location"] ;
-
-
     $urlEvents = checkUrl($data["url"][1]["url"][0]);
     $rankedProperties = $data["hasRankedProperties"];
+    $naics_validated = null;
+    $naics_inferred = null;
 
     # Events Controller
     $api_path = "http://api.artsdata.ca/events.json" ;
@@ -206,7 +208,11 @@ function artsdata_init(){
     // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
     // profile image anchor URL should pull in the source wiki page URL
 	//
-    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="INSERT_WIKI_COMMONS_URL" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Queen_Elizabeth_Theater_Vancouver_BC.JPG/600px-Queen_Elizabeth_Theater_Vancouver_BC.JPG" class="artsdata-profile-image-blank" alt="INSERT_ALT_TAG_CONTENT"></a></div>';
+    
+  if ($member_image) {
+    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="Image of ' . $name . '"></a></div>';
+  }
+    
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
@@ -279,11 +285,16 @@ function artsdata_init(){
     // I cobbled this together from other code, Gregory, so please have it pull data like the other categories
     // for example, I had to add <li> tags around the anchor since $wikidataUrl doesn't include them like the others above
 	//
-    if ( $wikidataId &&  $wikidataId !== "empty") {
+    if ( ($naics_validated && $naics_validated !== "empty") || ($naics_inferred && $naics_inferred !== "empty") ) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-naics-code">';
-      $html .= esc_html__( 'NAICS (validated):', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '><li><a href="' .  $wikidataUrl . ' target="_blank">' . $wikidataId . '</a></li></ul>';
+      if ($naics_validated) {
+        $html .= esc_html__( 'NAICS (validated):', 'artsdata-shortcodes' ) . '</p></div>';
+        $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "naics") . '><li>' . $naics_validated . '</li></ul>';
+      } else {
+        $html .= esc_html__( 'NAICS (inferred):', 'artsdata-shortcodes' ) . '</p></div>';
+        $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "naics") . '><li>' . $naics_inferred . '</li></ul>';
+      }
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -346,7 +357,7 @@ function artsdata_init(){
               //  
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
-    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="INSERT_ALT_TAG_CONTENT"></a></div>';}
+    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="Image of ' .  $single_place["nameEn"] . '"></a></div>';}
                  else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
 
 
