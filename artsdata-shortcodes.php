@@ -136,7 +136,7 @@ function artsdata_init(){
   function formatClassNames($types) {
     $str = '' ;
     foreach ($types as $type) {
-      $str .= ltrim($type, "https://capacoa.ca/vocabulary#") . " " ;
+      $str .= ltrim($type["id"], "https://capacoa.ca/vocabulary#") . " " ;
     }
 
     return rtrim($str, " ") ;
