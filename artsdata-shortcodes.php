@@ -173,8 +173,9 @@ function artsdata_init(){
     $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
-    $video_embed = null;
-    $bio = null;
+    $video_embed =  $data["video"];
+    $bio = $data["description"];
+    $occupation = $data["hasOccupation"];
 
     $venues = $data["location"] ;
 
@@ -265,6 +266,15 @@ function artsdata_init(){
       $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
       $html .= esc_html__( 'Presentation Format:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' . $presentationFormat . '</ul>';
+      $html .= '</div>';
+      $html .= '</div>';
+    }
+
+    if ( $occupation &&  $occupation !== "empty") {
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
+      $html .= esc_html__( 'Occupation:', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "hasOccupation") . '>' . $occupation . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
