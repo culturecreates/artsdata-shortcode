@@ -94,7 +94,7 @@ function artsdata_init(){
   }
 
   function artsdata_list_orgs($atts) {
-    # controller
+    # controller for list
     $a = shortcode_atts( array(
       'membership' => 'http://kg.artsdata.ca/culture-creates/huginn/capacoa-members',
       'path' => 'resource'
@@ -122,7 +122,7 @@ function artsdata_init(){
       return languageService($x, 'name') < languageService($y, 'name') ? -1 : 1;
     });
 
-    # view
+    # view for list
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
       $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '/?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>';
@@ -148,7 +148,7 @@ function artsdata_init(){
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
     # Member details controller
-    # test organization 
+    # test organization   http://api.artsdata.ca/query?adid=K14-24&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     # test person http://api.artsdata.ca/query?adid=K14-138&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
@@ -177,7 +177,7 @@ function artsdata_init(){
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
     $video_embed =  $data["video"];
-    $bio = $data["description"];
+    $bio = $data["bio"];
     $occupation = $data["hasOccupation"];
     $member_image = $data["image"];
     $venues = $data["location"] ;
