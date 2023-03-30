@@ -1,8 +1,8 @@
-# Copyright (C) 2022 Culture Creates
+# Copyright (C) 2023 Culture Creates
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Artsdata Shortcodes 1.0.7\n"
+"Project-Id-Version: Artsdata Shortcodes 1.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
 "shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -11,13 +11,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2022-07-11 20:02+0000\n"
+"PO-Revision-Date: 2023-03-30 19:56+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
 "Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=n > 1;"
 
-#: artsdata-shortcodes.php:228
+#: artsdata-shortcodes.php:271
+msgid "Artistic Focus:"
+msgstr "Focus artistique&nbsp;:"
+
+#: artsdata-shortcodes.php:221
 msgid "Artsdata ID:"
 msgstr "Identifiant Artsdata&nbsp;:"
 
@@ -25,54 +29,102 @@ msgstr "Identifiant Artsdata&nbsp;:"
 msgid "Artsdata Shortcodes"
 msgstr ""
 
+#: artsdata-shortcodes.php:326
+msgid "Biography:"
+msgstr "Biographie&nbsp;:"
+
 #. Description of the plugin
 msgid "Collection of shortcodes to display data from Artsdata.ca."
-msgstr ""
+msgstr "Collection de shortcodes pour afficher les données de Artsdata.ca."
 
 #. Author of the plugin
 msgid "Culture Creates"
 msgstr ""
 
-#: artsdata-shortcodes.php:269
+#: artsdata-shortcodes.php:444
 msgid "Data from Artsdata.ca sourced from"
 msgstr "Data Artsdata.ca provenant de"
 
-#: artsdata-shortcodes.php:205
+#: artsdata-shortcodes.php:269
 msgid "Disciplines:"
 msgstr "Disciplines&nbsp;:"
+
+#: artsdata-shortcodes.php:363
+msgid "https://capacoa.ca/en/member/membership-faq/#image"
+msgstr "https://capacoa.ca/fr/membre/foire-aux-questions-adhesion/#image"
 
 #. Author URI of the plugin
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:195
+#: artsdata-shortcodes.php:362
+msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
+msgstr ""
+"Image tirée de Wikimedia Commons. Cliquez sur l&rsquo;image pour voir les "
+"crédits photographiques."
+
+#: artsdata-shortcodes.php:362
+msgid "Image of"
+msgstr "Image du"
+
+#: artsdata-shortcodes.php:246
 msgid "Member Type:"
 msgstr "Type de membre&nbsp;:"
 
-#: artsdata-shortcodes.php:136
+#: artsdata-shortcodes.php:148
 msgid "Missing Artsdata ID. Please return to the membership directory."
-msgstr "Identifiant Artsdata manquant. Veuillez retourner au répertoire des membres."
+msgstr ""
+"Identifiant Artsdata manquant. Veuillez retourner à la répertoire des "
+"membres."
 
-#: artsdata-shortcodes.php:210
+#: artsdata-shortcodes.php:295
+msgid "NAICS (inferred):"
+msgstr "Code SCIAN inféré&nbsp;:"
+
+#: artsdata-shortcodes.php:294
+msgid "NAICS (validated):"
+msgstr "Code SCIAN validé&nbsp;:"
+
+#: artsdata-shortcodes.php:363
+msgid ""
+"No free-use image could be found in Wikidata or Wikimedia Commons for this "
+"venue"
+msgstr ""
+"Il n&rsquo;y a pas d&rsquo;image de ce lieu disponible sous licence libre "
+"dans Wikidata ou dans Wikimedia Commons."
+
+#: artsdata-shortcodes.php:346
+msgid "No map data available."
+msgstr "Aucune donnée cartographique disponible."
+
+#: artsdata-shortcodes.php:307
+msgid "Occupation:"
+msgstr "Occupation&nbsp;:"
+
+#: artsdata-shortcodes.php:280
 msgid "Presentation Format:"
 msgstr "Format de présentation&nbsp;:"
 
-#: artsdata-shortcodes.php:200
+#: artsdata-shortcodes.php:260
 msgid "Presenter Type:"
 msgstr "Type de diffuseur&nbsp;:"
 
-#: artsdata-shortcodes.php:249
+#: artsdata-shortcodes.php:402
 msgid "Upcoming Events"
 msgstr "Évènements à venir"
 
-#: artsdata-shortcodes.php:246
+#: artsdata-shortcodes.php:333
 msgid "Venues"
 msgstr "Salles"
 
-#: artsdata-shortcodes.php:260
+#: artsdata-shortcodes.php:414
 msgid "View all events"
 msgstr "Voir tous les événements"
 
-#: artsdata-shortcodes.php:233
+#: artsdata-shortcodes.php:375
 msgid "Wikidata ID:"
 msgstr "Identifiant Wikidata&nbsp;:"
+
+#: artsdata-shortcodes.php:318
+msgid "YouTube video player"
+msgstr "Lecteur vidéo YouTube"
