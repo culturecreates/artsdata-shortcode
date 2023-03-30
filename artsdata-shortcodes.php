@@ -199,7 +199,6 @@ function artsdata_init(){
     # Member View
     $html = '<div class="artsdata-org-detail">';
     $html .= '<div class="artsdata-org-header"><div class="artsdata-org-profile"><h3 class="artsdata-heading" ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
-    //$html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>';
     if ($locality) {
       $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>' . $locality . ', ' . $region . ', ' . $country . '</p>';
     }
@@ -285,10 +284,8 @@ function artsdata_init(){
     }
 
 	//
-    // naics code only displayed for organizations only, not individuals
+    // NAICS code only displayed for organizations only, not individuals
     // if no validated NAICS code exists then change 'validated' to 'inferred', else hide entire category
-    // I cobbled this together from other code, Gregory, so please have it pull data like the other categories
-    // for example, I had to add <li> tags around the anchor since $wikidataUrl doesn't include them like the others above
 	//
     if ( ($naics_validated && $naics_validated !== "empty") || ($naics_inferred && $naics_inferred !== "empty") ) {
       $html .= '<div class="artsdata-category">';
@@ -359,7 +356,7 @@ function artsdata_init(){
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
 
-              //
+					  	//
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
     		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="Image of ' .  $single_place["nameEn"] . '"></a></div>';}
