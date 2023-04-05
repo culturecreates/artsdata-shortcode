@@ -155,7 +155,7 @@ function artsdata_init(){
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
     $data = $j['data'][0];
-   
+
     $name = languageService($data, 'name')  ;
     $logo = $data["logo"];
     $url = checkUrl($data["url"][0]);
@@ -199,25 +199,29 @@ function artsdata_init(){
     # Member View
     $html = '<div class="artsdata-org-detail">';
     $html .= '<div class="artsdata-org-header"><div class="artsdata-org-profile"><h3 class="artsdata-heading" ' . dataMaintainer($rankedProperties, "name") . '>' . $name . '</h3>';
-    $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>';
     if ($locality) {
-      $html .= $locality . ', ' . $region . ', ' . $country . '</p>';
+      $html .= '<p class="artsdata-address" ' . dataMaintainer($rankedProperties, "address") . '>' . $locality . ', ' . $region . ', ' . $country . '</p>';
     }
-    $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p></div>';
+    if ($url) {
+    $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p>';
+    }
+    $html .='</div>';
 	//
     // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
     // profile image anchor URL should pull in the source wiki page URL
 	//
-    
+
   if ($member_image) {
     $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="Image of ' . $name . '"></a></div>';
   }
-    
+
     $html .= '</div>';
     $html .= '<div class="artsdata-external-links">';
     $html .= '<div class="artsdata-links-wrapper">';
     $html .= '<p class="artsdata-artsdata-id">' . esc_html__( 'Artsdata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value" href="' . $artsdataId . '">' . ltrim($artsdataId, "http://kg.artsdata.ca/resource/") . ' </a></p>';
-	  $html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+	if ($wikidataId) {
+		$html .= '<p class="artsdata-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' ) .' <a class="artsdata-link-id-value"  ' . dataMaintainer($rankedProperties, "identifier") . ' href="' .  $wikidataUrl . '">' . $wikidataId . ' </a></p>';
+	}
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
@@ -278,12 +282,10 @@ function artsdata_init(){
       $html .= '</div>';
       $html .= '</div>';
     }
-    
+
 	//
-    // naics code only displayed for organizations only, not individuals
+    // NAICS code only displayed for organizations only, not individuals
     // if no validated NAICS code exists then change 'validated' to 'inferred', else hide entire category
-    // I cobbled this together from other code, Gregory, so please have it pull data like the other categories
-    // for example, I had to add <li> tags around the anchor since $wikidataUrl doesn't include them like the others above
 	//
     if ( ($naics_validated && $naics_validated !== "empty") || ($naics_inferred && $naics_inferred !== "empty") ) {
       $html .= '<div class="artsdata-category">';
@@ -350,11 +352,11 @@ function artsdata_init(){
     		            $html .= '<p class="artsdata-place-type">' . $single_place["additionalType"] . '</p>' ;
     		            $html .= '<h5 class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] . '</h5>' ;
     		            $html .= '<p class="artsdata-place-address">' . $single_place["address"]["@value"] . '</p>' ;
-    		            $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>';
+    		            if ($single_place["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>'; }
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
-    		          	
-              //  
+
+					  	//
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
     		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="Image of ' .  $single_place["nameEn"] . '"></a></div>';}
