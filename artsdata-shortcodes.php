@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.3.4
+Version: 1.4.0
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -149,7 +149,7 @@ function artsdata_init(){
     }
     # Member details controller
     # test organization   http://api.artsdata.ca/query?adid=K14-24&sparql=capacoa/member_detail&frame=capacoa/member&format=json
-    # test person http://api.artsdata.ca/query?adid=K14-138&sparql=capacoa/member_detail&frame=capacoa/member&format=json
+    # test person http://api.artsdata.ca/query?adid=K14-150&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
@@ -262,6 +262,16 @@ function artsdata_init(){
       $html .= '</div>';
       $html .= '</div>';
     }
+
+    if ( $occupation &&  $occupation !== "empty") {
+      $html .= '<div class="artsdata-category">';
+      $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
+      $html .= esc_html__( 'Occupation:', 'artsdata-shortcodes' ) . '</p></div>';
+      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "hasOccupation") . '>' . multiLingualList($occupation) . '</ul>';
+      $html .= '</div>';
+      $html .= '</div>';
+    }
+
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
@@ -297,15 +307,6 @@ function artsdata_init(){
         $html .= esc_html__( 'NAICS (inferred):', 'artsdata-shortcodes' ) . '</p></div>';
         $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "naics") . '><li>' . $naics_inferred . '</li></ul>';
       }
-      $html .= '</div>';
-      $html .= '</div>';
-    }
-
-    if ( $occupation &&  $occupation !== "empty") {
-      $html .= '<div class="artsdata-category">';
-      $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
-      $html .= esc_html__( 'Occupation:', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "hasOccupation") . '>' . $occupation . '</ul>';
       $html .= '</div>';
       $html .= '</div>';
     }
@@ -496,6 +497,17 @@ function artsdata_init(){
         elseif ($type['labelFr']) {$str .= "<li>" .$type['labelFr'] . "</li>" ;}
         elseif ($type['label']) {$str .= "<li>" .$type['label'] . "</li>" ;}
       }
+    }
+    return $str ;
+  }
+
+  function multiLingualList($list) {
+    $str = '' ;
+    $lang = getLanguage() ;
+    foreach ($list as $listItem) {
+      if ($listItem['rdfsLabel' . $lang]) {$str .= "<li>" . $listItem['rdfsLabel' . $lang] . "</li>" ;}
+      elseif ($listItem['rdfsLabelEn']) {$str .= "<li>" .$listItem['rdfsLabelEn'] . "</li>" ;}
+      elseif ($listItem['rdfsLabelFr']) {$str .= "<li>" .$listItem['rdfsLabelFr'] . "</li>" ;}
     }
     return $str ;
   }
