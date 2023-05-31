@@ -148,7 +148,7 @@ function artsdata_init(){
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
     # Member details controller
-    # test organization   http://api.artsdata.ca/query?adid=K14-24&sparql=capacoa/member_detail&frame=capacoa/member&format=json
+    # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     # test person http://api.artsdata.ca/query?adid=K14-150&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
     $response = wp_remote_get(  $api_url );
