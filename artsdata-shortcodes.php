@@ -212,7 +212,7 @@ function artsdata_init(){
 	//
 
   if ($member_image) {
-    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="Image of ' . $name . '"></a></div>';
+    $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '"><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="Image of ' . $name . '"></a></div>';
   }
 
     $html .= '</div>';
@@ -344,7 +344,7 @@ function artsdata_init(){
              	  	// The same will need to be done in the plugin's JS file for outputting the coordinates unique to each ID
              	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
              	  	//
-             	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' .plugin_dir_url( __FILE__ ) . 'images/bkg-grid.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' . plugin_dir_url( __FILE__ ) . 'images/bkg-grid.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
 
              	  $html .= '</div>';
              	  $html .= '<div class="artsdata-place-entry">';
@@ -360,8 +360,8 @@ function artsdata_init(){
 					  	//
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
-    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="Image from Wikimedia Commons. Click on the image to view photo credits."><img src="' . $single_place["image"] . '" class="venue-photo" alt="Image of ' .  $single_place["nameEn"] . '"></a></div>';}
-                 else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' .plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
+    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '" class="venue-photo" alt="Image of ' .  $single_place["nameEn"] . '"></a></div>';}
+                 else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' . plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
 
 
     		          $html .= '</div>';
