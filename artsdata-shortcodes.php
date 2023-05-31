@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.4.0
+Version: 1.4.1
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -150,7 +150,7 @@ function artsdata_init(){
     # Member details controller
     # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail&frame=capacoa/member&format=json
     # test person http://api.artsdata.ca/query?adid=K14-150&sparql=capacoa/member_detail&frame=capacoa/member&format=json
-    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member&format=json" ;
+    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail&frame=capacoa/member2&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
@@ -350,7 +350,7 @@ function artsdata_init(){
              	  $html .= '<div class="artsdata-place-entry">';
     	         	  $html .= '<div class="artsdata-place-details">';
     		            $single_place = $venue["location"][0] ;
-    		            $html .= '<p class="artsdata-place-type">' . $single_place["additionalType"] . '</p>' ;
+    		            $html .= '<p class="artsdata-place-type">' . concatMultiLingualList($single_place["additionalType"]) . '</p>' ;
     		            $html .= '<h5 class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . $single_place["nameEn"] . '</h5>' ;
     		            $html .= '<p class="artsdata-place-address">' . $single_place["address"]["@value"] . '</p>' ;
     		            if ($single_place["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>'; }
@@ -371,7 +371,7 @@ function artsdata_init(){
     			                foreach ($single_place["containsPlace"] as $room) {
     							$html .= '<div class="artsdata-place-entry child">';
     				              $html .= '<div class="artsdata-place-details child">';
-    			                    $html .= '<p class="artsdata-place-type child">' . $room["additionalType"] . '</p>' ;
+    			                    $html .= '<p class="artsdata-place-type child">' .  concatMultiLingualList($room["additionalType"]) . '</p>' ;
     			                    $html .= '<h6 class="artsdata-place-name">' . $room["nameEn"] . '</h6>';
     			                    if ($room["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . 'Wikidata ID: ' . ' <a href="' . $room["id"] . '">' . trim($room["id"], "http://www.wikidata.org/entity") . '</a></p>'; }
     			                    $html .= '</div>';
@@ -505,11 +505,26 @@ function artsdata_init(){
     $str = '' ;
     $lang = getLanguage() ;
     foreach ($list as $listItem) {
-      if ($listItem['rdfsLabel' . $lang]) {$str .= "<li>" . $listItem['rdfsLabel' . $lang] . "</li>" ;}
-      elseif ($listItem['rdfsLabelEn']) {$str .= "<li>" .$listItem['rdfsLabelEn'] . "</li>" ;}
-      elseif ($listItem['rdfsLabelFr']) {$str .= "<li>" .$listItem['rdfsLabelFr'] . "</li>" ;}
+     $str .= "<li>" .  languageService($listItem,'rdfsLabel') . "</li>" ;
     }
     return $str ;
+  }
+
+  function concatMultiLingualList($list) {
+    $str = '' ;
+    $lang = getLanguage() ;
+
+    if ( $list['id'] ) { // not an array of entities
+      $str .= languageService($list, 'rdfsLabel') ;
+    } else {
+      $str .= languageService($list[0], 'rdfsLabel') ;
+      foreach (array_slice($list, 1) as $listItem) {
+        $str .= ", " . languageService($listItem, 'rdfsLabel') ;
+      }
+    }
+
+    return $str ;
+  
   }
 
   function safeUrl($strIn) {
