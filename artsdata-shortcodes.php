@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.4.1
+Version: 1.4.2
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -344,7 +344,7 @@ function artsdata_init(){
              	  	// The same will need to be done in the plugin's JS file for outputting the coordinates unique to each ID
              	  	// The nested DIV .artsdata-map-image will need to be conditionally visible if no map exists
              	  	//
-             	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' . plugin_dir_url( __FILE__ ) . 'images/bkg-grid.svg)"><p class="artsdata-map-text">No map data available.</p></div></div>';
+             	  $html .= '<div id="' . $venue["location"][0]["id"] . '" class="artsdata-place-map-entry"><div class="artsdata-map-image" style="background-image: url(' . plugin_dir_url( __FILE__ ) . 'images/bkg-grid.svg)"><p class="artsdata-map-text">' .  esc_html__( 'No map data available.', 'artsdata-shortcodes' ) . '</p></div></div>';
 
              	  $html .= '</div>';
              	  $html .= '<div class="artsdata-place-entry">';
