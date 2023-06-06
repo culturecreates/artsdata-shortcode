@@ -2,22 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Artsdata Shortcodes 1.3.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
-"shortcode\n"
+"Project-Id-Version: Artsdata Shortcodes 1.4.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2023-03-30 19:56+0000\n"
+"PO-Revision-Date: 2023-06-02 15:16+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
 "Language: en_CA\n"
 "Plural-Forms: nplurals=2; plural=n != 1;"
 
-#: artsdata-shortcodes.php:271
+#: artsdata-shortcodes.php:281
 msgid "Artistic Focus:"
 msgstr ""
 
@@ -29,7 +28,7 @@ msgstr ""
 msgid "Artsdata Shortcodes"
 msgstr ""
 
-#: artsdata-shortcodes.php:326
+#: artsdata-shortcodes.php:327
 msgid "Biography:"
 msgstr ""
 
@@ -41,15 +40,15 @@ msgstr ""
 msgid "Culture Creates"
 msgstr ""
 
-#: artsdata-shortcodes.php:444
+#: artsdata-shortcodes.php:445
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
 
-#: artsdata-shortcodes.php:269
+#: artsdata-shortcodes.php:279
 msgid "Disciplines:"
 msgstr ""
 
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:364
 msgid "https://capacoa.ca/en/member/membership-faq/#image"
 msgstr ""
 
@@ -57,11 +56,13 @@ msgstr ""
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:362
+#: artsdata-shortcodes.php:215
+#: artsdata-shortcodes.php:363
 msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
 msgstr ""
 
-#: artsdata-shortcodes.php:362
+#: artsdata-shortcodes.php:215
+#: artsdata-shortcodes.php:363
 msgid "Image of"
 msgstr ""
 
@@ -73,29 +74,27 @@ msgstr ""
 msgid "Missing Artsdata ID. Please return to the membership directory."
 msgstr ""
 
-#: artsdata-shortcodes.php:295
+#: artsdata-shortcodes.php:307
 msgid "NAICS (inferred):"
 msgstr ""
 
-#: artsdata-shortcodes.php:294
+#: artsdata-shortcodes.php:304
 msgid "NAICS (validated):"
 msgstr ""
 
-#: artsdata-shortcodes.php:363
-msgid ""
-"No free-use image could be found in Wikidata or Wikimedia Commons for this "
-"venue"
+#: artsdata-shortcodes.php:364
+msgid "No free-use image could be found in Wikidata or Wikimedia Commons for this venue"
 msgstr ""
 
-#: artsdata-shortcodes.php:346
+#: artsdata-shortcodes.php:347
 msgid "No map data available."
 msgstr ""
 
-#: artsdata-shortcodes.php:307
+#: artsdata-shortcodes.php:269
 msgid "Occupation:"
 msgstr ""
 
-#: artsdata-shortcodes.php:280
+#: artsdata-shortcodes.php:290
 msgid "Presentation Format:"
 msgstr ""
 
@@ -103,22 +102,24 @@ msgstr ""
 msgid "Presenter Type:"
 msgstr ""
 
-#: artsdata-shortcodes.php:402
+#: artsdata-shortcodes.php:403
 msgid "Upcoming Events"
 msgstr ""
 
-#: artsdata-shortcodes.php:333
+#: artsdata-shortcodes.php:334
 msgid "Venues"
 msgstr ""
 
-#: artsdata-shortcodes.php:414
+#: artsdata-shortcodes.php:415
 msgid "View all events"
 msgstr ""
 
-#: artsdata-shortcodes.php:375
+#: artsdata-shortcodes.php:223
+#: artsdata-shortcodes.php:356
+#: artsdata-shortcodes.php:376
 msgid "Wikidata ID:"
 msgstr ""
 
-#: artsdata-shortcodes.php:318
+#: artsdata-shortcodes.php:319
 msgid "YouTube video player"
 msgstr ""
