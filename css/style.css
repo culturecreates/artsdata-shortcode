@@ -116,6 +116,7 @@
 
 		.artsdata-external-links {
 			flex-direction: row;
+			justify-content: space-between;
 			padding: 1em 1.5em;
 		}
 	}
