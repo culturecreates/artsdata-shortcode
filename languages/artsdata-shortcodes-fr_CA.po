@@ -3,17 +3,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Artsdata Shortcodes 1.4.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
+"shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2023-06-02 15:16+0000\n"
+"PO-Revision-Date: 2023-06-09 20:19+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
-"Language: fr_CA\n"
+"Language: fr-CA\n"
 "Plural-Forms: nplurals=2; plural=n > 1;"
 
 #: artsdata-shortcodes.php:281
@@ -56,13 +57,13 @@ msgstr "https://capacoa.ca/fr/membre/foire-aux-questions-adhesion/#image"
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
 msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
-msgstr "Image provenant de Wikimedia Commons. Cliquez sur l&rsquo;image pour consulter les mentions d&rsquo;attribution."
+msgstr ""
+"Image provenant de Wikimedia Commons. Cliquez sur l&rsquo;image pour "
+"consulter les mentions d&rsquo;attribution."
 
-#: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
 msgid "Image of"
 msgstr "Image du"
 
@@ -72,7 +73,9 @@ msgstr "Type de membre&nbsp;:"
 
 #: artsdata-shortcodes.php:148
 msgid "Missing Artsdata ID. Please return to the membership directory."
-msgstr "Identifiant Artsdata manquant. Veuillez retourner à la répertoire des membres."
+msgstr ""
+"Identifiant Artsdata manquant. Veuillez retourner à la répertoire des "
+"membres."
 
 #: artsdata-shortcodes.php:307
 msgid "NAICS (inferred):"
@@ -83,8 +86,12 @@ msgid "NAICS (validated):"
 msgstr "Code SCIAN validé&nbsp;:"
 
 #: artsdata-shortcodes.php:364
-msgid "No free-use image could be found in Wikidata or Wikimedia Commons for this venue"
-msgstr "Il n&rsquo;y a pas d&rsquo;image de ce lieu disponible sous licence libre dans Wikidata ou dans Wikimedia Commons."
+msgid ""
+"No free-use image could be found in Wikidata or Wikimedia Commons for this "
+"venue"
+msgstr ""
+"Il n&rsquo;y a pas d&rsquo;image de ce lieu disponible sous licence libre "
+"dans Wikidata ou dans Wikimedia Commons."
 
 #: artsdata-shortcodes.php:347
 msgid "No map data available."
@@ -114,8 +121,7 @@ msgstr "Salles"
 msgid "View all events"
 msgstr "Voir tous les événements"
 
-#: artsdata-shortcodes.php:223
-#: artsdata-shortcodes.php:356
+#: artsdata-shortcodes.php:223 artsdata-shortcodes.php:356 
 #: artsdata-shortcodes.php:376
 msgid "Wikidata ID:"
 msgstr "Identifiant Wikidata&nbsp;:"

@@ -3,17 +3,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Artsdata Shortcodes 1.4.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
+"shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2023-06-02 15:16+0000\n"
+"PO-Revision-Date: 2023-06-09 20:19+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
-"Language: en_CA\n"
+"Language: en-CA\n"
 "Plural-Forms: nplurals=2; plural=n != 1;"
 
 #: artsdata-shortcodes.php:281
@@ -56,13 +57,11 @@ msgstr ""
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
 msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
 msgstr ""
 
-#: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
 msgid "Image of"
 msgstr ""
 
@@ -83,7 +82,9 @@ msgid "NAICS (validated):"
 msgstr ""
 
 #: artsdata-shortcodes.php:364
-msgid "No free-use image could be found in Wikidata or Wikimedia Commons for this venue"
+msgid ""
+"No free-use image could be found in Wikidata or Wikimedia Commons for this "
+"venue"
 msgstr ""
 
 #: artsdata-shortcodes.php:347
@@ -114,8 +115,7 @@ msgstr ""
 msgid "View all events"
 msgstr ""
 
-#: artsdata-shortcodes.php:223
-#: artsdata-shortcodes.php:356
+#: artsdata-shortcodes.php:223 artsdata-shortcodes.php:356 
 #: artsdata-shortcodes.php:376
 msgid "Wikidata ID:"
 msgstr ""
