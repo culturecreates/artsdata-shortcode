@@ -149,7 +149,7 @@ function artsdata_init(){
     }
     # Member details controller
     # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
-    # test person http://api.artsdata.ca/query?adid=K14-150&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
+    # test person http://api.artsdata.ca/query?adid=K14-141&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
     $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json" ;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
