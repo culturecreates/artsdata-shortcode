@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.4.3
+Version: 1.4.4
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -177,7 +177,7 @@ function artsdata_init(){
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
     $video_embed =  $data["video"];
-    $bio = $data["bio"];
+    $bio = languageService($data, 'bio');
     $occupation = $data["hasOccupation"];
     $member_image = $data["image"];
     $venues = $data["location"] ;
