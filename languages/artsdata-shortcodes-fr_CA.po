@@ -5,17 +5,18 @@ msgstr ""
 "Project-Id-Version: Artsdata Shortcodes 1.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-"
 "shortcode\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: CAPACOA\n"
 "Language-Team: French (Canada)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2022-05-09T13:16:55+00:00\n"
-"PO-Revision-Date: 2023-06-09 20:19+0000\n"
+"PO-Revision-Date: 2023-10-16 17:33+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: artsdata-shortcodes\n"
-"Language: fr-CA\n"
-"Plural-Forms: nplurals=2; plural=n > 1;"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Loco-Version: 2.6.4; wp-6.1.1"
 
 #: artsdata-shortcodes.php:281
 msgid "Artistic Focus:"
@@ -41,7 +42,7 @@ msgstr "Collection de shortcodes pour afficher les données de Artsdata.ca."
 msgid "Culture Creates"
 msgstr ""
 
-#: artsdata-shortcodes.php:445
+#: artsdata-shortcodes.php:443
 msgid "Data from Artsdata.ca sourced from"
 msgstr "Data Artsdata.ca provenant de"
 
@@ -49,7 +50,7 @@ msgstr "Data Artsdata.ca provenant de"
 msgid "Disciplines:"
 msgstr "Disciplines&nbsp;:"
 
-#: artsdata-shortcodes.php:364
+#: artsdata-shortcodes.php:362
 msgid "https://capacoa.ca/en/member/membership-faq/#image"
 msgstr "https://capacoa.ca/fr/membre/foire-aux-questions-adhesion/#image"
 
@@ -57,13 +58,13 @@ msgstr "https://capacoa.ca/fr/membre/foire-aux-questions-adhesion/#image"
 msgid "https://culturecreates.com/"
 msgstr ""
 
-#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:361
 msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
 msgstr ""
 "Image provenant de Wikimedia Commons. Cliquez sur l&rsquo;image pour "
 "consulter les mentions d&rsquo;attribution."
 
-#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:215 artsdata-shortcodes.php:361
 msgid "Image of"
 msgstr "Image du"
 
@@ -85,15 +86,15 @@ msgstr "Code SCIAN inféré&nbsp;:"
 msgid "NAICS (validated):"
 msgstr "Code SCIAN validé&nbsp;:"
 
-#: artsdata-shortcodes.php:364
+#: artsdata-shortcodes.php:362
 msgid ""
 "No free-use image could be found in Wikidata or Wikimedia Commons for this "
-"venue"
+"venue."
 msgstr ""
 "Il n&rsquo;y a pas d&rsquo;image de ce lieu disponible sous licence libre "
 "dans Wikidata ou dans Wikimedia Commons."
 
-#: artsdata-shortcodes.php:347
+#: artsdata-shortcodes.php:345
 msgid "No map data available."
 msgstr "Aucune donnée cartographique disponible."
 
@@ -109,7 +110,7 @@ msgstr "Format de présentation&nbsp;:"
 msgid "Presenter Type:"
 msgstr "Type de diffuseur&nbsp;:"
 
-#: artsdata-shortcodes.php:403
+#: artsdata-shortcodes.php:401
 msgid "Upcoming Events"
 msgstr "Évènements à venir"
 
@@ -117,12 +118,12 @@ msgstr "Évènements à venir"
 msgid "Venues"
 msgstr "Salles"
 
-#: artsdata-shortcodes.php:415
+#: artsdata-shortcodes.php:413
 msgid "View all events"
 msgstr "Voir tous les événements"
 
-#: artsdata-shortcodes.php:223 artsdata-shortcodes.php:356 
-#: artsdata-shortcodes.php:376
+#: artsdata-shortcodes.php:223 artsdata-shortcodes.php:354
+#: artsdata-shortcodes.php:374
 msgid "Wikidata ID:"
 msgstr "Identifiant Wikidata&nbsp;:"
 
