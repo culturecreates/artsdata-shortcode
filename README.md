@@ -5,7 +5,7 @@ This is a Wordpress plugin that adds shortcodes for retrieving and displaying da
 The 3 shortcodes are:
 * [artsdata_orgs] => lists organization names from Artsdata located in a source graph
 * [artsdata_id] => displays details of a specific entity using ranked graphs from Artsdata
-* [artsdata_admin] => displays buttons for admin to reload CAPACOA database or reload data from Wikidata
+* [artsdata_admin] => displays buttons for admin to reload CAPACOA database or reload data from Wikidata (https://capacoa.ca/en/artsdata-admin/)
 
 ## How to install
 1. Download the zip file in the release
