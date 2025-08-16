@@ -38,7 +38,7 @@ msgstr ""
 msgid "Culture Creates"
 msgstr ""
 
-#: artsdata-shortcodes.php:445
+#: artsdata-shortcodes.php:443
 msgid "Data from Artsdata.ca sourced from"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Disciplines:"
 msgstr ""
 
-#: artsdata-shortcodes.php:364
+#: artsdata-shortcodes.php:362
 msgid "https://capacoa.ca/en/member/membership-faq/#image"
 msgstr ""
 
@@ -55,12 +55,12 @@ msgid "https://culturecreates.com/"
 msgstr ""
 
 #: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:361
 msgid "Image from Wikimedia Commons. Click on the image to view photo credits."
 msgstr ""
 
 #: artsdata-shortcodes.php:215
-#: artsdata-shortcodes.php:363
+#: artsdata-shortcodes.php:361
 msgid "Image of"
 msgstr ""
 
@@ -80,11 +80,11 @@ msgstr ""
 msgid "NAICS (validated):"
 msgstr ""
 
-#: artsdata-shortcodes.php:364
-msgid "No free-use image could be found in Wikidata or Wikimedia Commons for this venue"
+#: artsdata-shortcodes.php:362
+msgid "No free-use image could be found in Wikidata or Wikimedia Commons for this venue."
 msgstr ""
 
-#: artsdata-shortcodes.php:347
+#: artsdata-shortcodes.php:345
 msgid "No map data available."
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Presenter Type:"
 msgstr ""
 
-#: artsdata-shortcodes.php:403
+#: artsdata-shortcodes.php:401
 msgid "Upcoming Events"
 msgstr ""
 
@@ -108,13 +108,13 @@ msgstr ""
 msgid "Venues"
 msgstr ""
 
-#: artsdata-shortcodes.php:415
+#: artsdata-shortcodes.php:413
 msgid "View all events"
 msgstr ""
 
 #: artsdata-shortcodes.php:223
-#: artsdata-shortcodes.php:356
-#: artsdata-shortcodes.php:376
+#: artsdata-shortcodes.php:354
+#: artsdata-shortcodes.php:374
 msgid "Wikidata ID:"
 msgstr ""
 
