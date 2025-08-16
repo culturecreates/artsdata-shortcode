@@ -1,0 +1,122 @@
+{
+  "@context": {
+    "@vocab": "http://schema.org/",
+    "@base": "http://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "ado": "http://kg.artsdata.ca/ontology/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "id": {
+      "@id": "@id"
+    },
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "nameFr": {
+      "@id": "name",
+      "@language": "fr"
+    },
+    "nameEn": {
+      "@id": "name",
+      "@language": "en"
+    },
+    "namePref": {
+      "@id": "name"
+    },
+    "rdfsLabelFr": {
+      "@id": "rdfs:label",
+      "@language": "fr"
+    },
+    "rdfsLabelEn": {
+      "@id": "rdfs:label",
+      "@language": "en"
+    },
+    "hasOccupation": {
+      "@id": "hasOccupation",
+      "@container": "@set"
+    },
+    "labelEn": {
+      "@id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "@language": "en"
+    },
+    "labelFr": {
+      "@id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "@language": "fr"
+    },
+    "labelPref": {
+      "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    "sameAs": {
+      "@id": "sameAs",
+      "@container": "@set"
+    },
+    "businessNumber": {
+      "@id": "http://www.wikidata.org/prop/direct/P8860"
+    },
+    "facebookId": {
+      "@id": "http://www.wikidata.org/prop/direct/P2013"
+    },
+    "twitterUsername": {
+      "@id": "http://www.wikidata.org/prop/direct/P2002"
+    },
+    "instagramUsername": {
+      "@id": "http://www.wikidata.org/prop/direct/P2003"
+    },
+    "url": {
+      "@id": "url",
+      "@container": "@set"
+    },
+    "hasRankedProperties": {
+      "@id": "ado:hasRankedProperties"
+    },
+    "isPartOfGraph": {
+      "@id": "ado:isPartOfGraph"
+    },
+    "location": {
+      "@id": "location",
+      "@container": "@set"
+    },
+    "image": {
+      "@id": "image",
+      "@type": "@id"
+    },
+    "thumbnail": {
+      "@id": "thumbnail",
+      "@type": "@id"
+    },
+    "additionalType": {
+      "@id": "additionalType",
+      "@type": "@id"
+    },
+    "bioEn": {
+      "@id": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasAgentBiography",
+      "@language": "en"
+    },
+    "bioFr": {
+      "@id": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasAgentBiography",
+      "@language": "fr"
+    }
+  },
+  "@explicit": false,
+  "@requireAll": false,
+  "@type": [
+    "Organization",
+    "Person"
+  ],
+  "ado:hasRankedProperties": {
+    "@type": "rdf:Property",
+    "@explicit": false,
+    "@embed": "@always"
+  },
+  "location": {
+    "location": {
+      "additionalType": {
+        "@embed": "@always",
+        "@omitDefault": true
+      },
+      "containsPlace": {
+        "additionalType": {
+          "@embed": "@always",
+          "@omitDefault": true
+        }
+      }
+    }
+  }
+}
