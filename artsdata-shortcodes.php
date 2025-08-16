@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 1.4.4
+Version: 2.0.0
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
@@ -43,19 +43,19 @@ function artsdata_init(){
   function artsdata_enqueue_scripts() {
     global $post;
     if( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'artsdata_id') ) {
-	wp_register_style( 'leaflet_css', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.css', array(), null );
-		wp_enqueue_style( 'leaflet_css' );
-	wp_register_script( 'leaflet_js', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.js', array(), null );
-		wp_enqueue_script( 'leaflet_js' );
-	/** Load plugin for Leaflet fullscreen controls **/
-	wp_register_style( 'leaflet_fullscreen_css', plugin_dir_url( __FILE__ ) . 'css/Control.FullScreen.css', array(), null);
-		wp_enqueue_style( 'leaflet_fullscreen_css' );
-    wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
+	    wp_register_style( 'leaflet_css', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.css', array(), null );
+		  wp_enqueue_style( 'leaflet_css' );
+	    wp_register_script( 'leaflet_js', 'https://unpkg.com/leaflet@1.9.2/dist/leaflet.js', array(), null );
+		  wp_enqueue_script( 'leaflet_js' );
+	    /** Load plugin for Leaflet fullscreen controls **/
+	    wp_register_style( 'leaflet_fullscreen_css', plugin_dir_url( __FILE__ ) . 'css/Control.FullScreen.css', array(), null);
+		  wp_enqueue_style( 'leaflet_fullscreen_css' );
+      wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
     	wp_enqueue_script( 'leaflet_fullscreen_js' );
-    wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20230314' );
-        wp_enqueue_style( 'artsdata-stylesheet' );
-    /** Artsdata script must be loaded in the footer after all Leaflet code **/
-    wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
+      wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20230314' );
+      wp_enqueue_style( 'artsdata-stylesheet' );
+      /** Artsdata script must be loaded in the footer after all Leaflet code **/
+      wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
     	wp_enqueue_script( 'artsdata_script' );
     }
 	function add_leaflet_cdn_attributes( $html, $handle ) {
@@ -74,20 +74,15 @@ function artsdata_init(){
   function artsdata_admin() {
     delete_transient( 'artsdata_list_orgs_response_body' ) ;
 
-
     $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
     $html .= '<p>' ;
-    $html .= 'Reload and transform data from the CAPACOA database. This will replace all existing data on Artsdata with new data. Allow 5 minutes for all transforms to complete and then refresh your webpage to see the update.' ;
-    $html .= '<form action="https://huginn-staging.herokuapp.com/users/1/web_requests/141/capacoamembers" method="post">' ;
-    $html .= '<input type="submit" value="Reload CAPACOA database">' ;
+    $html .= 'This page deletes the transient cache for the list of organizations. By default the cache is set to refresh every 24 hours.' ;
+    $html .= '<form action="#" method="post">' ;
+    $html .= '<input type="submit" value="Delete Wordpress cache (delete_transient(\'artsdata_list_orgs_response_body\')) for the list of members">' ;
     $html .= '</form>' ;
     $html .= '</p>' ;
     $html .= '<p>' ;
-    $html .= 'Reload data from Wikidata. Allow 1 minute for all transforms to complete and then refresh your webpage to see the update.' ;
-
-    $html .= '<form action="https://huginn-staging.herokuapp.com/users/1/web_requests/136/capacoamembers" method="post">' ;
-    $html .=  '<input type="submit" value="Load updates from Wikidata">' ;
-    $html .= '</form>' ;
+    $html .= 'For documentation on this shortcode, please visit the <a href="https://github.com/culturecreates/artsdata-shortcode" target="_blank">Artsdata Shortcode documentation</a> on GitHub.' ;
     $html .= '</p>' ;
     $html .= '</div>';
     return  $html;
@@ -109,7 +104,7 @@ function artsdata_init(){
             return;
         }
         $body  = wp_remote_retrieve_body( $response );
-        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAY_IN_SECONDS );
+        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAY_IN_SECONDS ); # documented in function artsdata_admin()
     }
 
 

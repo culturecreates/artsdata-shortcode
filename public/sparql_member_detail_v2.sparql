@@ -1,0 +1,139 @@
+PREFIX adr: <http://kg.artsdata.ca/resource/>
+PREFIX ado: <http://kg.artsdata.ca/ontology/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX onto: <http://www.ontotext.com/>
+
+# SPARQL used to load an entity across ranked graphs
+#   input: an entity 
+#   output: graph of ranked results with 2 levels of nested blank nodes 
+#   and maintainer info for each property
+
+construct {
+ ?s ?b ?c .
+ ?c ?cbp ?cbo .
+ ?c ?cbp ?cbob .
+ ?c skos:prefLabel ?skosLabels .
+ ?cbob ?cbobp ?cbobo .
+ ?s ado:hasRankedProperties ?b .
+ ?b a rdf:Property .
+ ?b ado:isPartOfGraph  ?gtop .
+ ?gtop schema:maintainer ?maintainer .
+ ?bb rdfs:label ?cc .
+ ?place rdfs:label ?label .
+}
+
+FROM onto:explicit 
+where {
+  { select * where 
+    {
+      ?gtop schema:maintainer ?maintainer .
+      graph ?gtop {
+          ?id ?b ?c .
+          bind (adr:adid_placeholder  as ?s)
+          OPTIONAL {
+              ?c ?cbp ?cbo .
+          }
+          OPTIONAL {
+              ?c ?cbp ?cbob .
+              ?cbob ?cbobp ?cbobo .
+          }
+      }
+      # include controlled vocabulary labels from other graphs
+      OPTIONAL {
+          ?c a skos:Concept ;
+            skos:prefLabel ?skosLabels .
+      }
+      OPTIONAL {
+          ?c schema:location ?place .
+          ?place rdfs:label ?label .
+          filter(lang(?label) = "en" || lang(?label) = "fr"  )
+      }
+      ?gtop schema:contentRating/schema:ratingValue ?ratingTop
+      filter( ?b = ?p && ?ratingTop = ?pick )
+     
+      {  # Sub query to get all sameAs
+          select ?id where {
+              {
+                  values ?id {
+                      adr:adid_placeholder 
+                  }
+              }
+              UNION {
+                  ?id schema:sameAs adr:adid_placeholder .
+              }
+              UNION {
+                  bind (str(adr:adid_placeholder) as ?id_str) 
+                  ?id schema:sameAs ?id_str  .
+              }
+              UNION {
+                  adr:adid_placeholder  schema:sameAs ?id_str .
+                  bind(URI(?id_str) as ?id)
+              }
+              filter (isURI(?id))
+          } 
+      }
+      
+      { # Build a table of properties and graph with best (lowest) rank
+          select  ?p  (min(?rating) as ?pick) 
+          where {
+          values ?p {
+                  wdt:P2013 
+                  wdt:P2002 
+                  wdt:P2003 
+                  schema:logo 
+                  schema:sameAs 
+                  schema:telephone 
+                  schema:url 
+                  schema:alternateName 
+                  <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#hasAgentBiography>
+                  schema:legalName 
+                  schema:email 
+                  schema:identifier 
+                  rdf:type 
+                  schema:additionalType 
+                  schema:name 
+                  schema:location 
+                  schema:address 
+                
+              }
+              graph ?g {
+                  ?id ?p ?o .
+                  bind (adr:adid_placeholder  as ?s)
+              }
+              ?g schema:contentRating/schema:ratingValue ?rating
+              
+              { # Sub query to get all sameAs
+                  select ?id where {
+                      {
+                          values ?id {
+                              adr:adid_placeholder  
+                          }
+                      }
+                      UNION {
+                          ?id schema:sameAs adr:adid_placeholder .
+                      }
+                      UNION {
+                          bind (str(adr:adid_placeholder) as ?id_str) 
+                          ?id schema:sameAs ?id_str  .
+                      }
+                      UNION {
+                          adr:adid_placeholder  schema:sameAs ?id_str .
+                          bind(URI(?id_str) as ?id)
+                      }
+                      filter (isURI(?id))
+                  } 
+              }
+          } group by ?p 
+      }
+    }
+  } 
+    graph <http://wikidata.org/capacoa-members> {
+      # Get all the labels of types of places 
+      ?place schema:additionalType  ?bb .
+      ?bb rdfs:label ?cc .
+    }
+  
+}
