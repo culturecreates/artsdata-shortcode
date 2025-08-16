@@ -4,6 +4,7 @@
 Plugin Name: Artsdata Shortcodes
 Version: 2.0.0
 Description: Collection of shortcodes to display data from Artsdata.ca.
+Changelog: Removed membership parameter, fixed reading URL as an RDF URI instead of RDF literal.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
 License: GPLv2 or later
@@ -13,8 +14,6 @@ Text Domain: artsdata-shortcodes
 
 /**
  * [artsdata_orgs] returns the HTML code for a list of organizations.
- * params:
- * members = artsdata graph of members to display. i.e. CapacoaMembers
  * path = permalink /%postname%/ to load details of individual org id.
  * @return string HTML Code
 */
@@ -99,7 +98,7 @@ function artsdata_init(){
 
     if ( false === $body ) {
 
-        $response = wp_remote_get( 'http://api.artsdata.ca/query?sparql=capacoa/members&frame=capacoa/member&format=jsonld&source=' . $a['membership'] );
+        $response = wp_remote_get( 'http://api.artsdata.ca/query?format=jsonld&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/members.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld' );
         if (200 !== wp_remote_retrieve_response_code($response)) {
             return;
         }
