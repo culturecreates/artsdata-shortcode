@@ -90,7 +90,6 @@ function artsdata_init(){
   function artsdata_list_orgs($atts) {
     # controller for list
     $a = shortcode_atts( array(
-      'membership' => 'http://kg.artsdata.ca/culture-creates/huginn/capacoa-members',
       'path' => 'resource'
     ), $atts);
 
