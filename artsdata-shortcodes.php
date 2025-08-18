@@ -2,9 +2,9 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 2.0.0
+Version: 2.0.1
 Description: Collection of shortcodes to display data from Artsdata.ca.
-Changelog: Removed membership parameter, and fixed reading URL as a string or id (RDF URI is an @id).
+Changelog: Fixed reading URL as a string or id (RDF URI is an @id), moved SPARQLs to Github.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
 License: GPLv2 or later
