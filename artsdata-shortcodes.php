@@ -96,13 +96,15 @@ function artsdata_init(){
     $body = get_transient( 'artsdata_list_orgs_response_body' );
 
     if ( false === $body ) {
-
-        $response = wp_remote_get( 'http://api.artsdata.ca/query?format=jsonld&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/members.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld' );
-        if (200 !== wp_remote_retrieve_response_code($response)) {
-            return;
-        }
-        $body  = wp_remote_retrieve_body( $response );
-        set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAY_IN_SECONDS ); # documented in function artsdata_admin()
+      $base_github = "https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/" ;
+      $sparql_path = $base_github . "public/sparql/members.sparql" ;
+      $frame_path = $base_github . "public/frame/member.jsonld" ;
+      $response = wp_remote_get( 'http://api.artsdata.ca/query?format=jsonld&sparql=' . $sparql_path . '&frame=' . $frame_path );
+      if (200 !== wp_remote_retrieve_response_code($response)) {
+          return;
+      }
+      $body  = wp_remote_retrieve_body( $response );
+      set_transient( 'artsdata_list_orgs_response_body', $body, 1 * DAY_IN_SECONDS ); # documented in function artsdata_admin()
     }
 
 
@@ -143,7 +145,10 @@ function artsdata_init(){
     # Member details controller
     # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
     # test person http://api.artsdata.ca/query?adid=K14-141&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
-    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json" ;
+    $base_github = "https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/" ;
+    $sparql_path = $base_github . "public/sparql/member_detail.sparql" ;
+    $frame_path = $base_github . "public/frame/member.jsonld" ;
+    $api_url = "http://api.artsdata.ca/query?adid=" . ltrim($_GET['uri'], "http://kg.artsdata.ca/resource/") . "&format=json&sparql=" . $sparql_path . "&frame=" . $frame_path;
     $response = wp_remote_get(  $api_url );
     $body     = wp_remote_retrieve_body( $response );
     $j = json_decode( $body, true);
