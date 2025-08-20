@@ -3,31 +3,27 @@ PREFIX onto: <http://www.ontotext.com/>
 PREFIX adr: <http://kg.artsdata.ca/resource/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX capacoa:  <https://capacoa.ca/vocabulary#>
-
 construct {
     ?id schema:name ?name .
-    ?id schema:additionalType ?types . 
+    ?id schema:additionalType ?types .
     ?id a ?class .
     ?id schema:sameAs ?sameAs .
 }  
 FROM onto:disable-sameAs
-
 where 
-{ 
-    graph <http://kg.artsdata.ca/culture-creates/huginn/capacoa-members> {
+{
+    graph <http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-members> {
         values ?class {
             schema:Organization schema:Person
         }
         ?id a ?class .
+        ?id schema:name ?name .
         OPTIONAL {
-            ?id schema:name ?name 
+            ?id schema:sameAs ?sameAs .
         }
         OPTIONAL {
             ?id schema:additionalType ?types 
         }
-        filter(NOT EXISTS {
-                ?id schema:additionalType <https://capacoa.ca/vocabulary#TermsConditions_do%20not%20agree%20%28v1.1%29> 
-            })
         OPTIONAL {
             ?id capacoa:memberTerminationDate ?memberTerminationDate .
             bind (strdt(?memberTerminationDate,xsd:date) as ?memberTerminationDateTyped) 
