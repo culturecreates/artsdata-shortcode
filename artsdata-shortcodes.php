@@ -75,9 +75,9 @@ function artsdata_init(){
 
     $html = '<div class="artsdata-admin"><h2>Artsdata Admin</h2>' ;
     $html .= '<p>' ;
-    $html .= 'This page deletes the transient cache for the list of organizations. By default the cache is set to refresh every 24 hours.' ;
+    $html .= 'This page clears the transient cache for the list of member organizations. Click the button below to call delete_transient(\'artsdata_list_orgs_response_body\'). By default the cache is set to refresh every 24 hours.' ;
     $html .= '<form action="#" method="post">' ;
-    $html .= '<input type="submit" value="Delete Wordpress cache (delete_transient(\'artsdata_list_orgs_response_body\')) for the list of members">' ;
+    $html .= '<input type="submit" value="Clear list of members in Wordpress cache">' ;
     $html .= '</form>' ;
     $html .= '</p>' ;
     $html .= '<p>' ;
