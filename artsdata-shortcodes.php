@@ -417,11 +417,11 @@ function artsdata_init(){
 
     foreach ($venues as $venue) {
       $pattern = '{Point\((.+) (.+)\)}';
-      preg_match($pattern,  isset($venue["location"][0]["geoCoordinates"]["@value"]), $matches);
+      preg_match($pattern,  $venue["location"][0]["geoCoordinates"]["@value"], $matches);
       $html .= "
         <script>
           var map1 = L.map('" . $venue["location"][0]["id"] . "', {
-            center: [" . (isset($matches[2]) ? $matches[2] : 0) . ", " . (isset($matches[1]) ? $matches[1] : 0) . "],
+            center: [" . $matches[2] . ", " .  $matches[1] . "],
             zoom: 15,
             zoomControl: false,
             fullscreenControl: true,
@@ -430,7 +430,7 @@ function artsdata_init(){
           L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy;  <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'
           }).addTo(map1);
-          L.marker([" . (isset($matches[2]) ? $matches[2] : 0) . ", " . (isset($matches[1]) ? $matches[1] : 0) . "]).addTo(map1).setOpacity(0.85);
+          L.marker([" . $matches[2] . ", " .  $matches[1] . "]).addTo(map1).setOpacity(0.85);
         </script>";
     }
 
