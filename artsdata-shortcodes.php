@@ -2,9 +2,9 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 2.0.1
+Version: 2.0.2
 Description: Collection of shortcodes to display data from Artsdata.ca.
-Changelog: Fixed reading URL as a string or id (RDF URI is an @id), moved SPARQLs to Github.
+Changelog: Fixed reading URL as a string or id (RDF URI is an @id), moved SPARQLs to Github, safely navigate arrays.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
 License: GPLv2 or later
@@ -120,7 +120,7 @@ function artsdata_init(){
     # view for list
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '/?uri=' . strval( $org['sameAs'][0]['id']) . '">' .  languageService($org, 'name')  . '</a> </li>';
+      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '/?uri=' . strval( isset($org['sameAs'][0]['id']) ? $org['sameAs'][0]['id'] : '') . '">' .  languageService($org, 'name')  . '</a> </li>';
     }
     $html .= '</ul></p></div>';
 
@@ -155,11 +155,11 @@ function artsdata_init(){
     $data = $j['data'][0];
 
     $name = languageService($data, 'name')  ;
-    $logo = $data["logo"];
+    $logo = isset($data["logo"]) ? $data["logo"] : null;
     $url = checkUrl($data["url"][0]);
-    $locality = $data["address"]["addressLocality"];
-    $region = $data["address"]["addressRegion"];
-    $country = $data["address"]["addressCountry"];
+    $locality = isset($data["address"]["addressLocality"]) ? $data["address"]["addressLocality"] : null;
+    $region = isset($data["address"]["addressRegion"]) ? $data["address"]["addressRegion"] : null;
+    $country = isset($data["address"]["addressCountry"]) ? $data["address"]["addressCountry"] : null;
     $member_type = generalType( $data["additionalType"],"MemberType" ) ;
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
@@ -167,20 +167,20 @@ function artsdata_init(){
     $presentationFormat =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $occupation =  generalType( $data["additionalType"],"PresentingFormat" ) ;
     $artsdataId =  $_GET['uri'];
-    $wikidataId = $data["identifier"] ;
+    $wikidataId = isset($data["identifier"]) ? $data["identifier"] : null;
     $wikidataUrl = "http://www.wikidata.org/entity/" . $wikidataId ;
-    $facebook = 'https://www.facebook.com/' . $data["facebookId"] ;
-    $twitter = 'https://twitter.com/' . $data["twitterUsername"] ;
-    $instagram = 'https://www.instagram.com/' . $data["instagramUsername"] ;
+    $facebook = 'https://www.facebook.com/' . (isset($data["facebookId"]) ? $data["facebookId"] : '');
+    $twitter = 'https://twitter.com/' . (isset($data["twitterUsername"]) ? $data["twitterUsername"] : '');
+    $instagram = 'https://www.instagram.com/' . (isset($data["instagramUsername"]) ? $data["instagramUsername"] : '');
     $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
     $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
-    $video_embed =  $data["video"];
+    $video_embed =  isset($data["video"]) ? $data["video"] : null;
     $bio = languageService($data, 'bio');
-    $occupation = $data["hasOccupation"];
-    $member_image = $data["image"];
-    $venues = $data["location"] ;
-    $urlEvents = checkUrl($data["url"][1]["url"][0]);
-    $rankedProperties = $data["hasRankedProperties"];
+    $occupation = isset($data["hasOccupation"]) ? $data["hasOccupation"] : null;
+    $member_image = isset($data["image"]) ? $data["image"] : null;
+    $venues = isset($data["location"]) ? $data["location"] : null;
+    $urlEvents = checkUrl(isset($data["url"][1]["url"][0]) ? $data["url"][1]["url"][0] : null);
+    $rankedProperties = isset($data["hasRankedProperties"]) ? $data["hasRankedProperties"] : null;
     $naics_validated = null;
     $naics_inferred = null;
 
@@ -222,11 +222,11 @@ function artsdata_init(){
     }
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
-    if ( $data["facebookId"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
-    if ( $data["twitterUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>'; }
-    if ( $data["instagramUsername"]) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
-    if ( $youtube) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
-    if ( $wikipedia) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
+    if ( isset($data["facebookId"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
+    if ( isset($data["twitterUsername"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>'; }
+    if ( isset($data["instagramUsername"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
+    if ( isset($youtube) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
+    if ( isset($wikipedia) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $tiktok . '"><i class="fab fa-tiktok"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $linkedin . '"><i class="fab fa-linkedin"></i></a>';
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $vimeo . '"><i class="fab fa-vimeo-v"></i></a>';
@@ -328,12 +328,12 @@ function artsdata_init(){
   }
 
     $html .= '<div class="artsdata-venue-detail">';
-    if ($venues[0]["location"][0]["rdfsLabelEn"]) {
+    if (isset($venues[0]["location"][0]["rdfsLabelEn"])) {
       $html .= '<h4 class="artsdata-venues-title">' .  esc_html__( 'Venues', 'artsdata-shortcodes' ) . '</h4>';
       foreach ($venues as $venue) {
-        if ($venue["location"][0]["rdfsLabelEn"]) { 
-		    $html .= '<div class="artsdata-venue-wrapper">';
-	          $html .= '<div class="artsdata-place">';
+        if (isset($venue["location"][0]["rdfsLabelEn"])) {
+          $html .= '<div class="artsdata-venue-wrapper">';
+          $html .= '<div class="artsdata-place">';
              	  $html .= '<div class="artsdata-place-map-wrapper">';
              	  	//
              	  	// FOREACH required so that this DIV's ID can be auto-incremented as a unique ID for each venue (i.e. map1, map2, map3)
@@ -348,34 +348,34 @@ function artsdata_init(){
     		            $single_place = $venue["location"][0] ;
     		            $html .= '<p class="artsdata-place-type">' . concatMultiLingualList($single_place["additionalType"]) . '</p>' ;
     		            $html .= '<h5 class="artsdata-place-name" ' . dataMaintainer($rankedProperties, "location") . '>' . languageService($single_place, 'rdfsLabel') . '</h5>' ;
-    		            $html .= '<p class="artsdata-place-address">' . $single_place["address"]["@value"] . '</p>' ;
-    		            if ($single_place["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' )  . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>'; }
+    		            $html .= '<p class="artsdata-place-address">' . (isset($single_place["address"]["@value"]) ? $single_place["address"]["@value"] : '') . '</p>' ;
+    		            if (isset($single_place["id"])) { $html .= '<p class="artsdata-place-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' )  . ' <a href="' . $single_place["id"] . '">' . trim($single_place["id"], "http://www.wikidata.org/entity/")  . '</a></p>'; }
     		          $html .= '</div>';
     		          $html .= '<div class="artsdata-place-thumbnail">';
 
 					  	//
 					    // venue photo anchor URL should pull in the source wiki page URL
 					    //
-    		         if ( $single_place["image"]) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '" class="venue-photo" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . languageService($single_place, 'rdfsLabel') . '"></a></div>';}
+    		         if ( isset($single_place["image"])) { $html .= '<div class="artsdata-place-image"><a href="' . $single_place["creditedTo"]["id"] . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '" class="venue-photo" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . languageService($single_place, 'rdfsLabel') . '"></a></div>';}
                  else {$html .= '<div class="artsdata-place-icon"><a href="https://capacoa.ca/en/member/membership-faq/#image" target="_blank"><img src="' . plugin_dir_url( __FILE__ ) . 'images/icon-building.svg)" class="placeholder" title="No free-use image could be found in Wikidata or Wikimedia Commons for this venue" /></a></div>' ;}
 
 
     		          $html .= '</div>';
     		            if (gettype($single_place["containsPlace"]) == 'array' ) {  // TODO: Frame containsPlace to be an array
-    		              if ($single_place["containsPlace"][0]["rdfsLabelEn"]) { // skip venues without names (TODO: add fr)
+    		              if (isset($single_place["containsPlace"][0]["rdfsLabelEn"])) { // skip venues without names (TODO: add fr)
     				          $html .= '<div class="artsdata-place child">';
     			                foreach ($single_place["containsPlace"] as $room) {
     							$html .= '<div class="artsdata-place-entry child">';
     				              $html .= '<div class="artsdata-place-details child">';
     			                    $html .= '<p class="artsdata-place-type child">' .  concatMultiLingualList($room["additionalType"]) . '</p>' ;
     			                    $html .= '<h6 class="artsdata-place-name">' . languageService($room, 'rdfsLabel') . '</h6>';
-    			                    if ($room["id"]) { $html .= '<p class="artsdata-place-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' )  . ' <a href="' . $room["id"] . '">' . trim($room["id"], "http://www.wikidata.org/entity") . '</a></p>'; }
+    			                    if (isset($room["id"])) { $html .= '<p class="artsdata-place-wikidata-id">' . esc_html__( 'Wikidata ID:', 'artsdata-shortcodes' )  . ' <a href="' . $room["id"] . '">' . trim($room["id"], "http://www.wikidata.org/entity") . '</a></p>'; }
     			                    $html .= '</div>';
     					            $html .= '<div class="artsdata-place-thumbnail child">';
     					              //
     					              // IF statement needed to display this div only if a thumbnail exists
     					              //
-    					              if ($room["image"]) {$html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ;} //need to have it pulled from AD
+    					              if (isset($room["image"])) {$html .= '<div class="artsdata-place-image child" style="background-image: ' . $room["image"] . '"></div>' ;} //need to have it pulled from AD
     					           $html .= '</div>';
     					           $html .= '</div>';
 							  }
@@ -417,11 +417,11 @@ function artsdata_init(){
 
     foreach ($venues as $venue) {
       $pattern = '{Point\((.+) (.+)\)}';
-      preg_match($pattern,  $venue["location"][0]["geoCoordinates"]["@value"], $matches);
+      preg_match($pattern,  isset($venue["location"][0]["geoCoordinates"]["@value"]), $matches);
       $html .= "
         <script>
           var map1 = L.map('" . $venue["location"][0]["id"] . "', {
-            center: [" . $matches[2] . ", " .  $matches[1] . "],
+            center: [" . (isset($matches[2]) ? $matches[2] : 0) . ", " . (isset($matches[1]) ? $matches[1] : 0) . "],
             zoom: 15,
             zoomControl: false,
             fullscreenControl: true,
@@ -430,7 +430,7 @@ function artsdata_init(){
           L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy;  <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'
           }).addTo(map1);
-          L.marker([" . $matches[2] . ", " .  $matches[1] . "]).addTo(map1).setOpacity(0.85);
+          L.marker([" . (isset($matches[2]) ? $matches[2] : 0) . ", " . (isset($matches[1]) ? $matches[1] : 0) . "]).addTo(map1).setOpacity(0.85);
         </script>";
     }
 
@@ -462,14 +462,12 @@ function artsdata_init(){
 
   function languageService($entity, $prop) {
     $lang = getLanguage() ;
-
-    if ($entity[$prop . $lang]) { return $entity[$prop . $lang];}
-    if ($entity[0][$prop . $lang]) { return $entity[0][$prop . $lang];}
-    if ($entity[$prop . "Pref"]) { return $entity[$prop . "Pref"]; }
-    if ($entity[0][$prop . "Pref"]) { return $entity[0][$prop . "Pref"]; }
-    if ($entity[$prop . "Fr"]) { return $entity[$prop . "Fr"]; }
-    if ($entity[$prop . "En"]) { return $entity[$prop . "En"]; }
-
+      if (isset($entity[$prop . $lang])) { return $entity[$prop . $lang];}
+      if (isset($entity[0][$prop . $lang])) { return $entity[0][$prop . $lang];}
+      if (isset($entity[$prop . "Pref"])) { return $entity[$prop . "Pref"]; }
+      if (isset($entity[0][$prop . "Pref"])) { return $entity[0][$prop . "Pref"]; }
+      if (isset($entity[$prop . "Fr"])) { return $entity[$prop . "Fr"]; }
+      if (isset($entity[$prop . "En"])) { return $entity[$prop . "En"]; }
   }
 
   function checkUrl($url) {
@@ -487,7 +485,7 @@ function artsdata_init(){
     $str = '' ;
     $lang = getLanguage() ;
     foreach ($types as $type) {
-      if ( strpos($type['id'],  $detectionStr) !== false ) {
+      if (strpos(isset($type['id']),  $detectionStr) !== false ) {
         if ($type['label' . $lang]) {$str .= "<li>" . $type['label' . $lang] . "</li>" ;}
         elseif ($type['labelPref']) {$str .= "<li>" .$type['labelPref'] . "</li>" ;}
         elseif ($type['labelEn']) {$str .= "<li>" .$type['labelEn'] . "</li>" ;}
@@ -511,7 +509,7 @@ function artsdata_init(){
     $str = '' ;
     $lang = getLanguage() ;
 
-    if ( $list['id'] ) { // not an array of entities
+    if ( isset($list['id']) ) { // not an array of entities
       $str .= languageService($list, 'rdfsLabel') ;
     } else {
       $str .= languageService($list[0], 'rdfsLabel') ;
