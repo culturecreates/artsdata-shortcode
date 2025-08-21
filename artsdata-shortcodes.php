@@ -485,7 +485,7 @@ function artsdata_init(){
     $str = '' ;
     $lang = getLanguage() ;
     foreach ($types as $type) {
-      if (strpos(isset($type['id']),  $detectionStr) !== false ) {
+      if (isset($type['id']) && strpos($type['id'],  $detectionStr) !== false ) {
         if ($type['label' . $lang]) {$str .= "<li>" . $type['label' . $lang] . "</li>" ;}
         elseif ($type['labelPref']) {$str .= "<li>" .$type['labelPref'] . "</li>" ;}
         elseif ($type['labelEn']) {$str .= "<li>" .$type['labelEn'] . "</li>" ;}
