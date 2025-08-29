@@ -155,12 +155,12 @@ function artsdata_init(){
     $data = $j['data'][0];
 
     $name = languageService($data, 'name')  ;
+    $entity_type = isset($data["@type"]) ? $data["@type"] : null;
     $logo = isset($data["logo"]) ? $data["logo"] : null;
     $url = checkUrl($data["url"][0]);
     $locality = isset($data["address"]["addressLocality"]) ? $data["address"]["addressLocality"] : null;
     $region = isset($data["address"]["addressRegion"]) ? $data["address"]["addressRegion"] : null;
     $country = isset($data["address"]["addressCountry"]) ? $data["address"]["addressCountry"] : null;
-    $member_type = generalType( $data["additionalType"],"MemberType" ) ;
     $organization_type = generalType( $data["additionalType"],"PrimaryActivity" ) ;
     $presenter_type =  generalType( $data["additionalType"],"PresenterType" ) ;
     $disciplines =  generalType( $data["additionalType"],"Genres" ) ;
@@ -238,16 +238,12 @@ function artsdata_init(){
     // $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $deezer . '"><i class="fab fa-deezer"></i></a>';
     $html .= '</div>';
     $html .= '</div>';
-    if ($organization_type ||  $member_type) {
+    if ($organization_type ) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-organization-type">';
       $html .= esc_html__( 'Member Type:', 'artsdata-shortcodes' ) . '</p></div>';
       $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "additionalType") . '>' ;
-      if (strpos($member_type, 'organization') != false) {
-        $html .=   $organization_type ;  }
-      else {
-        $html .=   $member_type ;
-      }
+      $html .=   $organization_type ;  
       $html .=   '</ul>';
       $html .= '</div>';
       $html .= '</div>';
@@ -273,7 +269,7 @@ function artsdata_init(){
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
       $html .= '<div class="artsdata-category-type"><p class="artsdata-disciplines">';
-      if (strpos($member_type, 'organization') !== false) {
+      if ($entity_type == 'Organization') {
         $html .=  esc_html__( 'Disciplines:', 'artsdata-shortcodes' ) . '</p></div>';
       } else {
         $html .=  esc_html__( 'Artistic Focus:', 'artsdata-shortcodes' ) . '</p></div>';
