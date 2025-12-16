@@ -120,7 +120,7 @@ function artsdata_init(){
     # view for list
     $html = '<div class="artsdata-orgs"><p><ul>';
     foreach ($graph as $org) {
-      $html .= '<li class="' . formatClassNames($org['additionalType']) . '"><a href="/' . $a['path'] . '/?uri=' . strval( isset($org['sameAs'][0]['id']) ? $org['sameAs'][0]['id'] : '') . '">' .  languageService($org, 'name')  . '</a> </li>';
+      $html .= '<li class="' . formatClassNames($org['additionalType'], $org) . '"><a href="/' . $a['path'] . '/?uri=' . strval( isset($org['sameAs'][0]['id']) ? $org['sameAs'][0]['id'] : '') . '">' .  languageService($org, 'name')  . '</a> </li>';
     }
     $html .= '</ul></p></div>';
 
@@ -128,13 +128,18 @@ function artsdata_init(){
     return  $html;
   }
 
-  function formatClassNames($types) {
+  function formatClassNames($types, $org) {
     $str = '' ;
     foreach ($types as $type) {
       $str .= ltrim($type, "https://capacoa.ca/vocabulary#") . " " ;
     }
-
-    return rtrim($str, " ") ;
+    if ($org["@type"] == "Person" ) { 
+      $str .= "MemberType_ind" ; 
+    } else {
+      $str .= "MemberType_organization" ; 
+    }
+    
+    return $str;
   }
 
 
