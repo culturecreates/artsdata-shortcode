@@ -23,7 +23,7 @@ The 3 shortcodes are:
 The following URLs can be used to test data without passing through a cache.
 
 1. list of members in JSON 
-http://api.artsdata.ca/query?sparql=capacoa/members&frame=capacoa/member&format=jsonld&source=http://kg.artsdata.ca/culture-creates/huginn/capacoa-members
+http://api.artsdata.ca/query?sparql=capacoa/members&frame=capacoa/member&format=jsonld&source=http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-members
 
 2. Example Organization in JSON
 http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
