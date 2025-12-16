@@ -1,6 +1,6 @@
 const apiKey = 'sandbox'; // limited calls. Contact info@culturecreates.com for your apiKey.
 const format = 'json'; // json or jsonld
-const source = 'http://kg.artsdata.ca/culture-creates/huginn/capacoa-members'; // see list at https://s.zazuko.com/7w6bJ
+const source = 'http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-members'; // see list at https://s.zazuko.com/7w6bJ
 const baseUrl = 'http://api.artsdata.ca';
 const limit = 100;
 const endPointIndex = `${baseUrl}/organizations`;
