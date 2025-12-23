@@ -27,7 +27,7 @@ msgid "Artsdata Shortcodes"
 msgstr ""
 
 #: artsdata-shortcodes.php:327
-msgid "Biography:"
+msgid "About"
 msgstr ""
 
 #. Description of the plugin
