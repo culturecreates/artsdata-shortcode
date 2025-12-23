@@ -30,7 +30,7 @@ msgid "Artsdata Shortcodes"
 msgstr ""
 
 #: artsdata-shortcodes.php:327
-msgid "Biography:"
+msgid "About"
 msgstr ""
 
 #. Description of the plugin
@@ -124,3 +124,4 @@ msgstr ""
 #: artsdata-shortcodes.php:319
 msgid "YouTube video player"
 msgstr ""
+
