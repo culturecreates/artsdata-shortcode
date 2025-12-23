@@ -323,7 +323,7 @@ function artsdata_init(){
   if ($bio) {
     $html .= '<div class="artsdata-member-bio">';
     $html .= '<h4 class="artsdata-biography-title">';
-    $html .= esc_html__( 'Biography:', 'artsdata-shortcodes' ) . '</h4>';
+    $html .= esc_html__( 'About:', 'artsdata-shortcodes' ) . '</h4>';
     $html .= '<p>' . $bio . '</p>';
     $html .= '</div>';
   }
