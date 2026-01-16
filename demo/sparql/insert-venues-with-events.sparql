@@ -2,7 +2,7 @@
 
 PREFIX schema: <http://schema.org/>
 insert {
-    graph <http://kg.artsdata.ca/culture-creates/huginn/capacoa-members> {
+    graph <http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-members> {
         ?org schema:location ?roleUri .
         ?roleUri schema:location ?venue ;
                  a schema:Role ;
