@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 2.0.5
+Version: 2.0.6
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Changelog: Maintain MemberType_ind and MemberType_organization CSS classes for layout.
 Author: Culture Creates
@@ -177,8 +177,6 @@ function artsdata_init(){
     $facebook = 'https://www.facebook.com/' . (isset($data["facebookId"]) ? $data["facebookId"] : '');
     $twitter = 'https://twitter.com/' . (isset($data["twitterUsername"]) ? $data["twitterUsername"] : '');
     $instagram = 'https://www.instagram.com/' . (isset($data["instagramUsername"]) ? $data["instagramUsername"] : '');
-    $youtube = linkExtraction($data["sameAs"] , "youtube.com") ;
-    $wikipedia = linkExtraction($data["sameAs"] , "wikipedia.org") ;
     $video_embed =  isset($data["video"]) ? $data["video"] : null;
     $bio = languageService($data, 'bio');
     $occupation = isset($data["hasOccupation"]) ? $data["hasOccupation"] : null;
