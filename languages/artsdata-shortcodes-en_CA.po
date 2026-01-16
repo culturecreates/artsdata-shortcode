@@ -29,7 +29,7 @@ msgstr ""
 msgid "Artsdata Shortcodes"
 msgstr ""
 
-#: artsdata-shortcodes.php:327
+#: artsdata-shortcodes.php:324
 msgid "About"
 msgstr ""
 
@@ -124,4 +124,5 @@ msgstr ""
 #: artsdata-shortcodes.php:319
 msgid "YouTube video player"
 msgstr ""
+
 
