@@ -30,7 +30,7 @@ msgstr "Identifiant Artsdata&nbsp;:"
 msgid "Artsdata Shortcodes"
 msgstr ""
 
-#: artsdata-shortcodes.php:327
+#: artsdata-shortcodes.php:324
 msgid "About"
 msgstr "À propos&nbsp;:"
 
