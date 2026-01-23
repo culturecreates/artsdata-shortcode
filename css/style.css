@@ -145,6 +145,7 @@
 
 		.artsdata-links-wrapper {
 			flex-direction: row;
+			gap: 2em;
 			justify-content: center;
 		}
 
@@ -158,6 +159,7 @@
 
 		.artsdata-links-wrapper {
 			align-content: center;
+			gap: 0;
 			justify-content: left;
 		}
 
@@ -174,6 +176,7 @@ p.artsdata-wikidata-id {
 	font-size: 0.9em;
 	line-height: 1.4;
 	margin: 0 0 3px 0;
+	text-align: center;
 }
 
 	@media (min-width: 480px) {
@@ -181,8 +184,7 @@ p.artsdata-wikidata-id {
 		p.artsdata-artsdata-id,
 		p.artsdata-wikidata-id {
 			margin: 0;
-			text-align: center;
-			width: 33%;
+			/*width: 33%;*/
 		}
 
 		.artsdata-link-id-value {
