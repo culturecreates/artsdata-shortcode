@@ -161,7 +161,9 @@ function artsdata_init(){
 
     $name = languageService($data, 'name')  ;
     $entity_type = isset($data["@type"]) ? $data["@type"] : null;
-    $logo = isset($data["logo"]) ? $data["logo"] : null;
+    $logo = isset($data["logo"]) ? is_array($data["logo"]) && isset($data["logo"]["url"][0]["id"])
+        ? $data["logo"]["url"][0]["id"]
+        : $data["logo"] : null;
     $url = checkUrl($data["url"][0]);
     $locality = isset($data["address"]["addressLocality"]) ? $data["address"]["addressLocality"] : null;
     $region = isset($data["address"]["addressRegion"]) ? $data["address"]["addressRegion"] : null;
@@ -209,13 +211,10 @@ function artsdata_init(){
     $html .= '<p class="artsdata-website" ' . dataMaintainer($rankedProperties, "url") . '><a href="' . $url . '">' . $url . '</a></p>';
     }
     $html .='</div>';
-	  //
-    // profile image is only displayed if a wiki image / logo image is available, else hide div #profile-image-wrap
-    // profile image anchor URL should pull in the source wiki page URL
-	  //
 
-    if ($member_image) {
-      $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '"><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . $name . '"></a></div>';
+
+    if ($logo) {
+      $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><img src="' .  $logo . '" class="artsdata-profile-image-blank" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . $name . '"></div>';
     }
 
     $html .= '</div>';
