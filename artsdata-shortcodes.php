@@ -51,7 +51,7 @@ function artsdata_init(){
 		  wp_enqueue_style( 'leaflet_fullscreen_css' );
       wp_register_script('leaflet_fullscreen_js', plugin_dir_url( __FILE__ ) . 'js/Control.FullScreen.js', array(), null);
     	wp_enqueue_script( 'leaflet_fullscreen_js' );
-      wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20230314' );
+      wp_register_style( 'artsdata-stylesheet',  plugin_dir_url( __FILE__ ) . 'css/style.css?v=20260123css' );
       wp_enqueue_style( 'artsdata-stylesheet' );
       /** Artsdata script must be loaded in the footer after all Leaflet code **/
       wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
