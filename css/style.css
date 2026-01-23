@@ -72,7 +72,9 @@
 .artsdata-org-profile-image img {
 	border-radius: 3px;
 	display: block;
+	height: auto;
 	max-height: 225px;
+	width: auto;
 }
 
 	@media (min-width: 600px) {
