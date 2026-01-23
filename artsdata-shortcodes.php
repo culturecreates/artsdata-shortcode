@@ -56,7 +56,6 @@ function artsdata_init(){
       /** Artsdata script must be loaded in the footer after all Leaflet code **/
       wp_register_script('artsdata_script', plugin_dir_url( __FILE__ ) . 'js/artsdata.js', array(), null, true);
     	wp_enqueue_script( 'artsdata_script' );
-      wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
     }
 	function add_leaflet_cdn_attributes( $html, $handle ) {
 	    if ( 'leaflet_css' === $handle ) {
@@ -229,7 +228,7 @@ function artsdata_init(){
     $html .= '</div>';
     $html .= '<div class="artsdata-socials-wrapper">';
     if ( isset($data["facebookId"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2013") . ' class="social-media-icon" href="' . $facebook . '"><i class="fab fa-facebook"></i></a>'; }
-    if ( isset($data["twitterUsername"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fab fa-twitter"></i></a>'; }
+    if ( isset($data["twitterUsername"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2002") . ' class="social-media-icon" href="' . $twitter . '"><i class="fa-brands fa-square-x-twitter"></i></a>'; }
     if ( isset($data["instagramUsername"]) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "http://www.wikidata.org/prop/direct/P2003") . 'class="social-media-icon"  href="' . $instagram . '"><i class="fab fa-instagram"></i></a>'; }
     if ( !empty($youtube) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $youtube . '"><i class="fab fa-youtube"></i></a>'; }
     if ( !empty($wikipedia) ) { $html .= '<a ' . dataMaintainer($rankedProperties, "sameAs") . 'class="social-media-icon" href="' . $wikipedia . '"><i class="fab fa-wikipedia-w"></i></a>'; }
