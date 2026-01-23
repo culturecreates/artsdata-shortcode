@@ -261,14 +261,14 @@ function artsdata_init(){
       $html .= '</div>';
     }
 
-    if ( $occupation &&  $occupation !== "empty") {
-      $html .= '<div class="artsdata-category">';
-      $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
-      $html .= esc_html__( 'Occupation:', 'artsdata-shortcodes' ) . '</p></div>';
-      $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "hasOccupation") . '>' . multiLingualList($occupation) . '</ul>';
-      $html .= '</div>';
-      $html .= '</div>';
-    }
+    // if ( $occupation &&  $occupation !== "empty") {
+    //   $html .= '<div class="artsdata-category">';
+    //   $html .= '<div class="artsdata-category-type"><p class="artsdata-presentation-format">';
+    //   $html .= esc_html__( 'Occupation:', 'artsdata-shortcodes' ) . '</p></div>';
+    //   $html .= '<div class="artsdata-category-properties"><ul ' . dataMaintainer($rankedProperties, "hasOccupation") . '>' . multiLingualList($occupation) . '</ul>';
+    //   $html .= '</div>';
+    //   $html .= '</div>';
+    // }
 
     if ($disciplines) {
       $html .= '<div class="artsdata-category">';
