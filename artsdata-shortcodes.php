@@ -148,8 +148,8 @@ function artsdata_init(){
       return "<p>" .  esc_html__( 'Missing Artsdata ID. Please return to the membership directory.', 'artsdata-shortcodes' ) . "</p>";
     }
     # Member details controller
-    # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
-    # test person http://api.artsdata.ca/query?adid=K14-141&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
+    # test organization   http://api.artsdata.ca/query?adid=K14-29&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld&format=json
+    # test person  http://api.artsdata.ca/query?adid=K14-141&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld&format=json
     $base_github = "https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/" ;
     $sparql_path = $base_github . "public/sparql/member_detail.sparql" ;
     $frame_path = $base_github . "public/frame/member.jsonld" ;
