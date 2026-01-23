@@ -214,8 +214,8 @@ function artsdata_init(){
     // profile image anchor URL should pull in the source wiki page URL
 	  //
 
-    if ($member_image) {
-      $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $member_image . '" target="_blank" title="' .  esc_html__( 'Image from Wikimedia Commons. Click on the image to view photo credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '"><img src="' .  $member_image . '" class="artsdata-profile-image-blank" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . $name . '"></a></div>';
+    if ($logo) {
+      $html .= '<div id="profile-image-wrap" class="artsdata-org-profile-image"><a href="' .  $logo . '" target="_blank" title="' .  esc_html__( 'Click on the image to view photo source/credits.', 'artsdata-shortcodes' ) . '"><img src="' . $single_place["image"] . '"><img src="' .  $logo . '" class="artsdata-profile-image-blank" alt="' .  esc_html__( 'Image of', 'artsdata-shortcodes' ) . ' ' . $name . '"></a></div>';
     }
 
     $html .= '</div>';
