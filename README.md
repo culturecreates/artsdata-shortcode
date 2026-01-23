@@ -35,3 +35,10 @@ http://api.artsdata.ca/query?adid=K14-29&sparql=capacoa/member_detail2&frame=cap
 
 3. Example Person in JSON
 http://api.artsdata.ca/query?adid=K14-141&sparql=capacoa/member_detail2&frame=capacoa/member2&format=json
+
+
+# Local Wordpress Development
+1. Clone this repo
+1. Edit docker-compose.yml to set your `volumes` path to your local path for editing the plugin code.
+1. Run `docker compose up &`
+1. Note: To view social media icons add the following line to artsdata-shortcodes.php `wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');`
