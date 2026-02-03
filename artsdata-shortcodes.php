@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 2.0.9
+Version: 2.0.10
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Changelog: Maintain MemberType_ind and MemberType_organization CSS classes for layout.
 Author: Culture Creates
