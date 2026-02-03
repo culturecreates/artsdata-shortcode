@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Artsdata Shortcodes
-Version: 2.0.8
+Version: 2.0.9
 Description: Collection of shortcodes to display data from Artsdata.ca.
 Changelog: Maintain MemberType_ind and MemberType_organization CSS classes for layout.
 Author: Culture Creates
@@ -400,7 +400,7 @@ function artsdata_init(){
     $html .= '<div class="artsdata-events-entries">';
     foreach ($event_data as $event) {
       $html .= '<div class="artsdata-event">';
-      $html .= '<div class="artsdata-event-photo"><a href="' . safeUrl($event["url"]) . '"><img src="' . safeUrl($event["image"]) . '"></a></div>';
+      $html .= '<div class="artsdata-event-photo"><a href="' . safeUrl($event["url"]) . '"><img src="' . imageExtraction($event["image"]) . '"></a></div>';
       $html .= '<p class="artsdata-event-name">' . languageService($event, 'name') . '</p>';
       $html .= '<p class="artsdata-event-location">' .languageService($event["location"], 'name') . '</p>';
       $showTime =  new DateTime($event["startDate"][0]) ;
@@ -536,6 +536,23 @@ function artsdata_init(){
       if  (gettype($link) == 'string') {
         if ( strpos($link,  $detectionStr) !== false ) {
           $str = $link ;
+        }
+      }
+    }
+    return $str ;
+  }
+
+  function imageExtraction($image) {
+    $str = '' ;
+  
+    if  (gettype($image) == 'string') {
+       $str = $image ;
+    } else {
+      if ( isset($image['url']) ) {
+        if  (gettype($image['url']) == 'string') {
+          $str = $image['url'] ;
+        } else {
+          $str = $image['url']['id'] ;
         }
       }
     }
