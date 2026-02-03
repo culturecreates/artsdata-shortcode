@@ -523,14 +523,41 @@ function artsdata_init(){
   }
 
   function safeUrl($strIn) {
-    if  (gettype($strIn) == 'string') {
-      return $strIn ;
-    } else {
-      if (gettype($strIn) == 'array' ) {
-       $strIn = $strIn[0] ;
-      }
-      return $strIn['id'] ;
+    // Return empty string for null or empty input
+    if (empty($strIn)) {
+      return '';
     }
+
+    // If input is a string, return as is
+    if (is_string($strIn)) {
+      return $strIn;
+    }
+
+    // If input is an array
+    if (is_array($strIn)) {
+      // If first element is string, return it
+      if (isset($strIn[0]) && is_string($strIn[0])) {
+        return $strIn[0];
+      }
+      // If first element is array with 'id', return its 'id'
+      if (isset($strIn[0]['id'])) {
+        return $strIn[0]['id'];
+      }
+      // If array has 'id' key, return it
+      if (isset($strIn['id'])) {
+        return $strIn['id'];
+      }
+      // Fallback: return empty string
+      return '';
+    }
+
+    // If input is object with 'id' property
+    if (is_object($strIn) && isset($strIn->id)) {
+      return $strIn->id;
+    }
+
+    // Fallback: try to access as array with 'id', else empty string
+    return (is_array($strIn) && isset($strIn['id'])) ? $strIn['id'] : '';
   }
 
   function linkExtraction($sameAs, $detectionStr) {
