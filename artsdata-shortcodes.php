@@ -401,7 +401,7 @@ function artsdata_init(){
     foreach ($event_data as $event) {
       $html .= '<div class="artsdata-event">';
       $html .= '<div class="artsdata-event-photo"><a href="' . safeUrl($event["url"]) . '"><img src="' . imageExtraction($event["image"]) . '"></a></div>';
-      $html .= '<p class="artsdata-event-name">' . languageService($event, 'name') . '</p>';
+      $html .= '<p class="artsdata-event-name"><a href="' . safeUrl($event["url"]) . '">' . languageService($event, 'name') . '</a></p>';
       $html .= '<p class="artsdata-event-location">' .languageService($event["location"], 'name') . '</p>';
       $showTime =  new DateTime($event["startDate"][0]) ;
       $dateTimeFormatted = $showTime->format('Y-m-d g:ia');
@@ -526,6 +526,9 @@ function artsdata_init(){
     if  (gettype($strIn) == 'string') {
       return $strIn ;
     } else {
+      if (gettype($strIn) == 'array' ) {
+       $strIn = $strIn[0] ;
+      }
       return $strIn['id'] ;
     }
   }
