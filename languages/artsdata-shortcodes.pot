@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Artsdata Shortcodes 1.4.1\n"
+"Project-Id-Version: Artsdata Shortcodes 2.0.11\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/artsdata-shortcode\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Artsdata Shortcodes"
 msgstr ""
 
-#: artsdata-shortcodes.php:324
+#: artsdata-shortcodes.php:325
 msgid "About"
 msgstr ""
 
