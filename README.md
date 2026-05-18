@@ -30,15 +30,15 @@ The following URLs can be used to test data without passing through a cache.
 1. list of members in JSON
 http://api.artsdata.ca/query?sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/members.sparql&source=http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-members
 
-3. Example Organization in JSON
+2. Example Organization in JSON
 National Arts Centre (K14-29)
-http://api.artsdata.ca/query?adid=K14-29&frame=capacoa/member2&format=json&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql
+http://api.artsdata.ca/query?adid=K14-29&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld&format=json
 
-5. Example Person in JSON
+3. Example Person in JSON
 Richard Stoker (K14-141)
-http://api.artsdata.ca/query?adid=K14-141&frame=capacoa/member2&format=json&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql
+http://api.artsdata.ca/query?adid=K14-141&sparql=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/sparql/member_detail.sparql&frame=https://raw.githubusercontent.com/culturecreates/artsdata-shortcode/refs/heads/master/public/frame/member.jsonld&format=json
 
-7. Example Events for a member
+4. Example Events for a member
 Events where National Arts Centre (K14-29) is an organizer.
 http://api.artsdata.ca/events.json?frame=event_location&predicate=schema:organizer&object=adr:K14-29
 
