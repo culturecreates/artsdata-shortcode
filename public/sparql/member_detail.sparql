@@ -130,7 +130,7 @@ where {
       }
     }
   } 
-    graph <http://wikidata.org/capacoa-members> {
+    graph <http://kg.artsdata.ca/culture-creates/artsdata-planet-capacoa/capacoa-wikidata> {
       # Get all the labels of types of places 
       ?place schema:additionalType  ?bb .
       ?bb rdfs:label ?cc .
